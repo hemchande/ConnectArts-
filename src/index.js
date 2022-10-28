@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import RegisterPage from './pages/register/register';
 import LoginPage from './pages/loginpage/loginpage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route}
@@ -14,6 +15,8 @@ root.render(
     <Routes>
         <Route exact path='/' element={<LoginPage />} />
         <Route path='/forgotpassword' element={<ForgotPassWord/>} />
+        <Route path='/register' element={<RegisterPage/>} />
+
     </Routes>
     </Router>
 

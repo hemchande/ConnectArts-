@@ -13,7 +13,7 @@ function SignIn(){
             <a href = "#"><button type="submit">Login</button></a>
             <br></br>
    
-            <div class="container"> <div class="container-child">Forgot <a href="/forgotpassword"> password? </a> </div><div class="container-child">Sign up</div>  </div>
+            <div class="container"> <div class="container-child">Forgot <a href="/forgotpassword"> password? </a> </div><div class="container-child"><a href="/register"> Sign up </a></div>  </div>
         </div>
     )
 }
