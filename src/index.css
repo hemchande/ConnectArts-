@@ -55,3 +55,10 @@ button {
   margin: auto;  
 
 }
+.forgotpassword {
+  width: 40%;
+  margin: auto;
+}
+.backbutton {
+  width: 100%;
+}

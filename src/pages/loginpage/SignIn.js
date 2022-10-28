@@ -8,12 +8,12 @@ function SignIn(){
             <br></br>
 
             <label>Password : </label>   
-            <input type="password" placeholder="Enter Password" name="password" required/> 
+            <input type="password"  placeholder="Enter Password" name="password" required/> 
 
-            <a href = "/forgotpassword"><button type="submit">Login</button></a>
+            <a href = "#"><button type="submit">Login</button></a>
             <br></br>
    
-            <div class="container"> <div class="container-child">Forgot <a href="#"> password? </a> </div><div class="container-child">Sign up</div>  </div>
+            <div class="container"> <div class="container-child">Forgot <a href="/forgotpassword"> password? </a> </div><div class="container-child">Sign up</div>  </div>
         </div>
     )
 }
