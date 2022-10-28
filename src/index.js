@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import LoginPage from './components/loginpage/loginpage';
+import LoginPage from './pages/loginpage/loginpage';
 import reportWebVitals from './reportWebVitals';
-
+import { BrowserRouter as Router, Routes, Route}
+    from 'react-router-dom';
+import ForgotPassWord from './pages/forgotpassword/forgotpassword';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <LoginPage />
+        <Router>
+
+    <Routes>
+        <Route exact path='/' element={<LoginPage />} />
+        <Route path='/forgotpassword' element={<ForgotPassWord/>} />
+    </Routes>
+    </Router>
+
   </React.StrictMode>
 );
 
