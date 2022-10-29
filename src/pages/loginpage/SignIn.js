@@ -10,7 +10,7 @@ function SignIn(){
             <label>Password : </label>   
             <input type="password"  placeholder="Enter Password" name="password" required/> 
 
-            <a href = "#"><button type="submit">Login</button></a>
+            <a href = "/signedin"><button type="submit">Login</button></a>
             <br></br>
    
             <div class="container"> <div class="container-child">Forgot <a href="/forgotpassword"> password? </a> </div><div class="container-child"><a href="/register"> Sign up </a></div>  </div>

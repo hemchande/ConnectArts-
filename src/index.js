@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import RegisterPage from './pages/register/register';
 import LoginPage from './pages/loginpage/loginpage';
+import SignedInPage from './pages/signedin/signedin';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route}
     from 'react-router-dom';
@@ -16,6 +17,8 @@ root.render(
         <Route exact path='/' element={<LoginPage />} />
         <Route path='/forgotpassword' element={<ForgotPassWord/>} />
         <Route path='/register' element={<RegisterPage/>} />
+        <Route path='/signedin' element={<SignedInPage/>} />
+
 
     </Routes>
     </Router>

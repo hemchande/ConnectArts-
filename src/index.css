@@ -67,3 +67,17 @@ button {
   width: 40%;
   margin-top: 15%;
 }
+ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav_links a {
+  width: auto;
+  cursor: pointer;
+  border-left: 1px solid white;
+  text-transform: uppercase;
+  list-style-type: none;
+  padding-left: 15px;
+  padding-right: 15px;
+}
