@@ -67,11 +67,14 @@ button {
   width: 40%;
   margin-top: 15%;
 }
-ul {
+.ulclass {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  list-style-type: none;
+  margin:0;
 }
+
 .nav_links a {
   width: auto;
   cursor: pointer;
@@ -80,4 +83,53 @@ ul {
   list-style-type: none;
   padding-left: 15px;
   padding-right: 15px;
+}
+nav {
+  background-color: #4CAF50;
+  
+}
+
+.post {
+  margin:auto;
+  width: 50%
+
+}
+.smallprofile {
+  border-radius: 50%;
+  height:2%;
+  width:2%;
+}
+.feedbackvideo {
+  height:20%;
+  width:20%;
+}
+.identifier {
+  margin-top:3%;
+  display: flex;
+}
+.preferencespage {
+  margin:auto;
+  text-align: center;
+}
+.uploadpage {
+  margin:auto;
+  text-align: center;
+}
+.submissionform{
+  margin:auto;
+  margin-top:50px;
+  text-align: center;
+
+}
+.profilepage {
+  width:50%;
+  margin:auto;
+}
+.ulclass2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  margin:0;
+  width:50%;
 }

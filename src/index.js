@@ -8,6 +8,9 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route}
     from 'react-router-dom';
 import ForgotPassWord from './pages/forgotpassword/forgotpassword';
+import PreferencesPage from './pages/preferencespage/preferencespage';
+import UploadPage from './pages/uploadpage/uploadpage';
+import ProfilePage from './pages/profilepage/profilepage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -18,6 +21,9 @@ root.render(
         <Route path='/forgotpassword' element={<ForgotPassWord/>} />
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/signedin' element={<SignedInPage/>} />
+        <Route path='/preferences' element={<PreferencesPage/>} />
+        <Route path='/upload' element={<UploadPage/>} />
+        <Route path='/profile' element={<ProfilePage/>} />
 
 
     </Routes>
