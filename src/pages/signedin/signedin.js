@@ -1,11 +1,10 @@
 import NavBar from "../../components/navbar";
-import Post from "../../components/post";
+import Card from "../../components/card";
 function SignedInPage() {
 return (
     <div>
         <NavBar />
-        <Post />
-        <Post />
+        <Card />
 
 
     </div>
