@@ -4,7 +4,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: gray;
+  background-color: whitesmoke;
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #FFA500;
+  --text-color: #333;
+  --background-color: #fff;
 }
 
 code {
@@ -36,14 +51,20 @@ input[type=text], input[type=password] {
   box-sizing: border-box;   
 }  
 button {   
-  background-color: #4CAF50;   
+  background-color: var(--primary-color);   
   width: 50%;  
-   color: orange;   
-   padding: 15px;   
+   color: var(--secondary-color);   
+   padding: 12px 24px;   
    margin: 10px 0px;   
    border: none;   
    cursor: pointer;   
     }   
+
+
+    button[type="submit"] {
+      background-color: black;
+      color: white;
+    }
 
 .forgotpassword {
   width: 40%;
@@ -131,6 +152,7 @@ img {
 
 .main--container{
  display: grid;
+ flex-direction: column;
  grid-template-columns: repeat(auto-fit,300px);
  place-content: center;
  gap: 1rem;
@@ -138,10 +160,35 @@ img {
 
 }
 
+.left-sidebar {
+  width: 200px;
+  height: 100%;
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin-right: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+
+}
+
+.left-sidebar a:hover {
+  background-color: #eaeaea;
+}
+
+.left-sidebar a.active {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+
+
 .card{
  border-radius: 4px;
  background-color: #ffff;
  box-shadow: 0 5px 10px -3px rgba(#000000,0.5);
+ padding: 20px;
 }
 
 .card img{
@@ -150,6 +197,13 @@ img {
 }
 .card article{
   padding: 1em;
+}
+
+.divider {
+  border-left: 1px solid black;
+  height: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 .accordion {
   background-color: #eee;
@@ -172,4 +226,25 @@ img {
   background-color: white;
   display: none;
   overflow: hidden;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion-item {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.accordion-header {
+  background-color: #eee;
+  padding: 10px;
+  cursor: pointer;
+}
+
+
+.accordion-item.active .accordion-content {
+  display: block;
 }

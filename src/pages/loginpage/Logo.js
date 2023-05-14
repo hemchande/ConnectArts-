@@ -1,4 +1,4 @@
-import logo1 from "./nike_PNG5.png";
+import logo1 from "./connectArts.png";
 function Logo(){
     return (
         <div>
