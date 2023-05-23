@@ -41,21 +41,71 @@ const useStyles = makeStyles((theme) => ({
 function CurrentReview({ review }) {
 
   const classes = useStyles();
+  const [error, setError] = useState(null);
   const [headers, setHeaders] = useState([]);
   const [newHeader, setNewHeader] = useState("");
   const [newText, setNewText] = useState("");
+  const [newExplanation, setNewExplanation] = useState("");
+  const [newSuggestion, setNewSuggestion] = useState("");
+  const [newObservation, setNewObservation] = useState("");
   const [post, setPost] = useState({});
   const [postComments, setPostComments] = useState('')
+  const [generalFeedback, setGeneralFeedback] = useState('')
   const [verificationText, setVerificationtext] = useState('')
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
 
+  const handleClose = () => {
+    setError('');
+  };
+
+
+
   const handleAddHeader = () => {
-    setHeaders([...headers, { header: newHeader, text: newText }]);
+    if (countWords(newText) < 60) {
+      // Display an error message or handle the validation failure
+      console.log("Optional Skill Comments must be at least 60 words.");
+      setError("Optional Skill Comments must be at least 60 words.")
+      return;
+    }
+  
+    if (countWords(newExplanation) < 60) {
+      console.log("Explanation of skill must be at least 60 words.");
+      setError("Explanation of skill must be at least 60 words.")
+      return;
+    }
+  
+    if (countWords(newObservation) < 60) {
+      console.log("Observation in performance must be at least 60 words.");
+      setError("Observation in performance must be at least 60 words.")
+      return;
+    }
+  
+    if (countWords(newSuggestion) < 60) {
+      console.log("Suggestions for better execution must be at least 60 words.");
+      setError("Suggestions for better execution must be at least 60 words.")
+      return;
+    }
+
+    setHeaders([...headers, { header: newHeader, text: newText, explanation: newExplanation, observation: newObservation, suggestion: newSuggestion }]);
     setNewHeader("");
     setNewText("");
+    setNewExplanation("")
+    setNewObservation("")
+    setNewSuggestion("")
   };
+
+
+  const handleGeneralFeedback = (event) => {
+
+
+
+
+
+
+
+  }
 
   
 
@@ -86,6 +136,12 @@ function CurrentReview({ review }) {
 
 
   }
+
+  // Helper function to count words in a string
+  const countWords = (text) => {
+    const words = text.trim().split(/\s+/);
+    return words.length;
+  };
 
   const verifyFeedback = async() => {
 
@@ -139,9 +195,15 @@ function CurrentReview({ review }) {
   const handlepostFeedback= () => {
 
     const feedbackText = headers.reduce(
-      (acc, h) => acc + h.header + " " + h.text + " ",
+      (acc, h) => acc + h.header + " " + h.text + " " + h.explanation + " " + h.observation + " " + h.suggestion ,
       ""
     );
+
+    const feedback =  "General Feedback" + generalFeedback
+
+    const finalText = feedbackText + " " + feedback
+
+
 
     
     axios.patch(
@@ -150,7 +212,7 @@ function CurrentReview({ review }) {
         params: {
           id: review.reviewer_id,
         },
-        review_comments: feedbackText,
+        review_comments: finalText,
       },
       {
       
@@ -219,6 +281,15 @@ function CurrentReview({ review }) {
 
   
   return (
+    <>
+    {error && (
+      <div className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={handleClose}>&times;</span>
+          <p>{error}</p>
+        </div>
+      </div>
+    )};
 
     
     <div>
@@ -256,28 +327,64 @@ function CurrentReview({ review }) {
 
           <div className={classes.container}>
   <div className={classes.root}>
+  <TextField
+      label="General Performance Comments"
+      value={generalFeedback}
+      onChange={(e) => setGeneralFeedback(e.target.value)}
+      className={classes.textInput}
+    />
+
+
     {headers.map((h) => (
       <div key={h.header}>
         <Typography variant="h6" className={classes.header}>
           {h.header}
         </Typography>
         <Typography>{h.text}</Typography>
+        <Typography>{h.explanation}</Typography>
+        <Typography>{h.observation}</Typography>
+        <Typography>{h.suggestion}</Typography>
       </div>
     ))}
     <TextField
-      label="Skill"
+      label=" Add Skill"
       value={newHeader}
       onChange={(e) => setNewHeader(e.target.value)}
       className={classes.textInput}
     />
     <TextField
-      label="Comment"
+      label="Optional Skill Comments"
       value={newText}
       onChange={(e) => setNewText(e.target.value)}
       className={classes.textInput}
       multiline
       rows={4}
     />
+    <TextField
+      label="Explanation of skill "
+      value={newExplanation}
+      onChange={(e) => setNewExplanation(e.target.value)}
+      className={classes.textInput}
+      multiline
+      rows={4}
+    />
+    <TextField
+      label="What is an observation in your performance related to the skill"
+      value={newObservation}
+      onChange={(e) => setNewObservation(e.target.value)}
+      className={classes.textInput}
+      multiline
+      rows={4}
+    />
+    <TextField
+      label="What are suggestions for  better ways of executing the  skill in the performance?"
+      value={newSuggestion}
+      onChange={(e) => setNewSuggestion(e.target.value)}
+      className={classes.textInput}
+      multiline
+      rows={4}
+    />
+
     <Button
       variant="contained"
       color="primary"
@@ -324,7 +431,7 @@ function CurrentReview({ review }) {
 
 
       
-     
+</>
 
 
 

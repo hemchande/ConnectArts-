@@ -97,7 +97,7 @@ function RegisterPage() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState("Reviewer");
     const [genres, setGenres] = useState([]);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [desiredPayRate, setDesiredPayRate] = useState(null);
@@ -190,11 +190,12 @@ function RegisterPage() {
     }
 
     function handleDesiredPayRangeStartChange(event) {
-      setDesiredPayRange([event.target.value, desiredPayRange[1]]);
+      setDesiredPayRange([parseInt(event.target.value), desiredPayRange[1]]);
     }
     
     function handleDesiredPayRangeEndChange(event) {
-      setDesiredPayRange([desiredPayRange[0], event.target.value]);
+      setDesiredPayRange([desiredPayRange[0], parseInt(event.target.value)]);
+      
     }
   
     const handleNewSkillChange = (event) => {
@@ -296,6 +297,7 @@ function RegisterPage() {
 
     const handleGenreChanges = (event) => {
       const selectedOption = event.target.value;
+      console.log(desiredPayRange);
       setGenres((prevGenres) => {
         const updatedGenres = [...prevGenres];
         const index = updatedGenres.indexOf(selectedOption);
@@ -306,6 +308,8 @@ function RegisterPage() {
         }
         return updatedGenres;
       });
+
+      console.log(genres)
     };
     
 
@@ -333,6 +337,8 @@ function RegisterPage() {
             const formData = new FormData();
             const formData1 = new FormData();
 
+            let newRole = null;
+
             formData.append('name', `${firstName} ${lastName}`);
             formData.append('email', email);
             formData.append('genres', genres);
@@ -356,15 +362,18 @@ function RegisterPage() {
 
             if(role == "Reviewer"){
               formData.append("role", ["Reviewer"])
+              newRole = ["Reviewer"]
             } 
 
             if(role == "Performer"){
               formData.append("role", ["Performer"])
+              newRole = ["Performer"]
 
             }
 
             if(role == "Performer/Reviewer"){
               formData.append("role", ["Performer", "Reviewer"])
+              newRole = ["Performer", "Reviewer"]
             }
 
             formData.append('role', role);
@@ -378,7 +387,7 @@ function RegisterPage() {
               "name" : `${firstName} ${lastName}`,
               'email': email,
               'genres': genres,
-              'payRange': parseInt(desiredPayRange),
+              'payRange': desiredPayRange,
               'skillFields': selectedSkills,
               'payRate': parseInt(desiredPayRate),
               'technique': techniqueValue/13,
@@ -394,13 +403,22 @@ function RegisterPage() {
               'musicality_fields': musicalityFields,
               'reviewer_avg_rating': null,
               'modelCritique': null,
-              'role': role
+              'role': newRole,
+              'reviewer_post_status': null
 
 
             }
-            if(role.includes("Reviewer")){
-              obj["reviewer_post_status"] = null
-            }
+         
+
+            //if(obj[role].includes("Reviewer")){
+              //obj["reviewer_post_status"] = null
+            //}
+
+            //if(obj[role].includes("Performer")){
+              //obj["reviewer_post_status"] = null
+            //}
+
+  
 
 
 
@@ -441,8 +459,11 @@ function RegisterPage() {
 
           } if(!resume){
 
-            axios.post('http://localhost:4000/routes/adduserwithNoResume', obj)
+            console.log(obj)
+
+            axios.post('http://localhost:4000/routes/adduserwithNoResumeNew', obj)
             .then(response => {
+              console.log(obj);
               console.log(response.data);
               //setaccountId(response.data);
 
@@ -533,6 +554,9 @@ function RegisterPage() {
             <option value="Fusion" >fusion</option>
             <option value="Ballroom" >ballroom</option>
             <option value="Musical Theatre" >musical theatre</option>
+            <option value="Bollywood" >bollywood</option>
+            <option value="Kathak" >kathak</option>
+            <option value="Barathynatham" >barathynatham</option>
             </select>
             <div/>
 
@@ -608,6 +632,9 @@ function RegisterPage() {
 
 
 ): null}
+
+
+
 
 
 

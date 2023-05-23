@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, TextField, Typography } from "@material-ui/core";
+import { RateReviewOutlined } from '@mui/icons-material';
 
 const CurrentPost = ({ post }) => {
 
@@ -17,13 +18,23 @@ const CurrentPost = ({ post }) => {
   const [postComments, setpostComments] = useState('')
   const [postReviewIds, setReviewIds] = useState([post.reviewers])
   const [reviewerInfo, setreviewerInfo] = useState([])
+  const [ratingStatus, setratingStatus] = useState(null)
   const [reviewComments, setreviewComments] = useState({})
+  const [rating,setRating] = useState(null);
 
 
 
   const toggleAccordion = (id) => {
     console.log(id);
     setActiveId(activeId === id ? null : id);
+  }
+
+
+  const changeRating = (event) => {
+
+    setRating(event.target.value);
+
+
   }
 
   const fetchPostComments = async() =>{
@@ -48,6 +59,63 @@ const CurrentPost = ({ post }) => {
       .catch((error) => {
         console.error(error);
       });
+
+
+
+  }
+
+
+  const checkRatingStatus = async() => {
+
+    let array = []
+    let ratingobj = {}
+
+
+    axios.get("http://localhost:4000/routes/get_post_reviews_withoutratings", {
+      params: {
+        post_id: post._id
+      },withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      array = response.data;
+
+      try{
+      for (let i = 0; i < array.length; i ++){
+        ratingobj[array[i]] = true
+
+      }
+      setratingStatus(ratingobj);
+    }catch(error) {
+
+    }
+  
+
+
+
+
+
+
+
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+
+
+
+
+
+
+
+  }
+
+
+  const addRating = async() => {
+
 
 
 
@@ -119,6 +187,9 @@ useEffect(() => {
 
 
 
+
+
+
   //get the reviews for the post
 
   useEffect(() => {
@@ -162,6 +233,36 @@ useEffect(() => {
 
 
 
+  const updateReview = async(event) => {
+
+    const rev_id = event.target.id;
+
+    axios
+    .post("http://localhost:4000/routes/add_review_rating", {
+      review_id: rev_id,
+      rating: rating,
+    }, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      setRating(null)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+
+
+
+
+  }
+
+
+
 
 
   return (
@@ -171,10 +272,10 @@ useEffect(() => {
       <Typography> {postComments}</Typography>
 
     <div className="accordion-container">
-      {postReviewIds.map((reviewId, index) => (
+      {post.reviewer_ids.map((reviewId, index) => (
         <div className="accordion-card" key={index}>
-          <Button className={`accordion-title ${activeId === reviewId ? 'active' : ''}`} color="primary" variant="contained" onClick={() => toggleAccordion(reviewId)}>
-            Reviewer ID: {reviewId}
+          <Button className={`accordion-title ${activeId === reviewId ? 'active' : ''}`} id = {reviewId} color="primary" variant="contained" onClick={() => toggleAccordion(reviewId)}>
+            Reviewer Name: {reviewId}
           </Button>
           {activeId === reviewId && (
             <div className="accordion-content">
@@ -196,9 +297,22 @@ useEffect(() => {
 
                 
               <p><strong>Reviewer Comments:</strong></p>
-              {reviewComments[reviewId] && reviewComments[reviewId].map((comment, index) => (
-                <p key={index}>{comment}</p>
-              ))}
+              {reviewComments[reviewId] &&  (
+                <p> {reviewComments[reviewId]}</p>
+              )}
+
+              <p><strong> Add Rating </strong></p>
+             {ratingStatus[reviewId]&& (
+
+                <><input type="number" value={rating} onChange = {changeRating} name="Reviewer Rating" min="1" max="5" step="1" /><Button id= {reviewId}> Add </Button></>
+
+
+              
+
+              )}
+                
+        
+              
             </div>
           )}
         </div>

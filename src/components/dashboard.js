@@ -19,8 +19,10 @@ function Card() {
   const [reviewPost, setReviewPost] = useState({});
   const [selectedPastPostIndex, setSelectedPastPostIndex] = useState(0);
   const [selectedPastReviewIndex, setSelectedPastReviewIndex] = useState(0);
+  const [newpostReviewStatus, setnewpostReviewStatus] = useState(null)
+  const [newreviewStatus, setnewreviewStatus] = useState(null)
 
-  const [curr_post, setPost] = useState({});
+  const [curr_post, setPost] = useState(null);
   const [pastReviews, setPastReviews] = useState([]);
   const [pastPosts, setPastPosts] = useState([])
   const [id, setid] = useState("")
@@ -146,7 +148,7 @@ function Card() {
     axios
     .get("http://localhost:4000/routes/get_id_from_firebaseuid", {
       params: {
-        firebase_id: "i7JdvmMfvfe0A7dzLUCiOS4zngi1",
+        firebase_id: "wc8QXHYRE1ej9Mj9BB5IEUNPRLD2",
       },
       withCredentials: true,
       headers: {
@@ -164,6 +166,69 @@ function Card() {
 
 
   }, []);
+
+//check post review(performer) status
+  useEffect(() => {
+
+    axios.get("http://localhost:4000/routes/check_post_review_status_for_user", {
+    params: {
+      _id: id,
+    },
+    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (response.data != null) {
+      setnewpostReviewStatus("New Post Reviews");
+    }
+  });
+
+
+
+
+
+
+
+  }, [id])
+
+
+  useEffect(() => {
+
+    axios.get("http://localhost:4000/routes/check_reviewer_status_for_reviewer", {
+    params: {
+      _id: id,
+    },
+    withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (response.data != null) {
+      setnewpostReviewStatus("New Review Matches");
+    }
+  });
+
+
+
+
+
+
+
+  }, [id])
+
+
+
+//check review(reviewer) status
+  useEffect(() => {
+
+
+
+
+
+
+
+  })
 
 
   useEffect(() => {
@@ -186,6 +251,9 @@ function Card() {
 
 
   }, [id])
+
+
+
 
 
 
@@ -445,6 +513,14 @@ function Card() {
       </div>
 
       <div>
+      {newpostReviewStatus && (
+      <div className="modal">
+        <div className="modal-content">
+          <span className="close" >&times;</span>
+          <p>{newpostReviewStatus}</p>
+        </div>
+      </div>
+    )};
         {currentPostsOpen && curr_post && (
           <div>
             <article className="card">
@@ -517,8 +593,9 @@ function Card() {
         )}
       </div>
     </section>
+
     
-    {currentReviewsOpen && review && (
+    {currentReviewsOpen &&  review && (
       <div>
         <article className="card">
         <Button
@@ -535,6 +612,14 @@ function Card() {
         </article>
       </div>
     )}
+    {newreviewStatus && (
+      <div className="modal">
+        <div className="modal-content">
+          <span className="close" >&times;</span>
+          <p>{newreviewStatus}</p>
+        </div>
+      </div>
+    )};
     {currentReviewsOpen && !review && (
       <strong> No Current Review</strong>
 

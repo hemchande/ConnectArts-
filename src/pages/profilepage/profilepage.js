@@ -28,14 +28,33 @@ function ProfilePage() {
   };
 
 
+  const onboardLink = () => {
+    console.log(revbool.stripe_account_id)
+    axios.post(`http://localhost:4000/routes/create-account-link?accountId=${revbool.stripe_account_id}`)
+    .then(response => {
+      // Redirect to the login link returned from the server
+      window.location.href = response.data.accountLinkUrl;
+    })
+    .catch(error => {
+      console.error(error);
+
+    });
+
+
+
+  }
+
+
   const stripeLink = () => {
-    axios.get(`/generate_stripe_dashboard_link?id=${"63f3ecc1029b963390157389"}`)
+    axios.get(`http://localhost:4000/routes/generate_stripe_dashboard_link?id=${"63f3ecc1029b963390157389"}`)
     .then(response => {
       // Redirect to the login link returned from the server
       window.location.href = response.data;
     })
     .catch(error => {
       console.error(error);
+      onboardLink();
+
     });
 
 
@@ -127,6 +146,14 @@ if(mongoId){
         >
           Edit Info
         </button>
+        <button style={{
+            marginLeft: "20px",
+            fontSize: "14px",
+            width: "100px",
+            backgroundColor: "green",
+            color: "white",
+          }} onClick={stripeLink}> Finance Dashboard</button>
+          
         
 
 
@@ -148,6 +175,8 @@ if(mongoId){
         {activeTab === 0 && revbool &&(
           <div className="section">
             <h1>User Information</h1>
+
+          
 
       <div>
         <strong>Skills</strong>
@@ -215,6 +244,8 @@ if(mongoId){
         {revbool.musicality}
      </ul>
       </div>
+
+      
           
             
             

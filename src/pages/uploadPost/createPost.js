@@ -120,6 +120,7 @@ function CreatePost() {
 
   const { currentUser } = useAuth();
   const uid = currentUser ? currentUser.uid : null;
+  console.log(uid);
 
   const handleGenreChange = (event) => {
     setGenre(event.target.value);
@@ -223,7 +224,7 @@ function CreatePost() {
     axios
     .get("http://localhost:4000/routes/get_id_from_firebaseuid", {
       params: {
-        firebase_id: "VuU2sorXLMQoUYJp9lup3RKROpi2",
+        firebase_id: uid,
       },
       withCredentials: true,
       headers: {

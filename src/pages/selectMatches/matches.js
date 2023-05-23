@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Grid, Typography, TextField, Button, Select, MenuItem, Box } from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
 import List from '@mui/material/List';
 import { useNavigate } from 'react-router-dom';
+import {useAuth} from "../../components/firebase/AuthContext";
 
 
 
@@ -26,12 +28,34 @@ function Matches() {
     //const [loading, setLoading] = useState(true);
 
 
+    const { currentUser } = useAuth();
+    const uid = currentUser ? currentUser.uid : null;
+    console.log(uid);
+
+
     const handleSelectArray = (event) => {
       const reviewerId = event.target.value;
       console.log(reviewerId);
       //console.log(event);
       setSelectedArray((selectedArray) => [...selectedArray, reviewerId]);
       setSelected(true);
+    };
+
+
+    const handleSelectArray2 = (event) => {
+      const userId = event.target.value;
+      const selectedIndex = selectedArray.indexOf(userId);
+      let newSelectedUsers = [];
+  
+      if (selectedIndex === -1) {
+        // If the user is not already selected, add them to the selected users array
+        newSelectedUsers = [...selectedArray, userId];
+      } else {
+        // If the user is already selected, remove them from the selected users array
+        newSelectedUsers = selectedArray.filter((id) => id !== userId);
+      }
+  
+      setSelectedArray(newSelectedUsers);
     };
 
 
@@ -230,7 +254,7 @@ function Matches() {
       axios
       .get("http://localhost:4000/routes/get_id_from_firebaseuid", {
         params: {
-          firebase_id: "VuU2sorXLMQoUYJp9lup3RKROpi2",
+          firebase_id: uid,
         },
         withCredentials: true,
         headers: {
@@ -516,7 +540,16 @@ function ReviewerOption({ user }) {
         <strong>Pay Rate:</strong> {user.payRate}
       </p>
       <p>
-        <strong>Dance Genre:</strong> {user.genre}
+        <strong>Dance Genres:</strong> 
+        {user && user.genre && user.genre.length > 0 && (
+  <ul>
+    {user.genre.map((genre, index) => (
+      <li key={index}>{genre}</li>
+    ))}
+  </ul>
+) 
+}
+
       </p>
       <strong>Skills:</strong>{user.skillFields[0]}
       {user && user.skillFields && user.skillFields.length > 0 && (
@@ -590,6 +623,13 @@ function ReviewerOption({ user }) {
       <button type="button" value={user._id} onClick={handleSelectArray}>
   Select
 </button>
+
+<Checkbox
+          key={user._id}
+          checked={selectedArray.includes(user._id)}
+          value={user._id}
+          onChange={handleSelectArray}
+        />
       
     </Box>
   );

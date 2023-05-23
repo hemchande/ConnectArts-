@@ -46,7 +46,7 @@ function PastPost ({post}) {
 
     //const [post, setPost] = useState({post})
     const [reviews, setReviews] = useState([])
-    const [reviewComments, setReviewComments] = useState({})
+    const [reviewComments, setReviewComments] = useState(null)
     const [reviewInfo, setReviewInfo] = useState([])
 
     const classes = useStyles();
@@ -56,6 +56,9 @@ function PastPost ({post}) {
     }
 
     const fetchReviewInfo = () => {
+
+
+      //console.log(reviewComments);
 
 
       axios
@@ -94,7 +97,7 @@ function PastPost ({post}) {
       try {
         let obj = {};
     
-        for (let i = 0; i <= post.reviewer_ids; i++) {
+        for (let i = 0; i <= post.reviewer_ids.length; i++) {
           let revId = post.reviewer_ids[i];
     
           axios
@@ -113,6 +116,7 @@ function PastPost ({post}) {
             )
             .then((response) => {
               obj[revId] = response.data;
+              console.log(obj)
             })
             .catch((error) => {
               console.error(error);
@@ -194,9 +198,9 @@ function PastPost ({post}) {
 <li key={index}>{skillField}</li>
 ))}
               <p><strong>Reviewer Comments:</strong></p>
-              {reviewComments[review] && reviewComments[review].map((comment, index) => (
-                <p key={index}>{comment}</p>
-              ))}
+              {reviewComments[reviewInfo[index]._id] &&  (
+                <p >{reviewComments[reviewInfo[index]._id]}</p>
+              )}
 
               <h2>Resume</h2>
             <iframe
