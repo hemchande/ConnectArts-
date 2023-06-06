@@ -560,12 +560,16 @@ function ReviewerOption({ user }) {
   </ul>
 ) 
 }
-
+<h3>Categorical Preferences:</h3>
      
       
       <p>
-        <strong>Categorical Preferences:</strong>
-        <li> Musicality: {user.musicality_fields}</li>
+        
+
+
+    
+
+        <strong> Musicality:</strong>
         {user && user.musicality_fields && user.musicality_fields.length > 0 && (
   <ul>
     {user.musicality_fields.map((skillField, index) => (
@@ -574,9 +578,10 @@ function ReviewerOption({ user }) {
   </ul>
 ) 
 }
+
        
 
-        <strong > Performance Structure: {user.structure_fields}</strong>
+        <strong > Performance Structure: </strong>
         {user && user.structure_fields && user.structure_fields.length > 0 && (
   <ul>
     {user.structure_fields.map((skillField, index) => (
@@ -588,7 +593,7 @@ function ReviewerOption({ user }) {
         
 
 
-        <strong> Physical Skills + Technique: {user.technique_fields}</strong>
+        <strong> Physical Skills + Technique: </strong>
         {user && user.technique_fields && user.technique_fields.length > 0 && (
   <ul>
     {user.technique_fields.map((skillField, index) => (
@@ -599,7 +604,7 @@ function ReviewerOption({ user }) {
 }
         
 
-        <strong> Movement Texture: {user.form_fields}</strong>
+        <strong> Movement Texture:</strong>
         {user && user.form_fields && user.form_fields.length > 0 && (
   <ul>
     {user.form_fields.map((skillField, index) => (

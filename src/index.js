@@ -18,6 +18,7 @@ import SkillTabs from './pages/skillsPage/skillsGuide';
 import VideoPlayer from './pages/video';
 import Matches from './pages/selectMatches/matches';
 import DepthSkills from './pages/skillsPage/inDepthSkills';
+import SignIn from './pages/loginpage/SignIn';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -26,6 +27,7 @@ root.render(
 
     <Routes>
         <Route exact path='/' element={<LoginPage />} />
+        <Route path='/signOn' element={<SignIn />}/>
         <Route path='/forgotpassword' element={<ForgotPassWord/>} />
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/signedin' element={<SignedInPage/>} />

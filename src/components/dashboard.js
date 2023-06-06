@@ -15,7 +15,7 @@ function Card() {
   const [currentReviewsOpen, setCurrentReviewsOpen] = useState(false);
   //const [uid,setUid] = useState('');
   const [userId,setUserId] = useState('');
-  const [review, setReview] = useState({});
+  const [review, setReview] = useState(null);// used to be {}
   const [reviewPost, setReviewPost] = useState({});
   const [selectedPastPostIndex, setSelectedPastPostIndex] = useState(0);
   const [selectedPastReviewIndex, setSelectedPastReviewIndex] = useState(0);
@@ -23,16 +23,17 @@ function Card() {
   const [newreviewStatus, setnewreviewStatus] = useState(null)
 
   const [curr_post, setPost] = useState(null);
-  const [pastReviews, setPastReviews] = useState([]);
+  const [pastReviews, setPastReviews] = useState(null);//used to be []
   const [pastPosts, setPastPosts] = useState([])
   const [id, setid] = useState("")
-  const [pastPostReviews, setPastPostReviews] = useState([])
+  const [pastPostReviews, setPastPostReviews] = useState(null) // used to be []
   const[numPosts, setNumPosts] = useState(4);
   const[numPostReviews, setNumPostReviews] = useState(null);
   const[numReviews, setNumReviews] = useState(null);
   
   const { currentUser } = useAuth();
   const uid = currentUser ? currentUser.uid : null;
+  console.log(uid);
 
 
   // const finalObj = {"performer_posts": posts,
@@ -148,7 +149,7 @@ function Card() {
     axios
     .get("http://localhost:4000/routes/get_id_from_firebaseuid", {
       params: {
-        firebase_id: "wc8QXHYRE1ej9Mj9BB5IEUNPRLD2",
+        firebase_id: "ZhxlJLC8HXZwIVaXhgFP4HCqZSv1",
       },
       withCredentials: true,
       headers: {
@@ -535,7 +536,7 @@ function Card() {
                 <p>
                   <strong>Skills:</strong>{" "}
                  
-                  {curr_post.current_post.addition_skill_keywords.map((skillField, index) => (
+                  {curr_post.current_post.additional_skill_keywords.map((skillField, index) => (
               <li key={index}>{skillField}</li>
               ))}
 
