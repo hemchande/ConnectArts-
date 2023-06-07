@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Logo from './Logo';
+import Logo from '../../components/logo/Logo';
 import { useAuth } from '../../components/firebase/AuthContext';
 import { Input, Checkbox } from '../../components/Inputs';
 import Button from '../../components/button/button';

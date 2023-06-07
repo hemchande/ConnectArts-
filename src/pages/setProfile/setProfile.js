@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import NavBar from '../../components/navbar';
+import React, { useState } from 'react';
+import NavBar from '../../components/navBar/navbar';
 
 function setProfile() {
   const [genres, setGenres] = React.useState([]);
@@ -7,37 +7,35 @@ function setProfile() {
   const [resume, setResume] = React.useState(null);
   const [skills, setSkills] = React.useState([]);
   const [payRange, setPayRange] = useState([]);
-  const [payRate, setPayRate] = useState(null)
+  const [payRate, setPayRate] = useState(null);
 
   const [newSkill, setNewSkill] = React.useState('');
 
-  const handleGenreChange = (event) => {
+  const handleGenreChange = event => {
     setGenres(genres.push(event.target.value));
   };
 
-  const handleRoleChange = (event) => {
+  const handleRoleChange = event => {
     setRole(event.target.value);
   };
 
-  const handleResumeChange = (event) => {
+  const handleResumeChange = event => {
     setResume(event.target.files[0]);
   };
 
-  const  handleDesiredPayRangeStartChange = (event) => {
+  const handleDesiredPayRangeStartChange = event => {
     setDesiredPayRange([event.target.value, desiredPayRange[1]]);
-  }
-  
-  const  handleDesiredPayRangeEndChange = (event) => {
+  };
+
+  const handleDesiredPayRangeEndChange = event => {
     setDesiredPayRange([desiredPayRange[0], event.target.value]);
-  }
+  };
 
-  const handleDesiredPayRateChange = (event) => {
+  const handleDesiredPayRateChange = event => {
     setDesiredPayRate(event.target.value);
-  }
+  };
 
-
-
-  const handleNewSkillChange = (event) => {
+  const handleNewSkillChange = event => {
     setNewSkill(event.target.value);
   };
 
@@ -48,18 +46,18 @@ function setProfile() {
     }
   };
 
-  const handleDeleteSkill = (skill) => {
-    setSkills(skills.filter((s) => s !== skill));
+  const handleDeleteSkill = skill => {
+    setSkills(skills.filter(s => s !== skill));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('resume', resume);
     formData.append('payRate', email);
     formData.append('genres', genres);
     formData.append('payRange', desiredPayRange);
-           
+
     formData.append('skillFields', skills);
     formData.append('payRate', desiredPayRate);
 
@@ -115,7 +113,7 @@ function setProfile() {
           </button>
         </label>
         <div>
-          {skills.map((skill) => (
+          {skills.map(skill => (
             <div key={skill} className="skill-chip">
               {skill}
               <button type="button" onClick={() => handleDeleteSkill(skill)}>
