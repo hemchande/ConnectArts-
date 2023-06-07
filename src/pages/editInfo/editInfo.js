@@ -378,8 +378,9 @@ function EditInfo() {
   
    
 
-    axios.patch('http://localhost:4000/routes/editInfo',{params : {id: id}},  obj1)
+    axios.patch('http://localhost:4000/routes/editInfo',obj1, {params : {id: id}})
        .then(response => {
+        console.log(obj1)
         console.log(formData);
         console.log(response.data);
         setMessage("User Info Saved")
@@ -392,7 +393,7 @@ function EditInfo() {
     if(resume){
 
 
-    axios.patch('http://localhost:4000/routes/users/patch_resume', {params : {id: id}}, formData)
+    axios.patch('http://localhost:4000/routes/users/patch_resume', formData, {params : {id: id}})
      .then(response => {
       console.log(formData);
       console.log(response.data);
@@ -547,16 +548,6 @@ function EditInfo() {
     </div>
     </div>
         
-
-
-        
-
-
-    
-        <label>
-          Skills
-          <SkillsDropdown/>
-        </label>
         <button type="submit">Save</button>
       </form>
     </div>
