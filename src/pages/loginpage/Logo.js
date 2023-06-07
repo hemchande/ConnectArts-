@@ -1,16 +1,13 @@
-import logo1 from "./connectArts.png";
-function Logo(){
-    return (
-        <div>
-            <img 
-            class="circ-img"
-            src={logo1}
+import React from 'react';
+import { ReactSVG } from 'react-svg';
 
-            />
+import logo from '../../assets/ArtLogo.svg';
+import s from './loginpage.module.css';
 
-        </div>
-        
-    )
-}
+const Logo = () => (
+  <div className={s.logoWrapper}>
+    <ReactSVG src={logo} />
+  </div>
+);
 
 export default Logo;
