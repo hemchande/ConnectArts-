@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import NavBar from "../../components/navbar";
+import NavBar from '../../components/navBar/navbar';
 import { Grid, Typography, Divider, TextField, Button, Chip,Box,Tooltip } from "@material-ui/core";
 import axios from 'axios';
 

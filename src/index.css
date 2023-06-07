@@ -7,6 +7,7 @@ body {
   color: var(--text-color);
   font-weight: 400;
   line-height: 1.5;
+  margin: 0;
 }
 
 h1,
@@ -18,12 +19,17 @@ h6 {
   font-weight: bold;
 }
 
+p {
+  margin: 0;
+}
+
 :root {
   --primary-color: #4caf50;
   --secondary-color: #ffa500;
   --text-color: #333333;
   --secondary-text-color: #475467;
   --white-color: #ffffff;
+  --black-color: #000000;
   --background-color: #f9fafb;
   --accent-color: #e064a0;
   --accent-hover-color: #c9397f;
@@ -114,14 +120,6 @@ img {
 .identifier {
   margin-top: 3%;
   display: flex;
-}
-.preferencespage {
-  margin: auto;
-  text-align: center;
-}
-.uploadpage {
-  margin: auto;
-  text-align: center;
 }
 .submissionform {
   margin: auto;

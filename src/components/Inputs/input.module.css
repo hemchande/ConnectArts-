@@ -24,10 +24,30 @@
 .checkboxLabel {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .checkbox {
+  display: none;
+}
+
+.customCheckbox {
   height: 16px;
   width: 16px;
   margin: 0 8px 0 0;
+  background-color: var(--white-color);
+  border: 1px solid var(--secondary-text-color);
+  border-radius: 4px;
+  position: relative;
+}
+
+.checked {
+  background-color: var(--accent-color);
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

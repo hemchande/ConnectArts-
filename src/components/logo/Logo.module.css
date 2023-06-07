@@ -1,0 +1,18 @@
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo {
+  width: 28px;
+  height: 32px;
+  fill: var(--balck-color);
+}
+
+.navBarLogo {
+  width: 40px;
+  height: 44px;
+  fill: var(--balck-color);
+}
