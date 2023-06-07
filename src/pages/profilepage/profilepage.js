@@ -10,6 +10,44 @@ import { useAuth } from "../../components/firebase/AuthContext";
 import UserIconWithName from '../../components/userIcon';
 import axios from 'axios';
 
+
+const skillOptions = [  {    category: 'Ballet',    subcategories: ['Jumps', 'Leaps', 'Turns', 'Leg extensions', 'Upper body extensions', 'Basic positions']
+  },
+  {
+    category: 'Tap',
+    subcategories: ['Steps', 'Turns', 'Combinations', 'Flaps', 'Buffalo', 'Pushbacks', 'Irish', 'Wings']
+  },
+  {
+    category: 'Jazz',
+    subcategories: ['Jumps', 'Turns', 'Combinations', 'Kicks', 'Leaps', 'Floorwork', 'Footwork']
+  },
+  {
+    category: 'Tumbling',
+    subcategories: ['Floor Acrobatics']
+  },
+  {
+    category: 'Modern/Contemporary',
+    subcategories: ['Techniques', 'Floorwork', 'Movements', 'Combinations', 'Turns', 'Footwork', 'Jumps', 'Lifts', 'Partnering']
+  },
+  {
+    category: 'Lyrical',
+    subcategories: ['Techniques', 'Turns', 'Jumps', 'Footwork', 'Floorwork', 'Partnering']
+  },
+  {
+    category: 'Hip-Hop',
+    subcategories: ['Styles', 'Grooves', 'Tricks', 'Combinations', 'Freeze', 'Partnering']
+  },
+  {
+    category: 'Ballroom',
+    subcategories: ['Tango', 'Waltz', 'Foxtrot', 'QuickStep', 'ChaCha', 'Rumba', 'Samba', 'Chive']
+  },
+  {
+    category: 'African Dance',
+    subcategories: ['West African Dance', 'East African Dance', 'North African Dance', 'South African Dance']
+  }
+];
+
+
 function ProfilePage() {
   //const { currentUser } = useAuth();
   const navigate = useNavigate();

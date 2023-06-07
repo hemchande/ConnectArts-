@@ -2,7 +2,54 @@ import React, {useState, useEffect} from 'react';
 import NavBar from '../../components/navbar';
 import SkillsDropdown from '../../components/skillDropdown';
 import {useAuth} from "../../components/firebase/AuthContext"
+import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
+
+
+const useStyles = makeStyles((theme) => ({
+  formContainer: {
+    backgroundColor: theme.palette.common.white,
+    padding: theme.spacing(3),
+    borderRadius: theme.spacing(1),
+    boxShadow: `0px 0px 20px rgba(0, 0, 0, 0.1)`,
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: 600,
+      margin: 'auto',
+    },
+  },
+  formInput: {
+    marginBottom: theme.spacing(2),
+  },
+  formLabel: {
+    fontWeight: 'bold',
+  },
+  divider: {
+    margin: `${theme.spacing(2)}px 0`,
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: theme.spacing(2),
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+    height: '1.5rem',
+    minWidth: '1.5rem',
+  },
+  input: {
+    width: '20rem',
+  },
+  selectedSkills: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    marginTop: theme.spacing(0.5),
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  }
+}));
 
 function EditInfo() {
   const [genre, setGenres] = useState([]);
@@ -16,7 +63,9 @@ function EditInfo() {
   const [perfStatus, setperfStatus] = useState(null)
   const [message, setMessage] = useState(null)
   const [newSkill, setNewSkill] = useState('');
+  const [selectedSkills, setSelectedSkills] = useState([]);
   const [skills, setSkills] = useState([]);
+  
 
 
 
@@ -26,6 +75,41 @@ function EditInfo() {
   const { currentUser } = useAuth();
   const uid = currentUser ? currentUser.uid : null;
 
+  const skillOptions = [  {    category: 'Ballet',    subcategories: ['Jumps', 'Leaps', 'Turns', 'Leg extensions', 'Upper body extensions', 'Basic positions']
+},
+{
+  category: 'Tap',
+  subcategories: ['Steps', 'Turns', 'Combinations', 'Flaps', 'Buffalo', 'Pushbacks', 'Irish', 'Wings']
+},
+{
+  category: 'Jazz',
+  subcategories: ['Jumps', 'Turns', 'Combinations', 'Kicks', 'Leaps', 'Floorwork', 'Footwork']
+},
+{
+  category: 'Tumbling',
+  subcategories: ['Floor Acrobatics']
+},
+{
+  category: 'Modern/Contemporary',
+  subcategories: ['Techniques', 'Floorwork', 'Movements', 'Combinations', 'Turns', 'Footwork', 'Jumps', 'Lifts', 'Partnering']
+},
+{
+  category: 'Lyrical',
+  subcategories: ['Techniques', 'Turns', 'Jumps', 'Footwork', 'Floorwork', 'Partnering']
+},
+{
+  category: 'Hip-Hop',
+  subcategories: ['Styles', 'Grooves', 'Tricks', 'Combinations', 'Freeze', 'Partnering']
+},
+{
+  category: 'Ballroom',
+  subcategories: ['Tango', 'Waltz', 'Foxtrot', 'QuickStep', 'ChaCha', 'Rumba', 'Samba', 'Chive']
+},
+{
+  category: 'African Dance',
+  subcategories: ['West African Dance', 'East African Dance', 'North African Dance', 'South African Dance']
+}
+];
 
 
   //edit categorical prefs info and skills if revieewer
@@ -48,7 +132,7 @@ function EditInfo() {
 
   useEffect(() => {
 
-    axios.get('http://localhost:4000/routes/get_id_from_firebaseuid', {params: {firebase_id: "i7JdvmMfvfe0A7dzLUCiOS4zngi1"}
+    axios.get('http://localhost:4000/routes/get_id_from_firebaseuid', {params: {firebase_id: "4R7Roex5H4ZQXH0nxvuOmnz7T8D3"}
   }).then(response => {
       console.log(response.data);
 
@@ -160,6 +244,19 @@ function EditInfo() {
     setSkills(skills.filter(skill => skill !== skillToDelete));
   }
 
+
+  const handleSkillSelection = (event) => {
+    const skill = event.target.value;
+    if (selectedSkills.indexOf(skill) === -1) {
+      setSelectedSkills([...selectedSkills, skill]);
+  }
+  console.log(selectedSkills)
+};
+
+  const handleSkillRemoval = (skill) => {
+    setSelectedSkills(selectedSkills.filter(selectedSkill => selectedSkill !== skill));
+};
+
   const handleRoleChange = (event) => {
 
     
@@ -221,15 +318,18 @@ function EditInfo() {
 
   }
 
+
+  const handleClose = () => {
+    setMessage(null);
+  };
+
   const handleRangeLower = (event) => {
 
     setLower(event.target.value);
 
   }
 
-  const handleClose = () => {
-    setMessage(null);
-  };
+
 
 
   const handleSubmit = (event) => {
@@ -245,7 +345,7 @@ function EditInfo() {
     const formData = new FormData();
     //formData.append("id", id );
 
-    obj1["id"] = id;
+    //obj1["id"] = id;
 
     //formData.append('genres', genres);
     
@@ -278,7 +378,7 @@ function EditInfo() {
   
    
 
-    axios.patch('http://localhost:4000/routes/editInfo', obj1)
+    axios.patch('http://localhost:4000/routes/editInfo',{params : {id: id}},  obj1)
        .then(response => {
         console.log(formData);
         console.log(response.data);
@@ -309,6 +409,34 @@ function EditInfo() {
 
     }
 
+    let body = {}
+
+
+    if(selectedSkills.length > 0 && id){
+      body["skillFields"] = selectedSkills
+      console.log(selectedSkills)
+      console.log(body)
+      axios.patch('http://localhost:4000/routes/updateSkills/' ,body, {params :
+       {id: id}
+    } )
+     .then(response => {
+      //console.log(formData);
+      
+      console.log(response.data);
+      console.log(body)
+
+
+
+
+     }).catch(error => {
+      console.log(error);
+      setMessage("Performers can only add skills for performances")
+
+
+     });
+
+    }
+
 
     
 
@@ -334,12 +462,12 @@ function EditInfo() {
         <label>Select all Performance Genres : </label>   
             <select multiple
       value={genre}
-      onChange={handleGenreChanges} required style={{
+      onChange={handleGenreChanges}  style={{
     backgroundColor: '#f5f5f5', /* Change to the color you want for the select element */
     padding: '5px',
   }}> 
                         
-            <option value="Ballet" >ballet</option>
+                        <option value="Ballet" >ballet</option>
             <option value="Contemporary" >contemporary</option>
             <option value="Jazz" >jazz</option>
             <option value="Modern" >modern</option>
@@ -347,7 +475,12 @@ function EditInfo() {
             <option value="Hip-Hop" >hip-hop</option>
             <option value="Fusion" >fusion</option>
             <option value="Ballroom" >ballroom</option>
+            <option value="Acrobatics" >acrobatics</option>
+            <option value="Gymnastics" >gymnastics</option>
             <option value="Musical Theatre" >musical theatre</option>
+            <option value="Bollywood" >bollywood</option>
+            <option value="Kathak" >kathak</option>
+            <option value="Barathynatham" >barathynatham</option>
             </select>
         <br />
         <label>
@@ -392,6 +525,27 @@ function EditInfo() {
             <label htmlFor="desired-pay-rate">Desired Reviewer Pay Rate:</label>
             <input type="number" id="desired-pay-rate" name="desired-pay-rate" value={parseInt(payRate)} onChange={handleRateChange} />
           </div>
+
+          <div className={useStyles.container}>
+      <select onChange={handleSkillSelection}>
+        <option value="">Select All Skills</option>
+        {skillOptions.map(skill => (
+          <optgroup label={skill.category} key={skill.category}>
+            {skill.subcategories.map(subcategory => (
+              <option value={`${skill.category} - ${subcategory}`} key={`${skill.category} - ${subcategory}`}>{subcategory}</option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
+      <div className={useStyles.selectedSkills}>
+      {selectedSkills.map(selectedSkill => (
+        <div className={useStyles.chip} key={selectedSkill}>
+          {selectedSkill}
+          <button onClick={() => handleSkillRemoval(selectedSkill)}>X</button>
+        </div>
+      ))}
+    </div>
+    </div>
         
 
 

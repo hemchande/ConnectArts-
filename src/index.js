@@ -6,6 +6,7 @@ import { AuthContextProvider } from './components/firebase/AuthContext';
 import EditInfo from './pages/editInfo/editInfo';
 import LoginPage from './pages/loginpage/loginpage';
 import SignedInPage from './pages/signedin/signedin';
+import SignIn from './pages/loginpage/SignIn';
 import reportWebVitals from './reportWebVitals';
 import ViewReviewers from './pages/viewReviewers/viewReviewers';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -26,6 +27,7 @@ root.render(
       <Router>
         <Routes>
           <Route exact path={routes.home} element={<LoginPage />} />
+          <Route path={routes.signin} element={<SignIn />} />
           <Route path={routes.fortgotPass} element={<ForgotPassWord />} />
           <Route path={routes.register} element={<RegisterPage />} />
           <Route path={routes.signedin} element={<SignedInPage />} />

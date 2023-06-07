@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 function SignIn(){
 
-    const { logIn } = useAuth();
+    const { logIn, logInWithGoogle } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,6 +19,54 @@ function SignIn(){
     const handlePasswordChange = (event) => {
       setPassword(event.target.value);
     };
+
+    const handleGoogleSignInRegister = async(event) => {
+
+      event.preventDefault();
+      try {
+        await logInWithGoogle()
+        .then((user) => {
+          window.location.href = "/register"
+
+
+        })
+        .catch((error) => {
+
+          alert(error.message)
+
+        })
+
+      }catch(error) {
+        // Handle error here
+        console.log(error);
+      }
+    };
+
+    const handleGoogleSignInLogin = async(event) => {
+
+      event.preventDefault();
+      try {
+        await logInWithGoogle()
+        .then((user) => {
+          window.location.href = "/signedin"
+
+
+        })
+        .catch((error) => {
+
+          alert(error.message)
+
+        })
+
+      }catch(error) {
+        // Handle error here
+        console.log(error);
+      }
+
+
+
+    }
+  
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -52,7 +100,12 @@ function SignIn(){
 
             <a href = "/signedin"><button type="submit">Login</button></a>
             </form>
+
             <br></br>
+            <div>
+        <h1>Register with Google</h1>
+        <button onClick={handleGoogleSignInRegister}>Sign In with Google</button>
+      </div>
    
             <div class="container"> <div class="container-child">Forgot <a href="/forgotpassword"> password? </a> </div><div class="container-child"><a href="/register"> Sign up </a></div>  </div>
         </div>

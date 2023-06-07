@@ -297,25 +297,27 @@ function CurrentReview({ review }) {
       <h1>Current Review</h1>
 
 
-      <h3> Skills </h3>
-      
-        <p> {post.additional_skill_keywords}</p>
-        {post.additional_skill_keywords.map((skillField, index) => (
-              <li key={index}>{skillField}</li>
-              ))}
-
-      
-      
-
-  
-      
-
       <h3>Categorical Preferences:</h3>
-     
-          <li> Musicality: {post.musicality}</li>
-          <li> Structure:{post.structure}</li>
-          <li> Technique:{post.technique}</li>
-          <li> Form:{post.form}</li>
+<ul>
+  {post && post.musicality && <li>Musicality: {post.musicality}</li>}
+  {post && post.structure && <li>Structure: {post.structure}</li>}
+  {post && post.technique && <li>Technique: {post.technique}</li>}
+  {post && post.form && <li>Form: {post.form}</li>}
+</ul>
+
+{post && post.additional_skill_keywords && (
+  <div>
+    <h3>Skills:</h3>
+    <ul>
+      {post.additional_skill_keywords.map((skillField, index) => (
+        <li key={index}>{skillField}</li>
+      ))}
+    </ul>
+  </div>
+)}
+
+      
+
 
       <strong> Post Additional Comments</strong>
         <Typography> {postComments}</Typography>

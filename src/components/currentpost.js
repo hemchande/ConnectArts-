@@ -177,6 +177,7 @@ const CurrentPost = ({ post }) => {
 useEffect(() => {
 
   fetchPostComments();
+  checkRatingStatus();
 
 
 
@@ -208,6 +209,7 @@ useEffect(() => {
         console.log(response);
         setReviews(response.data.review_ids);
         setreviewerInfo(response.data.reviewer_information);
+        console.log(response.data.reviewer_information)
 
       })
       .catch((error) => {
@@ -269,10 +271,15 @@ useEffect(() => {
 
     <div>
       <strong> Post Additional Comments</strong>
+
+      {postComments & (
+
       <Typography> {postComments}</Typography>
 
+      )}
+
     <div className="accordion-container">
-      {post.reviewer_ids.map((reviewId, index) => (
+      {postReviews.map((reviewId, index) => (
         <div className="accordion-card" key={index}>
           <Button className={`accordion-title ${activeId === reviewId ? 'active' : ''}`} id = {reviewId} color="primary" variant="contained" onClick={() => toggleAccordion(reviewId)}>
             Reviewer Name: {reviewId}
@@ -297,19 +304,38 @@ useEffect(() => {
 
                 
               <p><strong>Reviewer Comments:</strong></p>
-              {reviewComments[reviewId] &&  (
-                <p> {reviewComments[reviewId]}</p>
+              {reviewComments[reviewerInfo[index]._id] &&  (
+                <p> {reviewComments[reviewerInfo[index]._id]}</p>
               )}
 
-              <p><strong> Add Rating </strong></p>
-             {ratingStatus[reviewId]&& (
 
-                <><input type="number" value={rating} onChange = {changeRating} name="Reviewer Rating" min="1" max="5" step="1" /><Button id= {reviewId}> Add </Button></>
+{ratingStatus && Object.keys(ratingStatus).includes(reviewId) && ratingStatus[reviewId] && (
+  <p>
+    <strong>Add Rating</strong>
+    <input
+      type="number"
+      value={rating}
+      onChange={changeRating}
+      name="Reviewer Rating"
+      min="1"
+      max="5"
+      step="1"
+    />
+    <Button id={reviewId}>Add</Button>
+  </p>
+)}
 
 
-              
 
-              )}
+
+
+
+
+
+
+
+
+             
                 
         
               

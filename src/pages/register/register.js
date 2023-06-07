@@ -512,7 +512,7 @@ function RegisterPage() {
     return (
   <div style={{ display: 'flex', justifyContent: 'center' }}>
     <div className={useStyles.formContainer}>
-      <Typography variant="h5" gutterBottom>Dancer and Reviewer Registration Form</Typography>
+      <Typography variant="h5" gutterBottom>Set Up Profile</Typography>
       <Divider className={useStyles.divider} />
 
 
@@ -553,6 +553,7 @@ function RegisterPage() {
             <option value="Hip-Hop" >hip-hop</option>
             <option value="Fusion" >fusion</option>
             <option value="Ballroom" >ballroom</option>
+            <option value="Acrobatics" >acrobatics</option>
             <option value="Musical Theatre" >musical theatre</option>
             <option value="Bollywood" >bollywood</option>
             <option value="Kathak" >kathak</option>

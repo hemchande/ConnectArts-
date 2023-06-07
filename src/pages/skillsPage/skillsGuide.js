@@ -48,15 +48,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 const skillsData = {
-    "Ballet": [
-      "Ballet Leaps",
+    "Ballet": ["Ballet is a classical dance form characterized by precise and highly formalized movements. It emphasizes grace, technique, and fluidity. "
+      ,"Ballet Leaps",
       "Ballet Turns",
       "Ballet Leg extensions",
       "Ballet upper body extensions",
       "Ballet basic positions",
       "Ballet Variations",
     ],
-    "Tap": [
+    "Tap": ["Tap dance is a rhythmic dance style characterized by percussive footwork. Dancers wear special shoes with metal taps to create sounds and rhythms.",
       "Tap Steps",
       "Tap Turns",
       "Tap Combinations",
@@ -66,7 +66,7 @@ const skillsData = {
       "Tap Irish",
       "Tap Wings",
     ],
-    "Jazz": [
+    "Jazz": ["Jazz dance is a high-energy dance style that combines elements of ballet, African dance, and popular dance forms. It emphasizes sharp movements, isolations, and syncopated rhythms.",
       "Jazz jumps",
       "Jazz turns",
       "Jazz combinations",
@@ -79,7 +79,7 @@ const skillsData = {
         "Tumbling",
       "Acrobatics",
     ],
-    "Modern/Contemporary": [
+    "Modern/Contemporary": ["Contemporary dance is a fusion of various dance styles, incorporating elements of ballet, modern, jazz, and improvisation. It encourages creativity and self-expression. Modern dance is a free-form dance style that emerged as a rebellion against the constraints of classical ballet. It emphasizes self-expression, individuality, and natural body movements.",
       "Modern/Contemporary Techniques",
       "Modern/Contemporary Floorwork",
       "Modern/Contemporary Movements",
@@ -90,7 +90,7 @@ const skillsData = {
       "Modern/Contemporary Lifts",
       "Modern/Contemporary Partnering",
     ],
-    "Lyrical": [
+    "Lyrical": ["Lyrical dance combines elements of ballet, jazz, and contemporary dance. It aims to interpret the lyrics and emotions of music through expressive movements.",
       "Lyrical Techniques",
       "Lyrical Turns",
       "Lyrical Jumps",
@@ -98,7 +98,7 @@ const skillsData = {
       "Lyrical Floorwork",
       "Lyrical Partnering",
     ],
-    "Hip-Hop": [
+    "Hip-Hop": ["Hip-hop dance is an urban dance style that originated in the hip-hop culture. It includes a wide range of styles such as breaking, popping, locking, and krumping.",
       "Hip-Hop Styles",
       "Hip-Hop Grooves",
       "Hip-Hop Tricks",
@@ -106,7 +106,7 @@ const skillsData = {
       "Hip-Hop Freeze",
       "Hip-Hop Partnering",
     ],
-    "Ballroom": [
+    "Ballroom": ["Ballroom dance is a partner dance style performed in social or competitive settings. It includes various dances such as waltz, tango, foxtrot, cha-cha, and salsa.",
       "Ballroom Tango",
       "Ballroom Waltz",
       "Ballroom Foxtrot",
@@ -116,24 +116,24 @@ const skillsData = {
       "Ballroom Samba",
       "Ballroom Chive",
     ],
-    "African Dance": [
+    "African Dance": ["African dance encompasses a wide range of traditional dance styles from different regions of Africa. It reflects cultural traditions, rituals, and social expressions.",
       "African Dance West African Dance",
       "African Dance East African Dance",
       "African Dance North African Dance",
       "African Dance South African Dance",
     ],
-    "Bharatynatham": [
+    "Bharatynatham": ["Bharatanatyam is a classical dance form originating from South India. It is known for its intricate footwork, hand gestures, facial expressions, and storytelling.",
       "Bharatynatham Adavus ( basic steps)",
       "Bharatynatham Hastas(hand gestures)",
       "Barathynatham Raagas( Musical Modes)",
     ],
-    "Bollywood": [
+    "Bollywood": ["Bollywood dance refers to the dance style featured in Indian film industry productions. It is a fusion of various Indian classical, folk, and contemporary dance forms with elements of Western dance styles.",
       "Bollywood Basic Steps",
       "Bollywood Fusion Styles",
       "Bollywood Hands and Arms",
       "Bollywood Facial Expressions",
     ],
-    "Kathak": [
+    "Kathak": ["Kathak is one of the major classical dance forms of India, originating from Northern India. It is known for its intricate footwork, fast spins (chakkar), rhythmic patterns (tatkar), and storytelling through expressive movements.",
       "Kathak dances",
       "Kathak footwork",
       "Kathak hand gestures",
@@ -176,7 +176,11 @@ function SkillTabs (){
               <AccordionDetails>
                 <Typography>
                   {skillsData[skill].map((subskill, index) => (
+                    <div>
                     <div key={index}>{subskill}</div>
+
+                    </div>
+                  
                   ))}
                   
 

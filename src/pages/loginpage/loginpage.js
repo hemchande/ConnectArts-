@@ -1,15 +1,14 @@
-import SignIn from './SignIn';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import { useAuth } from '../../components/firebase/AuthContext';
 import { Input, Checkbox } from '../../components/Inputs';
 import Button from '../../components/button/button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import routes from '../../routes';
 import s from './loginpage.module.css';
 
 function LoginPage() {
-  const { logIn } = useAuth();
+  const { logIn, logInWithGoogle } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isChecked, setIsChecked] = useState(false);
