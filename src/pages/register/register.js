@@ -1,16 +1,16 @@
 import { useAuth } from '../../components/firebase/AuthContext';
+import React, { useState } from 'react';
 import {
   Grid,
   Typography,
   Divider,
   TextField,
-  Button,
   Chip,
   Box,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import RegisterProgressBar from '../../components/register/registerProgressBar';
-import React, { useState } from 'react';
+import Button from '../../components/button/button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import s from './register.module.css';
@@ -522,18 +522,26 @@ function RegisterPage() {
     <>
       <div className={s.container}>
         <RegisterProgressBar currentStep={currentStep} />
-        <button
+        <Button
+          type="button"
+          text="Next step"
+          onClick={() => setCurrentStep(currentStep + 1)}
+          maxWidth={532}
+          center
+        />
+
+        {/* <button
           disabled={currentStep >= 3}
           onClick={() => setCurrentStep(currentStep + 1)}
         >
-          PLUS
+          Next step
         </button>
         <button
           disabled={currentStep <= 1}
           onClick={() => setCurrentStep(currentStep - 1)}
         >
           MINUS
-        </button>
+        </button> */}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className={useStyles.formContainer}>
