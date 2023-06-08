@@ -1,7 +1,5 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: whitesmoke;
@@ -9,17 +7,32 @@ body {
   color: var(--text-color);
   font-weight: 400;
   line-height: 1.5;
+  margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: bold;
 }
 
+p {
+  margin: 0;
+}
+
 :root {
-  --primary-color: #4CAF50;
-  --secondary-color: #FFA500;
-  --text-color: #333;
-  --background-color: #fff;
+  --primary-color: #4caf50;
+  --secondary-color: #ffa500;
+  --text-color: #333333;
+  --secondary-text-color: #475467;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --background-color: #f9fafb;
+  --accent-color: #e064a0;
+  --accent-hover-color: #c9397f;
 }
 
 code {
@@ -27,8 +40,8 @@ code {
     monospace;
 }
 .circ-img {
-  height:20%;
-  width:20%;
+  height: 20%;
+  width: 20%;
   border-radius: 30%;
   margin-left: auto;
   margin-right: auto;
@@ -42,29 +55,16 @@ code {
   width: 60%;
   margin: auto;
 }
-input[type=text], input[type=password] {   
-  width: 50%;   
-  margin: 8px 0;  
-  padding: 12px 20px;   
-  display: inline-block;   
-  border: 2px solid green;   
-  box-sizing: border-box;   
-}  
-button {   
-  background-color: var(--primary-color);   
-  width: 50%;  
-   color: var(--secondary-color);   
-   padding: 12px 24px;   
-   margin: 10px 0px;   
-   border: none;   
-   cursor: pointer;   
-    }   
 
-
-    button[type="submit"] {
-      background-color: black;
-      color: white;
-    }
+button {
+  background-color: var(--primary-color);
+  width: 50%;
+  color: var(--secondary-color);
+  padding: 12px 24px;
+  margin: 10px 0px;
+  border: none;
+  cursor: pointer;
+}
 
 .forgotpassword {
   width: 40%;
@@ -73,8 +73,8 @@ button {
 .backbutton {
   width: 100%;
 }
-.registerpage{
-  margin:auto;
+.registerpage {
+  margin: auto;
   width: 40%;
   margin-top: 15%;
 }
@@ -83,7 +83,7 @@ button {
   justify-content: space-between;
   align-items: center;
   list-style-type: none;
-  margin:0;
+  margin: 0;
 }
 
 .nav_links a {
@@ -96,8 +96,7 @@ button {
   padding-right: 15px;
 }
 nav {
-  background-color: #4CAF50;
-  
+  background-color: #4caf50;
 }
 
 img {
@@ -106,58 +105,46 @@ img {
   overflow: hidden;
 }
 .post {
-  margin:auto;
-  width: 50%
-
+  margin: auto;
+  width: 50%;
 }
 .smallprofile {
   border-radius: 50%;
-  height:2%;
-  width:2%;
+  height: 2%;
+  width: 2%;
 }
 .feedbackvideo {
-  height:20%;
-  width:20%;
+  height: 20%;
+  width: 20%;
 }
 .identifier {
-  margin-top:3%;
+  margin-top: 3%;
   display: flex;
 }
-.preferencespage {
-  margin:auto;
+.submissionform {
+  margin: auto;
+  margin-top: 50px;
   text-align: center;
-}
-.uploadpage {
-  margin:auto;
-  text-align: center;
-}
-.submissionform{
-  margin:auto;
-  margin-top:50px;
-  text-align: center;
-
 }
 .profilepage {
-  width:50%;
-  margin:auto;
+  width: 50%;
+  margin: auto;
 }
 .ulclass2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   list-style-type: none;
-  margin:0;
-  width:50%;
+  margin: 0;
+  width: 50%;
 }
 
-.main--container{
- display: grid;
- flex-direction: column;
- grid-template-columns: repeat(auto-fit,300px);
- place-content: center;
- gap: 1rem;
-
-
+.main--container {
+  display: grid;
+  flex-direction: column;
+  grid-template-columns: repeat(auto-fit, 300px);
+  place-content: center;
+  gap: 1rem;
 }
 
 .left-sidebar {
@@ -170,7 +157,6 @@ img {
   font-size: 14px;
   font-weight: bold;
   color: #333333;
-
 }
 
 .left-sidebar a:hover {
@@ -182,20 +168,18 @@ img {
   font-weight: bold;
 }
 
-
-
-.card{
- border-radius: 4px;
- background-color: #ffff;
- box-shadow: 0 5px 10px -3px rgba(#000000,0.5);
- padding: 20px;
+.card {
+  border-radius: 4px;
+  background-color: #ffff;
+  box-shadow: 0 5px 10px -3px rgba(#000000, 0.5);
+  padding: 20px;
 }
 
-.card img{
+.card img {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
-.card article{
+.card article {
   padding: 1em;
 }
 
@@ -217,7 +201,8 @@ img {
   transition: 0.4s;
 }
 
-.active, .accordion:hover {
+.active,
+.accordion:hover {
   background-color: #ccc;
 }
 
@@ -243,7 +228,6 @@ img {
   padding: 10px;
   cursor: pointer;
 }
-
 
 .accordion-item.active .accordion-content {
   display: block;

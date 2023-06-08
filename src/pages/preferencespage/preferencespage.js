@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import NavBar from "../../components/navbar";
+import NavBar from '../../components/navBar/navbar';
 import { Grid, Typography, Divider, TextField, Button, Chip,Box,Tooltip } from "@material-ui/core";
 import axios from 'axios';
 
@@ -473,6 +473,7 @@ function PreferencesPage() {
           </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = "The choreographic intent provides a framework for the choreographer to make creative choices regarding movement, spatial design, dynamics, and the overall composition of the piece. It influences the selection and development of movement phrases, gestures">
           <Box
           id = "Choreographic Intent"
             border={1}
@@ -483,8 +484,10 @@ function PreferencesPage() {
           >
             Choreographic Intent 
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = "It encompasses the overall feeling or ambiance conveyed through the movement, music, lighting, and other elements of the choreography.">
           <Box
           id = "Choreographic Mood"
             border={1}
@@ -495,8 +498,10 @@ function PreferencesPage() {
           >
             Choreographic Mood
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = "refers to the blending or combination of different dance styles or techniques to create a unique and innovative movement vocabulary. It involves integrating elements, aesthetics, and principles from two or more dance styles to create a cohesive and distinctive choreographic approach.">
           <Box
           id = "Style Fusions"
             border={1}
@@ -507,8 +512,10 @@ function PreferencesPage() {
           >
             Style Fusions 
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = "the seamless and continuous transition between different movement sequences or phrases within a choreographic composition. It relates to the concept of form, which encompasses the overall structure, organization, and arrangement of the choreography.">
           <Box
           id = "Movement Flow"
             border={1}
@@ -519,6 +526,7 @@ function PreferencesPage() {
           >
             Movement Flow
           </Box>
+          </Tooltip>
         </Grid>
 
         </Grid>
@@ -534,6 +542,7 @@ function PreferencesPage() {
 </p>
 <Grid container spacing={1}>
         <Grid item>
+          <Tooltip title = "refer to the different vertical positions or heights at which movements are performed within a choreographic composition. The use of spatial levels is closely tied to the dance performance structure, as it helps create visual interest, highlight spatial relationships, and contribute to the overall composition of the piece.">
           <Box
           id = "Spatial Levels"
             border={1}
@@ -544,8 +553,10 @@ function PreferencesPage() {
           >
             Spatial Levels
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = "Movement pathways in dance refer to the routes or trajectories that dancers follow as they navigate through space during a choreographic composition. They involve the paths traced by the dancers' bodies, limbs, or patterns created by their movement choices.">
           <Box
           id = "Movement Pathways"
             border={1}
@@ -556,8 +567,10 @@ function PreferencesPage() {
           >
             Movement Pathways
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = " refer to the orientation or facing of the dancers in relation to themselves, each other, and the performance space. Directions play a crucial role in creating spatial relationships, formations, and visual dynamics within a choreographic composition.">
           <Box
           id = "Directions"
             border={1}
@@ -568,8 +581,10 @@ function PreferencesPage() {
           >
             Directions
           </Box>
+          </Tooltip>p
         </Grid>
         <Grid item>
+          <Tooltip title = " large-scale patterns may involve expansive movements that cover a significant portion of the performance space, creating a sense of grandeur or majesty. Small-scale patterns, on the other hand, may involve intricate or detailed movements performed within a confined area, fostering a sense of intimacy or intricacy. Varying the size of patterns throughout the choreography adds visual interest, contrast, and can highlight specific moments or dancers within the composition.">
           <Box
           id = "Size of Movement"
             border={1}
@@ -580,6 +595,7 @@ function PreferencesPage() {
           >
             Size of Movement
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
           <Box
@@ -594,6 +610,7 @@ function PreferencesPage() {
           </Box>
         </Grid>
         <Grid item>
+          <Tooltip title = "refers to the organization and timing of movements into coherent and meaningful phrases or sections within a choreographic composition.Choreographers often use a combination of elements such as repetition, variation, contrast, and development to construct phrasing structure. They may create distinct phrases that are repeated, modified, or interconnected in specific ways.">
           <Box
           id = "Phrasing Structure"
             border={1}
@@ -604,8 +621,10 @@ function PreferencesPage() {
           >
             Phrasing Structure
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = "Element composition in dance refers to the deliberate arrangement, combination, and manipulation of various movement elements such as body, space, time, and energy within a choreographic composition.">
           <Box
           id = "Element Composition"
             border={1}
@@ -616,6 +635,7 @@ function PreferencesPage() {
           >
             Element Composition 
           </Box>
+          </Tooltip>
 
           </Grid>
 
@@ -635,6 +655,7 @@ function PreferencesPage() {
 </p>
 <Grid container spacing={1}>
         <Grid item>
+          <Tooltip title = "Rhythmic content refers to the dancer's ability to accurately interpret and express the rhythmic elements of the music through their movement. It involves understanding and embodying the underlying pulse, beats, subdivisions, and rhythmic patterns present in the music.">
           <Box
           id = "Rhythmic Content"
             border={1}
@@ -645,8 +666,10 @@ function PreferencesPage() {
           >
             Rhythmic Content
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = "Timing content relates to the dancer's skill in aligning their movements with the timing and pace of the music. It involves a keen sense of timing, enabling dancers to execute movements precisely on the intended counts or beats of the music.">
           <Box
           id = "Timing Content"
             border={1}
@@ -657,8 +680,10 @@ function PreferencesPage() {
           >
             Timing Content
           </Box>
+          </Tooltip>
         </Grid>
         <Grid item>
+          <Tooltip title = "Stylistic accuracy refers to the dancer's ability to embody and authentically express the specific style or genre of dance they are performing. It involves understanding the characteristics, movement qualities, and aesthetics associated with a particular dance style ">
           <Box
           id = "Stylistic Accuracy"
             border={1}
@@ -669,6 +694,7 @@ function PreferencesPage() {
           >
             Stylistic Accuracy
           </Box>
+          </Tooltip>
         </Grid>
 
 
