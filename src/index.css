@@ -17,6 +17,7 @@ h4,
 h5,
 h6 {
   font-weight: bold;
+  margin: 0;
 }
 
 p {
