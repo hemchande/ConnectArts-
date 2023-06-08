@@ -3,9 +3,9 @@ import { ReactComponent as DotIcon } from '../../assets/dot.svg';
 import { ReactComponent as ConfirmIcon } from '../../assets/confirm.svg';
 import s from './register.module.css';
 
-const Dot = ({ inProgress, isFinished, onClick, value }) => (
+const Dot = ({ inProgress, isFinished, onClick, step }) => (
   <button
-    onClick={() => onClick(value)}
+    onClick={() => onClick(step)}
     type="button"
     className={`${s.step} ${inProgress ? s.active : ''}`}
   >
