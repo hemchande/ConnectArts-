@@ -62,3 +62,9 @@
   color: #475467;
   margin-right: 4px;
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

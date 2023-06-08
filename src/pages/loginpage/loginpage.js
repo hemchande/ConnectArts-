@@ -60,6 +60,7 @@ function LoginPage() {
               name="email"
               placeholder="Enter Email"
               onChange={handleEmailChange}
+              required
             />
             <Input
               type="password"
@@ -67,6 +68,7 @@ function LoginPage() {
               name="password"
               placeholder="Enter Password"
               onChange={handlePasswordChange}
+              required
             />
             <div class={s.infoContainer}>
               <Checkbox
@@ -79,7 +81,7 @@ function LoginPage() {
               </Link>
             </div>
             <Button type="submit" text="Sign in" />
-            <div className={s.logoWrapper}>
+            <div className={s.center}>
               <p className={s.text}>Don’t have an account?</p>
               <Link to={routes.register} className={s.forgotPass}>
                 Sign up

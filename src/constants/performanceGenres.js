@@ -1,0 +1,15 @@
+export default [
+  { value: 'Ballet', label: 'ballet' },
+  { value: 'Contemporary', label: 'contemporary' },
+  { value: 'Jazz', label: 'jazz' },
+  { value: 'Modern', label: 'modern' },
+  { value: 'Tap', label: 'tap' },
+  { value: 'Hip-Hop', label: 'hip-hop' },
+  { value: 'Fusion', label: 'fusion' },
+  { value: 'Ballroom', label: 'ballroom' },
+  { value: 'Acrobatics', label: 'acrobatics' },
+  { value: 'Musical Theatre', label: 'musical theatre' },
+  { value: 'Bollywood', label: 'bollywood' },
+  { value: 'Kathak', label: 'kathak' },
+  { value: 'Barathynatham', label: 'barathynatham' },
+];
