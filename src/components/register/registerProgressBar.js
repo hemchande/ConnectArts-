@@ -3,12 +3,14 @@ import Dot from './dot';
 import { registerProgressBarHelper as helper } from '../../helpers';
 import s from './register.module.css';
 
-const RegisterProgressBar = ({ currentStep }) => {
+const RegisterProgressBar = ({ currentStep, onClick }) => {
   return (
     <div className={s.container}>
       <div className={s.stepWrapper}>
         <div className={s.progressWrapper}>
           <Dot
+            value={1}
+            onClick={onClick}
             inProgress={helper(1, currentStep)}
             isFinished={helper(2, currentStep)}
           />
@@ -24,6 +26,8 @@ const RegisterProgressBar = ({ currentStep }) => {
       <div className={s.stepWrapper}>
         <div className={s.progressWrapper}>
           <Dot
+            value={2}
+            onClick={onClick}
             inProgress={helper(2, currentStep)}
             isFinished={helper(3, currentStep)}
           />
@@ -38,7 +42,11 @@ const RegisterProgressBar = ({ currentStep }) => {
       </div>
       <div className={s.stepWrapper}>
         <div className={s.progressWrapper}>
-          <Dot inProgress={helper(3, currentStep)} />
+          <Dot
+            value={3}
+            onClick={onClick}
+            inProgress={helper(3, currentStep)}
+          />
         </div>
         <h3 className={s.title}>Stripe Onboarding</h3>
         <p className={s.text}>Start collaborating with your team</p>

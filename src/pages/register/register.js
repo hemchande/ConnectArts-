@@ -9,7 +9,12 @@ import {
   Box,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import RegisterProgressBar from '../../components/register/registerProgressBar';
+import {
+  RegisterProgressBar,
+  FirstStep,
+  SecondStep,
+  ThirdStep,
+} from '../../components/register';
 import Button from '../../components/button/button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -192,6 +197,17 @@ function RegisterPage() {
     { category: 'Structure', info: 'Description of structure', show: false },
     { category: 'Form', info: 'Description of form', show: false },
   ]);
+
+  const renderStep = currentStep => {
+    switch (currentStep) {
+      case 1:
+        return <FirstStep />;
+      case 2:
+        return <SecondStep />;
+      case 3:
+        return <ThirdStep />;
+    }
+  };
 
   let stripeId = null;
 
@@ -518,30 +534,32 @@ function RegisterPage() {
         console.error('Error signing up:', error);
       });
   };
+
   return (
     <>
       <div className={s.container}>
-        <RegisterProgressBar currentStep={currentStep} />
-        <Button
-          type="button"
-          text="Next step"
-          onClick={() => setCurrentStep(currentStep + 1)}
-          maxWidth={532}
-          center
+        <RegisterProgressBar
+          currentStep={currentStep}
+          onClick={setCurrentStep}
         />
-
-        {/* <button
-          disabled={currentStep >= 3}
-          onClick={() => setCurrentStep(currentStep + 1)}
-        >
-          Next step
-        </button>
-        <button
-          disabled={currentStep <= 1}
-          onClick={() => setCurrentStep(currentStep - 1)}
-        >
-          MINUS
-        </button> */}
+        {renderStep(currentStep)}
+        {currentStep < 3 ? (
+          <Button
+            type="button"
+            text="Next step"
+            onClick={() => setCurrentStep(currentStep + 1)}
+            maxWidth={532}
+            center
+          />
+        ) : (
+          <Button
+            type="button"
+            text="Sign up"
+            onClick={handleSignUp}
+            maxWidth={532}
+            center
+          />
+        )}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div className={useStyles.formContainer}>
