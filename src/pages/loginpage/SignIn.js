@@ -1,116 +1,120 @@
-import {useAuth} from "../../components/firebase/AuthContext";
+import { useAuth } from '../../components/firebase/AuthContext';
 import { useEffect, useState } from 'react';
 
+function SignIn() {
+  const { logIn, logInWithGoogle } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
+  const handleEmailChange = event => {
+    setEmail(event.target.value);
+  };
 
+  const handlePasswordChange = event => {
+    setPassword(event.target.value);
+  };
 
-
-function SignIn(){
-
-    const { logIn, logInWithGoogle } = useAuth();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-
-    const handleEmailChange = (event) => {
-      setEmail(event.target.value);
-    };
-
-    const handlePasswordChange = (event) => {
-      setPassword(event.target.value);
-    };
-
-    const handleGoogleSignInRegister = async(event) => {
-
-      event.preventDefault();
-      try {
-        await logInWithGoogle()
-        .then((user) => {
-          window.location.href = "/register"
-
-
+  const handleGoogleSignInRegister = async event => {
+    event.preventDefault();
+    try {
+      await logInWithGoogle()
+        .then(user => {
+          window.location.href = '/register';
         })
-        .catch((error) => {
-
-          alert(error.message)
-
-        })
-
-      }catch(error) {
-        // Handle error here
-        console.log(error);
-      }
-    };
-
-    const handleGoogleSignInLogin = async(event) => {
-
-      event.preventDefault();
-      try {
-        await logInWithGoogle()
-        .then((user) => {
-          window.location.href = "/signedin"
-
-
-        })
-        .catch((error) => {
-
-          alert(error.message)
-
-        })
-
-      }catch(error) {
-        // Handle error here
-        console.log(error);
-      }
-
-
-
+        .catch(error => {
+          alert(error.message);
+        });
+    } catch (error) {
+      // Handle error here
+      console.log(error);
     }
-  
+  };
 
-    const handleLogin = async (event) => {
-        event.preventDefault();
-        //const email = event.target.username.value;
-        //const password = event.target.password.value;
-    
-        try {
-          await logIn(email, password)
-            .then((userCredential) => {
-              const user = userCredential.user;
-              // Redirect to the signedin page upon successful login
-              window.location.href = "/signedin";
-            })
-            .catch((error) => {
-              alert(error.message);
-            });
-        } catch (error) {
-          // Handle error here
-          console.log(error);
-        }
-    return (
-        <div>
-            <h2>Login to ConnectArts</h2>
-            <form onSubmit={handleLogin}>
-            <label>Username : </label>   
-            <input type="text" value = {email} placeholder="Enter Email" name="username" onChange={handleEmailChange} required/>  
-            <br></br>
+  const handleGoogleSignInLogin = async event => {
+    event.preventDefault();
+    try {
+      await logInWithGoogle()
+        .then(user => {
+          window.location.href = '/signedin';
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    } catch (error) {
+      // Handle error here
+      console.log(error);
+    }
+  };
 
-            <label>Password : </label>   
-            <input type="password" value = {password} placeholder="Enter Password" name="password" onChange={handlePasswordChange}required/> 
+  const handleLogin = async event => {
+    event.preventDefault();
+    //const email = event.target.username.value;
+    //const password = event.target.password.value;
 
-            <a href = "/signedin"><button type="submit">Login</button></a>
-            </form>
+    try {
+      await logIn(email, password)
+        .then(userCredential => {
+          const user = userCredential.user;
+          // Redirect to the signedin page upon successful login
+          window.location.href = '/signedin';
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    } catch (error) {
+      // Handle error here
+      console.log(error);
+    }
+  };
 
-            <br></br>
-            <div>
+  return (
+    <div>
+      <h2>Login to ConnectArts</h2>
+      <form onSubmit={handleLogin}>
+        <label>Username : </label>
+        <input
+          type="text"
+          value={email}
+          placeholder="Enter Email"
+          name="username"
+          onChange={handleEmailChange}
+          required
+        />
+        <br></br>
+
+        <label>Password : </label>
+        <input
+          type="password"
+          value={password}
+          placeholder="Enter Password"
+          name="password"
+          onChange={handlePasswordChange}
+          required
+        />
+
+        <a href="/signedin">
+          <button type="submit">Login</button>
+        </a>
+      </form>
+
+      <br></br>
+      <div>
         <h1>Register with Google</h1>
-        <button onClick={handleGoogleSignInRegister}>Sign In with Google</button>
+        <button onClick={handleGoogleSignInRegister}>
+          Sign In with Google
+        </button>
       </div>
-   
-            <div class="container"> <div class="container-child">Forgot <a href="/forgotpassword"> password? </a> </div><div class="container-child"><a href="/register"> Sign up </a></div>  </div>
-        </div>
-    )
-}
 
+      <div class="container">
+        {' '}
+        <div class="container-child">
+          Forgot <a href="/forgotpassword"> password? </a>{' '}
+        </div>
+        <div class="container-child">
+          <a href="/register"> Sign up </a>
+        </div>{' '}
+      </div>
+    </div>
+  );
 }
 export default SignIn;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import s from '../Inputs/input.module.css';
+import s from './select.module.css';
 
 const customStyles = {
   container: provided => ({
@@ -21,8 +21,7 @@ const customStyles = {
   }),
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isSelected ? '#007bff' : 'white',
-    color: state.isSelected ? 'white' : 'black',
+    backgroundColor: state.isSelected ? '#e064a0' : 'white',
   }),
   dropdownIndicator: (provided, state) => ({
     ...provided,
@@ -47,11 +46,13 @@ const CustomSelect = ({
   value,
   placeholder,
   label,
+  closeMenuOnSelect,
+  id,
 }) => {
   return (
-    <>
+    <div className={s.container}>
       {label && (
-        <label className={s.label} htmlFor="custom-select">
+        <label className={s.label} htmlFor={id}>
           {label}
         </label>
       )}
@@ -62,10 +63,10 @@ const CustomSelect = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        id="custom-select"
-        closeMenuOnSelect={false}
+        id={id}
+        closeMenuOnSelect={closeMenuOnSelect}
       />
-    </>
+    </div>
   );
 };
 
