@@ -1,6 +1,10 @@
 .label {
   display: block;
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #344054;
+  margin-bottom: 6px;
 }
 
 .field {
@@ -15,6 +19,14 @@
   border-radius: 8px;
   font-size: 16px;
   line-height: 24px;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+  outline: none;
+}
+
+.field:hover,
+.field:focus {
+  border: 2px solid var(--accent-color);
 }
 
 .field::placeholder {

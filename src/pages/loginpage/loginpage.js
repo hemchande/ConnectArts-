@@ -134,6 +134,7 @@ function LoginPage() {
               name="email"
               placeholder="Enter Email"
               onChange={handleEmailChange}
+              required
             />
             <Input
               type="password"
@@ -141,6 +142,7 @@ function LoginPage() {
               name="password"
               placeholder="Enter Password"
               onChange={handlePasswordChange}
+              required
             />
             <div class={s.infoContainer}>
               <Checkbox
