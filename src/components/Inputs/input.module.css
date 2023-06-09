@@ -24,6 +24,10 @@
   outline: none;
 }
 
+.withSymbolField {
+  padding: 10px 86px 10px 30px;
+}
+
 .field:hover,
 .field:focus {
   border: 2px solid var(--accent-color);
@@ -62,4 +66,23 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.container::before {
+  content: '$';
+  position: absolute;
+  bottom: 31px;
+  left: 14px;
+}
+
+.container::after {
+  content: 'USD';
+  position: absolute;
+  bottom: 31px;
+  right: 14px;
 }

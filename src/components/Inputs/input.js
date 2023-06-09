@@ -9,12 +9,13 @@ const Input = ({
   name,
   onChange,
   requirerd,
+  withSymbols,
 }) => {
   return (
-    <div>
+    <div className={withSymbols ? s.container : ''}>
       {label && <label className={s.label}>{label}</label>}
       <input
-        className={s.field}
+        className={`${s.field} ${withSymbols ? s.withSymbolField : ''}`}
         type={type}
         value={value}
         placeholder={placeholder}

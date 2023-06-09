@@ -65,6 +65,8 @@ const FirstStep = ({
         value={genres}
         placeholder="Choose your Performance Genres"
         label="Select all Performance Genres"
+        closeMenuOnSelect={false}
+        id="genresSelect"
       />
     </div>
   );

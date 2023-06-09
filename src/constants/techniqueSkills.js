@@ -1,0 +1,15 @@
+export default [
+  'Posture',
+  'Alignment',
+  'Balance',
+  'Coordination',
+  'Control',
+  'Flexibility',
+  'Mobility',
+  'Strength',
+  'Stamina',
+  'Extension',
+  'Floorwork',
+  'Elevation',
+  'Body Coordination',
+];

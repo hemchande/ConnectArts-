@@ -47,8 +47,8 @@ function LoginPage() {
   };
 
   return (
-    <div class={s.container}>
-      <div class={s.wrapper}>
+    <div className={s.container}>
+      <div className={s.wrapper}>
         <Logo />
         <div>
           <h2 className={s.title}>Welcome back</h2>
@@ -70,7 +70,7 @@ function LoginPage() {
               onChange={handlePasswordChange}
               required
             />
-            <div class={s.infoContainer}>
+            <div className={s.infoContainer}>
               <Checkbox
                 isChecked={isChecked}
                 onChange={handleCheckboxChange}

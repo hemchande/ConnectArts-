@@ -1,0 +1,72 @@
+.container {
+  margin: 0 auto 20px;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #344054;
+  margin-bottom: 6px;
+}
+
+.dropField {
+  height: 126px;
+  padding: 16px 24px;
+  text-align: center;
+  border: 1px dashed #eaecf0;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.textWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.uploadBtn {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--accent-color);
+  outline: none;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.uploadBtn:hover,
+.uploadBtn:focus {
+  color: var(--accent-hover-color);
+}
+
+.uploadFileInput {
+  display: none;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 20px;
+  color: #475467;
+}
+
+.pickedFile {
+  display: inline;
+  padding: 5px 10px;
+  background-color: var(--accent-color);
+  border: 1px solid var(--accent-hover-color);
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--white-color);
+  cursor: default;
+}
+
+.icon {
+  height: 10px;
+  width: 10px;
+  stroke: var(--white-color);
+  cursor: pointer;
+  margin-left: 10px;
+}

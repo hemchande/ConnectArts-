@@ -36,10 +36,6 @@ p {
   --accent-hover-color: #c9397f;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 .circ-img {
   height: 20%;
   width: 20%;
@@ -58,12 +54,6 @@ code {
 }
 
 button {
-  background-color: var(--primary-color);
-  width: 50%;
-  color: var(--secondary-color);
-  padding: 12px 24px;
-  margin: 10px 0px;
-  border: none;
   cursor: pointer;
 }
 
