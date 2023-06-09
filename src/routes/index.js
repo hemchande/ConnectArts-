@@ -1,6 +1,6 @@
 export default {
   home: '/',
-  sigin: '/signIn',
+  signin: '/signIn',
   fortgotPass: '/forgotpassword',
   register: '/register',
   signedin: '/signedin',

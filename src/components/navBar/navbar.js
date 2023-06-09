@@ -6,8 +6,8 @@ import { ReactComponent as ArrowDown } from '../../assets/arrowDown.svg';
 import { ReactComponent as Phone } from '../../assets/phone.svg';
 import { ReactComponent as Star } from '../../assets/star.svg';
 import { ReactComponent as Play } from '../../assets/play.svg';
+import avatar from '../../assets/Avatar.png';
 import { Link, useLocation } from 'react-router-dom';
-import UserIconWithName from '../userIcon';
 import routes from '../../routes';
 import 'reactjs-popup/dist/index.css';
 import s from './navBar.module.css';
@@ -114,7 +114,7 @@ function Navbar() {
           </div> */}
         </div>
         <div className={s.rightContent}>
-          <UserIconWithName />
+          <img className={s.avatar} src={avatar}  alt='avatar'/>
           <div className={s.user}>
             <p className={s.name}>Olivia Rhye</p>
             <p className={s.mail}>olivia@gmail .com</p>
