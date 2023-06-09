@@ -70,10 +70,16 @@ function RegisterPage() {
 
         formData.append('name', `${firstName} ${lastName}`);
         formData.append('email', email);
-        formData.append('genres', genres);
+        formData.append(
+          'genres',
+          Object.values(genres).map(item => item.value),
+        );
         formData.append('payRange', parseInt(desiredPayRange));
 
-        formData.append('skillFields', selectedSkills);
+        formData.append(
+          'skillFields',
+          Object.values(selectedSkills).map(item => item.value),
+        );
         formData.append('payRate', parseInt(desiredPayRate));
         formData.append(
           'technique',
@@ -120,9 +126,9 @@ function RegisterPage() {
         const obj = {
           name: `${firstName} ${lastName}`,
           email: email,
-          genres: genres,
+          genres: Object.values(genres).map(item => item.value),
           payRange: desiredPayRange,
-          skillFields: selectedSkills,
+          skillFields: Object.values(selectedSkills).map(item => item.value),
           payRate: parseInt(desiredPayRate),
           technique: techniqueValues.length / techniqueSkills.length,
           texture: textureValues.length / textureSkills.length,
