@@ -8,6 +8,9 @@
 .wrapper {
   margin: 0 auto;
   max-width: 1440px;
+}
+
+.contentWrapper {
   height: 80px;
   padding: 0 144px;
   display: flex;

@@ -12,4 +12,5 @@ export default [
   { value: 'Bollywood', label: 'bollywood' },
   { value: 'Kathak', label: 'kathak' },
   { value: 'Barathynatham', label: 'barathynatham' },
+  { value: 'Lyrical', label: 'lyrical' },
 ];
