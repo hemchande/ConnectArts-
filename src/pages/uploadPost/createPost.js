@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../components/firebase/AuthContext';
-import { FirstStep, SecondStep, ThirdStep } from '../../components/upload';
+import Upload from '../../components/upload/upload';
 import { ReactComponent as Home } from '../../assets/home.svg';
 import Button from '../../components/button/button';
 import {
@@ -11,6 +12,7 @@ import {
   musicalitySkills,
 } from '../../constants';
 import s from './createPost.module.css';
+import routes from '../../routes';
 
 function CreatePost() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -187,80 +189,38 @@ function CreatePost() {
         </div>
       )}
       <div className={s.container}>
-        <div className={s.navigate}>
-          <Home />
-          <span className={s.slash}>/</span>
-          <button
-            type="button"
-            className={`${s.navigateBtn} ${
-              currentStep === 1 ? s.activeBtn : ''
-            }`}
-            onClick={() => handleChangeStep(1)}
-          >
-            Fill the gapes
-          </button>
-          <span className={s.slash}>/</span>
-          <button
-            type="button"
-            className={`${s.navigateBtn} ${
-              currentStep === 2 ? s.activeBtn : ''
-            }`}
-            onClick={() => handleChangeStep(2)}
-          >
-            Find Reviewer Matches
-          </button>
-          <span className={s.slash}>/</span>
-          <button
-            type="button"
-            className={`${s.navigateBtn} ${
-              currentStep === 3 ? s.activeBtn : ''
-            }`}
-            onClick={() => handleChangeStep(3)}
-          >
-            Upload Post
-          </button>
-        </div>
         <form>
-          <div className={s.stepsWrapper}>
-            {currentStep === 1 && (
-              <FirstStep
-                genre={genre}
-                setGenre={setGenre}
-                comments={comments}
-                setComments={setComments}
-                selectedSkills={selectedSkills}
-                setSelectedSkills={setSelectedSkills}
-                video={video}
-                setVideo={setVideo}
-                techniqueValues={techniqueValues}
-                setTechniqueValues={setTechniqueValues}
-                textureValues={textureValues}
-                setTextureValues={setTextureValues}
-                structureValues={structureValues}
-                setStructureValues={setStructureValues}
-                musicalityValues={musicalityValues}
-                setMusicalityValues={setMusicalityValues}
-              />
-            )}
-            {currentStep === 2 && <SecondStep />}
-            {currentStep === 3 && <ThirdStep />}
-            {currentStep < 3 ? (
-              <Button
-                type="button"
-                text={currentStep < 2 ? 'Next step' : 'Confirm matches'}
-                onClick={() => setCurrentStep(currentStep + 1)}
-                maxWidth={532}
-                center
-              />
-            ) : (
-              <Button
-                type="button"
-                text="Sign up"
-                maxWidth={532}
-                center
-                onClick={handleSubmit}
-              />
-            )}
+          <div className={s.uploadWrapper}>
+            <Upload
+              genre={genre}
+              setGenre={setGenre}
+              comments={comments}
+              setComments={setComments}
+              selectedSkills={selectedSkills}
+              setSelectedSkills={setSelectedSkills}
+              video={video}
+              setVideo={setVideo}
+              techniqueValues={techniqueValues}
+              setTechniqueValues={setTechniqueValues}
+              textureValues={textureValues}
+              setTextureValues={setTextureValues}
+              structureValues={structureValues}
+              setStructureValues={setStructureValues}
+              musicalityValues={musicalityValues}
+              setMusicalityValues={setMusicalityValues}
+            />
+            <Button
+              type="button"
+              text="Upload"
+              onClick={handleSubmit}
+              maxWidth={532}
+              center
+            />
+            <div className={s.linkWrapper}>
+              <Link className={s.link} to={routes.match}>
+                Go to matches
+              </Link>
+            </div>
           </div>
         </form>
       </div>

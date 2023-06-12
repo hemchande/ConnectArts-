@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CustomSelect from '../../select/select';
-import { TextArea } from '../../Inputs';
+import CustomSelect from '../select/select';
+import { TextArea } from '../Inputs';
 import {
   genresOptions,
   skills,
@@ -9,11 +9,11 @@ import {
   textureSkills,
   structureSkills,
   musicalitySkills,
-} from '../../../constants';
-import DragAndDropField from '../../dragAndDropField/dragAndDropField';
-import CustomPtogressBar from '../../progressBar/customProgressBar';
+} from '../../constants';
+import DragAndDropField from '../dragAndDropField/dragAndDropField';
+import CustomPtogressBar from '../progressBar/customProgressBar';
 
-const FirstStep = ({
+const Upload = ({
   genre,
   setGenre,
   comments,
@@ -100,4 +100,4 @@ const FirstStep = ({
   );
 };
 
-export default FirstStep;
+export default Upload;
