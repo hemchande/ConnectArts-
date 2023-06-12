@@ -1,0 +1,43 @@
+.container {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 32px;
+}
+
+.navigate {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #475467;
+
+  margin-bottom: 32px;
+}
+
+.navigateBtn {
+  outline: none;
+  cursor: pointer;
+  background-color: none;
+  border: none;
+}
+
+.activeBtn {
+  color: var(--accent-color);
+}
+
+.slash {
+  font-size: 20px;
+  color: #d0d5dd;
+}
+
+.stepsWrapper {
+  padding: 24px;
+  background: var(--white-color);
+  border: 1px solid #eaecf0;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.08),
+    0px 1px 3px rgba(16, 24, 40, 0.1);
+  border-radius: 15px;
+}

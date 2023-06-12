@@ -23,66 +23,67 @@ function Navbar() {
   return (
     <div className={s.container}>
       <div className={s.wrapper}>
-        <div className={s.leftContent}>
-          <Logo isNavbar />
-          <Link
-            to={routes.signedin}
-            className={`${s.link} ${
-              pathname === routes.signedin ? `${s.active}` : ''
-            }`}
-          >
-            Dashboard
-          </Link>
-          <Link
-            to={routes.upload}
-            className={`${s.link} ${
-              pathname === routes.upload ? `${s.active}` : ''
-            }`}
-          >
-            Upload
-          </Link>
-          <Link
-            to={routes.profile}
-            className={`${s.link} ${
-              pathname === routes.profile ? `${s.active}` : ''
-            }`}
-          >
-            Profile
-          </Link>
-          <Popup
-            contentStyle={{ padding: '26px 32px', minWidth: '320px' }}
-            trigger={
-              <div onClick={handleOpenGuides} className={s.guides}>
-                Guides <ArrowDown className={s.icon} />
+        <div className={s.contentWrapper}>
+          <div className={s.leftContent}>
+            <Logo isNavbar />
+            <Link
+              to={routes.signedin}
+              className={`${s.link} ${
+                pathname === routes.signedin ? `${s.active}` : ''
+              }`}
+            >
+              Dashboard
+            </Link>
+            <Link
+              to={routes.upload}
+              className={`${s.link} ${
+                pathname === routes.upload ? `${s.active}` : ''
+              }`}
+            >
+              Upload
+            </Link>
+            <Link
+              to={routes.profile}
+              className={`${s.link} ${
+                pathname === routes.profile ? `${s.active}` : ''
+              }`}
+            >
+              Profile
+            </Link>
+            <Popup
+              contentStyle={{ padding: '26px 32px', minWidth: '320px' }}
+              trigger={
+                <div onClick={handleOpenGuides} className={s.guides}>
+                  Guides <ArrowDown className={s.icon} />
+                </div>
+              }
+              position="bottom center"
+            >
+              <div className={s.popUp}>
+                <Link to={routes.preferences} className={s.guideLink}>
+                  <Phone />
+                  <div>
+                    <p>Categorical Preferences Guide</p>
+                    <p className={s.secondaryText}>Hint text</p>
+                  </div>
+                </Link>
+                <Link to={routes.skills} className={s.guideLink}>
+                  <Star />
+                  <div>
+                    <p>Dance Genre Guide</p>
+                    <p className={s.secondaryText}>Hint text</p>
+                  </div>
+                </Link>
+                <Link to={routes.depthSkills} className={s.guideLink}>
+                  <Play />
+                  <div>
+                    <p>Skills Guide</p>
+                    <p className={s.secondaryText}>Hint text</p>
+                  </div>
+                </Link>
               </div>
-            }
-            position="bottom center"
-          >
-            <div className={s.popUp}>
-              <Link to={routes.preferences} className={s.guideLink}>
-                <Phone />
-                <div>
-                  <p>Categorical Preferences Guide</p>
-                  <p className={s.secondaryText}>Hint text</p>
-                </div>
-              </Link>
-              <Link to={routes.skills} className={s.guideLink}>
-                <Star />
-                <div>
-                  <p>Dance Genre Guide</p>
-                  <p className={s.secondaryText}>Hint text</p>
-                </div>
-              </Link>
-              <Link to={routes.depthSkills} className={s.guideLink}>
-                <Play />
-                <div>
-                  <p>Skills Guide</p>
-                  <p className={s.secondaryText}>Hint text</p>
-                </div>
-              </Link>
-            </div>
-          </Popup>
-          {/* <div className={s.guidesWrapper}>
+            </Popup>
+            {/* <div className={s.guidesWrapper}>
             <div onClick={handleOpenGuides} className={s.guides}>
               Guides <ArrowDown className={s.icon} />
             </div>
@@ -112,12 +113,13 @@ function Navbar() {
               </div>
             )}
           </div> */}
-        </div>
-        <div className={s.rightContent}>
-          <img className={s.avatar} src={avatar}  alt='avatar'/>
-          <div className={s.user}>
-            <p className={s.name}>Olivia Rhye</p>
-            <p className={s.mail}>olivia@gmail .com</p>
+          </div>
+          <div className={s.rightContent}>
+            <img className={s.avatar} src={avatar} alt="avatar" />
+            <div className={s.user}>
+              <p className={s.name}>Olivia Rhye</p>
+              <p className={s.mail}>olivia@gmail .com</p>
+            </div>
           </div>
         </div>
       </div>
