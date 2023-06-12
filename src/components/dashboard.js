@@ -149,7 +149,7 @@ function Card() {
     axios
     .get("http://localhost:4000/routes/get_id_from_firebaseuid", {
       params: {
-        firebase_id: "ZhxlJLC8HXZwIVaXhgFP4HCqZSv1",
+        firebase_id: "i7JdvmMfvfe0A7dzLUCiOS4zngi1",
       },
       withCredentials: true,
       headers: {
@@ -490,7 +490,13 @@ function Card() {
           <li>{post.form}</li>
 
         </p>
+
         <button className="view-performance-btn" onClick={() => handleViewPerformancePostClick(post._id)}>View Performance</button>
+        <div >
+      <video controls>
+        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`} type="video/mp4" />
+      </video>
+      </div>
         <div>
           <h1>My Post Reviews</h1>
           <PastPost post={post} />
@@ -534,11 +540,12 @@ function Card() {
                   <strong>Dance Genre:</strong> {curr_post.current_post.genre}
                 </p>
                 <p>
-                  <strong>Skills:</strong>{" "}
+                <strong>Skills:</strong>{curr_post.current_post.additional_skill_fields}
                  
-                  {curr_post.current_post.additional_skill_keywords.map((skillField, index) => (
-              <li key={index}>{skillField}</li>
-              ))}
+                {curr_post.current_post.additional_skill_fields && curr_post.current_post.additional_skill_keywords.map((skillField, index) => (
+    <li key={index}>{skillField}</li>
+))}
+
 
                 </p>
                 <p>
@@ -554,6 +561,11 @@ function Card() {
                 >
                   View Performance
                 </Button>
+                <div >
+      <video controls>
+        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${curr_post.current_post.video_field}`} type="video/mp4" />
+      </video>
+      </div>
               </div>
               <div>
                 <h1>My Post Reviews + Additional Comments</h1>

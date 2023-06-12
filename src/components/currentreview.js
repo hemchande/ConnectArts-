@@ -322,6 +322,12 @@ function CurrentReview({ review }) {
       <strong> Post Additional Comments</strong>
         <Typography> {postComments}</Typography>
 
+        <div >
+      <video controls>
+        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`} type="video/mp4" />
+      </video>
+      </div>
+
 
 
 

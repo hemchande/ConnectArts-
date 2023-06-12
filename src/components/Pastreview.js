@@ -180,6 +180,12 @@ function PastReview ({review}) {
       </p>
       <button className="view-performance-btn" onClick={() => handleViewPerformanceClick(post._id)}>View Performance</button>
       <div>
+      <div >
+      <video controls>
+        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`} type="video/mp4" />
+      </video>
+      </div>
+      
     
       </div>
 
