@@ -39,9 +39,10 @@ export default [
     ],
   },
   {
-    label: 'Tumbling',
+    label: 'Gymnastics',
     options: [
-      { value: 'Tumbling - Floor Acrobatics', label: 'Floor Acrobatics' },
+      { value: 'Gymnastics - Floor Acrobatics', label: 'Floor Acrobatics' },
+      { value: 'Gymnastics - Tumbling', label: 'Tumbling' },
     ],
   },
   {
@@ -66,7 +67,6 @@ export default [
       { value: 'Jumps', label: 'Jumps' },
       { value: 'Footwork', label: 'Footwork' },
       { value: 'Floorwork', label: 'Floorwork' },
-      { value: 'Footwork', label: 'Footwork' },
       { value: 'Partnering', label: 'Partnering' },
     ],
   },

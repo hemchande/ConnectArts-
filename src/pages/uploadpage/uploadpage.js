@@ -3,12 +3,9 @@ import CreatePost from '../uploadPost/createPost';
 
 function UploadPage() {
   return (
-    <div class="uploadpage">
+    <div>
       <NavBar />
-      <form action="/action_page.php" class="submissionform">
-        <br></br>
-        <CreatePost />
-      </form>
+      <CreatePost />
     </div>
   );
 }

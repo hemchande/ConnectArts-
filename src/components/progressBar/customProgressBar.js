@@ -22,6 +22,7 @@ const CustomPtogressBar = ({ label, values, options, setValues }) => {
         {options.map(el => {
           return (
             <button
+              type="button"
               className={`${s.button} ${values.includes(el) ? s.picked : ''}`}
               key={el}
               onClick={e => handleAddSkill(e)}

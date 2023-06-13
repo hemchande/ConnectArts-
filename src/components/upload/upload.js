@@ -1,23 +1,27 @@
 import React from 'react';
-import { Input } from '../../Inputs';
+
+import CustomSelect from '../select/select';
+import { TextArea } from '../Inputs';
 import {
+  genresOptions,
   skills,
   techniqueSkills,
   textureSkills,
   structureSkills,
   musicalitySkills,
-} from '../../../constants';
-import CustomSelect from '../../select/select';
-import DragAndDropField from '../../dragAndDropField/dragAndDropField';
-import CustomPtogressBar from '../../progressBar/customProgressBar';
+} from '../../constants';
+import DragAndDropField from '../dragAndDropField/dragAndDropField';
+import CustomPtogressBar from '../progressBar/customProgressBar';
 
-const Reviewer = ({
-  desiredPayRate,
-  setDesiredPayRate,
-  resume,
-  setResume,
+const Upload = ({
+  genre,
+  setGenre,
+  comments,
+  setComments,
   selectedSkills,
   setSelectedSkills,
+  video,
+  setVideo,
   techniqueValues,
   setTechniqueValues,
   textureValues,
@@ -27,31 +31,46 @@ const Reviewer = ({
   musicalityValues,
   setMusicalityValues,
 }) => {
-  const handleSkilsChange = selectedOptions => {
+  const handleGenreChange = selectedOptions => {
+    setGenre(selectedOptions);
+  };
+
+  const handleSelectedSkills = selectedOptions => {
     setSelectedSkills(selectedOptions);
   };
 
   return (
     <div>
-      <Input
-        type="text"
-        name="text"
-        placeholder="Enter your Desired Pay Rate"
-        value={desiredPayRate}
-        onChange={e => setDesiredPayRate(e.target.value.replace(/[^0-9]/g, ''))}
-        label="Desired Pay Rate"
-        withSymbols
+      <CustomSelect
+        options={genresOptions}
+        onChange={handleGenreChange}
+        value={genre}
+        placeholder="Choose your Performance Genres"
+        label="Dance Genre"
+        id="uploadGenresSelect"
       />
-      <DragAndDropField file={resume} setFile={setResume} />
+      <TextArea
+        label="Comments"
+        id="genresComments"
+        placeholder="Text"
+        value={comments}
+        setValue={setComments}
+      />
       <CustomSelect
         options={skills}
-        onChange={handleSkilsChange}
+        onChange={handleSelectedSkills}
         value={selectedSkills}
-        placeholder="Choose your skills"
-        label="Choose your skills"
-        id="skillsSelect"
+        placeholder="Skills"
+        label="Skills"
+        id="uploadSkills"
         isMulti
         closeMenuOnSelect={false}
+      />
+      <DragAndDropField
+        file={video}
+        setFile={setVideo}
+        isVideo
+        label="Upload your performance:"
       />
       <CustomPtogressBar
         label="Technique:"
@@ -81,4 +100,4 @@ const Reviewer = ({
   );
 };
 
-export default Reviewer;
+export default Upload;
