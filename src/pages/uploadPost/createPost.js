@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../components/firebase/AuthContext';
 import Upload from '../../components/upload/upload';
-import { ReactComponent as Home } from '../../assets/home.svg';
 import Button from '../../components/button/button';
 import {
   techniqueSkills,
@@ -15,7 +14,8 @@ import s from './createPost.module.css';
 import routes from '../../routes';
 
 function CreatePost() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const { currentUser } = useAuth();
+  const uid = currentUser?.uid || null;
   const [genre, setGenre] = useState([]);
   const [comments, setComments] = useState('');
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -27,13 +27,6 @@ function CreatePost() {
 
   const [id, setId] = useState('');
   const [error, setError] = useState('');
-
-  const { currentUser } = useAuth();
-  const uid = currentUser ? currentUser.uid : null;
-
-  const handleChangeStep = step => {
-    setCurrentStep(step);
-  };
 
   useEffect(() => {
     axios
@@ -54,7 +47,7 @@ function CreatePost() {
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  }, [uid]);
 
   const handleClose = () => {
     setError('');
@@ -154,26 +147,26 @@ function CreatePost() {
 
     let post = null;
 
-    // try {
-    //   axios
-    //     .post('http://localhost:4000/routes/post_without_video', obj)
-    //     .then(response => {
-    //       console.log(response.data.data.insertedId);
-    //       setpostId(response.data.data.insertedId);
-    //       //post = response.data.insertedId;
-    //       handleUploadVideo(response.data.data.insertedId);
-    //       patchPerformer(response.data.data.insertedId);
-    //       postComments(response.data.data.insertedId);
-    //       console.log(response.data.insertedId);
+    try {
+      axios
+        .post('http://localhost:4000/routes/post_without_video', obj)
+        .then(response => {
+          console.log(response.data.data.insertedId);
+          // setpostId(response.data.data.insertedId);
+          //post = response.data.insertedId;
+          handleUploadVideo(response.data.data.insertedId);
+          patchPerformer(response.data.data.insertedId);
+          postComments(response.data.data.insertedId);
+          console.log(response.data.insertedId);
 
-    //       //postComments(response.data.insertedId);
+          //postComments(response.data.insertedId);
 
-    //       //patchPerformer(response.data.insertedId);
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    //   setError('Error: ' + error.message);
-    // }
+          //patchPerformer(response.data.insertedId);
+        });
+    } catch (error) {
+      console.log(error);
+      setError('Error: ' + error.message);
+    }
   };
 
   return (

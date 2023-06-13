@@ -1,63 +1,26 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import {
-  Grid,
-  Typography,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  Box,
-} from '@material-ui/core';
-import Checkbox from '@material-ui/core/Checkbox';
-import List from '@mui/material/List';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../components/firebase/AuthContext';
+import axios from 'axios';
+import Navbar from '../../components/navBar/navbar';
+import ReviewerOption from '../../components/reviewerOption/reviewerOption';
+import Button from '../../components/button/button';
 
-function Matches() {
-  const [matches, setMatches] = useState([]);
-  const [performerSkillVector, setSkillVector] = useState([]);
-  const [performerPrefVector, setPrefVector] = useState([]);
+import s from './matches.module.css';
+
+const Matches = () => {
+  const { currentUser } = useAuth();
+  const uid = 'ZhxlJLC8HXZwIVaXhgFP4HCqZSv1' || null;
+  //  'sBhbdxxlDFaGwKPs96lK7MB5nNm2'
+
   const [revs, setRevs] = useState(null);
   const [info, setInfo] = useState(null);
   const [revPrefs, setPrefs] = useState(null);
-  const [picks, setPicks] = useState([]);
   const [genre, setGenre] = useState(null);
   const [post, setPost] = useState(null);
   const [targetVector, setTargetVector] = useState(null);
   const [selectedArray, setSelectedArray] = useState([]);
-  const [selected, setSelected] = useState(false);
   const [performer, setPerformer] = useState(null);
-  const navigate = useNavigate();
   //const [loading, setLoading] = useState(true);
-
-  const { currentUser } = useAuth();
-  const uid = currentUser ? currentUser.uid : null;
-  console.log(uid);
-
-  const handleSelectArray = event => {
-    const reviewerId = event.target.value;
-    console.log(reviewerId);
-    //console.log(event);
-    setSelectedArray(selectedArray => [...selectedArray, reviewerId]);
-    setSelected(true);
-  };
-
-  const handleSelectArray2 = event => {
-    const userId = event.target.value;
-    const selectedIndex = selectedArray.indexOf(userId);
-    let newSelectedUsers = [];
-
-    if (selectedIndex === -1) {
-      // If the user is not already selected, add them to the selected users array
-      newSelectedUsers = [...selectedArray, userId];
-    } else {
-      // If the user is already selected, remove them from the selected users array
-      newSelectedUsers = selectedArray.filter(id => id !== userId);
-    }
-
-    setSelectedArray(newSelectedUsers);
-  };
 
   const updateReviewers = async () => {
     try {
@@ -108,31 +71,6 @@ function Matches() {
     }
   };
 
-  const checkoutReviewers = async () => {
-    try {
-      const requestBody = {
-        reviewer_ids: selectedArray,
-      };
-
-      const response = await axios.post(
-        'http://localhost:4000/routes/stripe-reviewer_checkouts',
-        requestBody,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      console.log(response.data.url);
-      //setRevs(response.data);
-      //navigate(response.data.url)
-      window.location.href = response.data.url;
-    } catch (error) {
-      console.error(error);
-      // Handle the error as necessary
-    }
-  };
-
   const updatePost = async () => {
     try {
       const requestBody = {
@@ -158,13 +96,35 @@ function Matches() {
     }
   };
 
+  const checkoutReviewers = async () => {
+    try {
+      const requestBody = {
+        reviewer_ids: selectedArray,
+      };
+
+      const response = await axios.post(
+        'http://localhost:4000/routes/stripe-reviewer_checkouts',
+        requestBody,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      console.log(response.data.url);
+      //setRevs(response.data);
+      //navigate(response.data.url)
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error(error);
+      // Handle the error as necessary
+    }
+  };
+
   const handleSubmit = () => {
     updatePost();
-
     updateReviewers();
-
     createReviews();
-
     checkoutReviewers();
   };
 
@@ -346,119 +306,34 @@ function Matches() {
     //getDistances();
   }, [revs, genre, targetVector]);
 
-  function ReviewerOption({ user }) {
-    return (
-      <Box border={1} padding={2}>
-        <p>
-          <strong>Reviewer:</strong> {user.name}
-        </p>
-        <p>
-          <strong>Pay Rate:</strong> {user.payRate}
-        </p>
-        <p>
-          <strong>Dance Genres:</strong>
-          {user && user.genre && user.genre.length > 0 && (
-            <ul>
-              {user.genre.map((genre, index) => (
-                <li key={index}>{genre}</li>
-              ))}
-            </ul>
-          )}
-        </p>
-        <strong>Skills:</strong>
-        {user.skillFields[0]}
-        {user && user.skillFields && user.skillFields.length > 0 && (
-          <ul>
-            {user.skillFields.map((skillField, index) => (
-              <li key={index}>{skillField}</li>
-            ))}
-          </ul>
-        )}
-        <h3>Categorical Preferences:</h3>
-
-        <p>
-          <strong> Musicality:</strong>
-          {user &&
-            user.musicality_fields &&
-            user.musicality_fields.length > 0 && (
-              <ul>
-                {user.musicality_fields.map((skillField, index) => (
-                  <li key={index}>{skillField}</li>
-                ))}
-              </ul>
-            )}
-
-          <strong> Performance Structure: </strong>
-          {user &&
-            user.structure_fields &&
-            user.structure_fields.length > 0 && (
-              <ul>
-                {user.structure_fields.map((skillField, index) => (
-                  <li key={index}>{skillField}</li>
-                ))}
-              </ul>
-            )}
-
-          <strong> Physical Skills + Technique: </strong>
-          {user &&
-            user.technique_fields &&
-            user.technique_fields.length > 0 && (
-              <ul>
-                {user.technique_fields.map((skillField, index) => (
-                  <li key={index}>{skillField}</li>
-                ))}
-              </ul>
-            )}
-
-          <strong> Movement Texture:</strong>
-          {user && user.form_fields && user.form_fields.length > 0 && (
-            <ul>
-              {user.form_fields.map((skillField, index) => (
-                <li key={index}>{skillField}</li>
-              ))}
-            </ul>
-          )}
-        </p>
-        <p>
-          <strong> Resume </strong>
-          <iframe
-            title="Resume"
-            style={{ width: '100%', height: '600px', border: 'none' }}
-            src={`http://localhost:4000/routes/users/${user._id}/resume`}
-          />
-        </p>
-
-        <button type="button" value={user._id} onClick={handleSelectArray}>
-          Select
-        </button>
-
-        <Checkbox
-          key={user._id}
-          checked={selectedArray.includes(user._id)}
-          value={user._id}
-          onChange={handleSelectArray}
-        />
-      </Box>
-    );
-  }
-
   return (
-    <div>
-      {revs == null && <p> No Reviewer Matches at this time </p>}
+    <>
+      <Navbar />
+      <div className={s.container}>
+        {!revs && <p className={s.empty}> No Reviewer Matches at this time </p>}
+        {revs && info && revPrefs && (
+          <div className={s.reviewerContainer}>
+            {Object.keys(revs).map(reviewer => (
+              <ReviewerOption
+                key={reviewer}
+                user={info[reviewer]}
+                setSelectedPosts={setSelectedArray}
+                selectedPosts={selectedArray}
+              />
+            ))}
+          </div>
+        )}
 
-      {revs && info && revPrefs && (
-        <List header="Available Reviewers">
-          {Object.keys(revs).map(reviewer => (
-            <ReviewerOption user={info[reviewer]} />
-          ))}
-        </List>
-      )}
-
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
-        Confirm Matches
-      </Button>
-    </div>
+        <Button
+          type="button"
+          text="Confirm matches"
+          onClick={handleSubmit}
+          // maxWidth={532}
+          center
+        />
+      </div>
+    </>
   );
-}
+};
 
 export default Matches;
