@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ReactComponent as PostIcon } from '../../../assets/post.svg';
 import { ReactComponent as ReviewIcon } from '../../../assets/review.svg';
 import { ReactComponent as ArrowUpIcon } from '../../../assets/arrowUp.svg';
+import routes from '../../../routes';
 import s from './sideBar.module.css';
 
 const SideBar = ({ openedTab, setOpenedTab }) => {
@@ -42,6 +44,11 @@ const SideBar = ({ openedTab, setOpenedTab }) => {
           <ArrowUpIcon
             className={`${s.icon} ${openedTab === 'review' ? s.active : ''}`}
           />
+        </li>
+        <li className={`${s.item} ${s.linkWrapper}`}>
+          <Link to={routes.viewReviewers} className={s.link}>
+            View Available Reviewers
+          </Link>
         </li>
       </ul>
     </div>
