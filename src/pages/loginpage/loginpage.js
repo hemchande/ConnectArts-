@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/Logo';
 import { useAuth } from '../../components/firebase/AuthContext';
 import { Input, Checkbox } from '../../components/Inputs';
-import Button from '../../components/button/button';
+import { Button } from '../../components/button';
 import { useState } from 'react';
 import routes from '../../routes';
 import s from './loginpage.module.css';

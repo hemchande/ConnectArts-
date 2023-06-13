@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../components/firebase/AuthContext';
 import Upload from '../../components/upload/upload';
-import Button from '../../components/button/button';
+import { Button } from '../../components/button';
 import {
   techniqueSkills,
   textureSkills,

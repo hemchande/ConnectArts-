@@ -6,7 +6,7 @@ import {
   SecondStep,
   ThirdStep,
 } from '../../components/register';
-import Button from '../../components/button/button';
+import { Button } from '../../components/button';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import routes from '../../routes';

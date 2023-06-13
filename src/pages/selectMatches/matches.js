@@ -3,13 +3,13 @@ import { useAuth } from '../../components/firebase/AuthContext';
 import axios from 'axios';
 import Navbar from '../../components/navBar/navbar';
 import ReviewerOption from '../../components/reviewerOption/reviewerOption';
-import Button from '../../components/button/button';
+import { Button } from '../../components/button';
 
 import s from './matches.module.css';
 
 const Matches = () => {
   const { currentUser } = useAuth();
-  const uid = 'ZhxlJLC8HXZwIVaXhgFP4HCqZSv1' || null;
+  const uid = currentUser?.uid || null;
   //  'sBhbdxxlDFaGwKPs96lK7MB5nNm2'
 
   const [revs, setRevs] = useState(null);
@@ -147,7 +147,7 @@ const Matches = () => {
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  }, [uid]);
 
   useEffect(() => {
     const get_post = () => {
@@ -312,25 +312,25 @@ const Matches = () => {
       <div className={s.container}>
         {!revs && <p className={s.empty}> No Reviewer Matches at this time </p>}
         {revs && info && revPrefs && (
-          <div className={s.reviewerContainer}>
-            {Object.keys(revs).map(reviewer => (
-              <ReviewerOption
-                key={reviewer}
-                user={info[reviewer]}
-                setSelectedPosts={setSelectedArray}
-                selectedPosts={selectedArray}
-              />
-            ))}
-          </div>
+          <>
+            <div className={s.reviewerContainer}>
+              {Object.keys(revs).map(reviewer => (
+                <ReviewerOption
+                  key={reviewer}
+                  user={info[reviewer]}
+                  setSelectedPosts={setSelectedArray}
+                  selectedPosts={selectedArray}
+                />
+              ))}
+            </div>
+            <Button
+              type="button"
+              text="Confirm matches"
+              onClick={handleSubmit}
+              center
+            />
+          </>
         )}
-
-        <Button
-          type="button"
-          text="Confirm matches"
-          onClick={handleSubmit}
-          // maxWidth={532}
-          center
-        />
       </div>
     </>
   );
