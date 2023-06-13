@@ -42,6 +42,10 @@ function RegisterPage() {
   const [structureValues, setStructureValues] = useState([]);
   const [musicalityValues, setMusicalityValues] = useState([]);
 
+  const { currentUser } = useAuth();
+  const uid = currentUser ? currentUser.uid : null;
+  console.log(uid);
+
   const createAccountLink = async accountId => {
     try {
       // Send a request to your server to create an account link
