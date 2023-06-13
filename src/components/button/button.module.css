@@ -26,3 +26,21 @@
 .center {
   text-align: center;
 }
+
+.backButton {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  color: var(--accent-color);
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 300ms ease-in-out;
+  margin-bottom: 24px;
+}
+
+.backButton:hover,
+.backButton:focus {
+  color: var(--accent-hover-color);
+}

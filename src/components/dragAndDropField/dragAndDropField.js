@@ -5,8 +5,6 @@ import s from './dragAndDropField.module.css';
 
 const DragAndDropField = ({ file, setFile, isVideo, label }) => {
   const fileInputRef = useRef();
-  console.log('file', file);
-  console.log('setFile', setFile);
 
   const handleButtonClick = () => {
     fileInputRef.current.click();

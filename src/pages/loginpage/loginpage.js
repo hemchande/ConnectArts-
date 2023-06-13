@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/Logo';
 import { useAuth } from '../../components/firebase/AuthContext';
 import { Input, Checkbox } from '../../components/Inputs';
-import Button from '../../components/button/button';
+import { Button } from '../../components/button';
 import { useState } from 'react';
 import routes from '../../routes';
 import s from './loginpage.module.css';
@@ -149,6 +149,7 @@ function LoginPage() {
                 isChecked={isChecked}
                 onChange={handleCheckboxChange}
                 labelId="myCheckbox"
+                remember
               />
               <Link to={routes.fortgotPass} className={s.forgotPass}>
                 Forgot password
