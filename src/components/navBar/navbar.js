@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import Popup from 'reactjs-popup';
 
 import Logo from '../logo/Logo';
@@ -83,36 +83,6 @@ function Navbar() {
                 </Link>
               </div>
             </Popup>
-            {/* <div className={s.guidesWrapper}>
-            <div onClick={handleOpenGuides} className={s.guides}>
-              Guides <ArrowDown className={s.icon} />
-            </div>
-            {isOpenGuides && (
-              <div className={s.popUp}>
-                <Link to={routes.preferences} className={s.guideLink}>
-                  <Phone />
-                  <div>
-                    <p>Categorical Preferences Guide</p>
-                    <p className={s.secondaryText}>Hint text</p>
-                  </div>
-                </Link>
-                <Link to={routes.skills} className={s.guideLink}>
-                  <Star />
-                  <div>
-                    <p>Dance Genre Guide</p>
-                    <p className={s.secondaryText}>Hint text</p>
-                  </div>
-                </Link>
-                <Link to={routes.depthSkills} className={s.guideLink}>
-                  <Play />
-                  <div>
-                    <p>Skills Guide</p>
-                    <p className={s.secondaryText}>Hint text</p>
-                  </div>
-                </Link>
-              </div>
-            )}
-          </div> */}
           </div>
           <div className={s.rightContent}>
             <img className={s.avatar} src={avatar} alt="avatar" />
@@ -127,4 +97,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default memo(Navbar);

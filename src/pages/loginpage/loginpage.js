@@ -75,6 +75,7 @@ function LoginPage() {
                 isChecked={isChecked}
                 onChange={handleCheckboxChange}
                 labelId="myCheckbox"
+                remember
               />
               <Link to={routes.fortgotPass} className={s.forgotPass}>
                 Forgot password
