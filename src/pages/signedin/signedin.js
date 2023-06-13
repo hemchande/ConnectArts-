@@ -1,20 +1,23 @@
-import NavBar from '../../components/navBar/navbar';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Card from '../../components/dashboard';
+import { SideBar, Content } from '../../components/dashboard';
+import NavBar from '../../components/navBar/navbar';
+import Card from '../../components/card';
 import Button from '@mui/material/Button';
 import { useAuth } from '../../components/firebase/AuthContext';
-import Blob from 'blob';
-import axios from 'axios';
+import s from './signedin.module.css';
+
 function SignedInPage() {
+  const navigate = useNavigate();
   const { currentUser } = useAuth();
+  const [openedTab, setOpenedTab] = useState(null);
+
   const uid = currentUser ? currentUser.uid : null;
   const [id, setId] = useState('');
 
   //get the
-
-  const navigate = useNavigate();
-
+  console.log('openedTab', openedTab);
   useEffect(() => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
@@ -37,8 +40,12 @@ function SignedInPage() {
   });
 
   return (
-    <div>
+    <div className={s.container}>
       <NavBar />
+      <div className={s.wrapper}>
+        <SideBar openedTab={openedTab} setOpenedTab={setOpenedTab} />
+        <Content />
+      </div>
       <Button
         variant="outlined"
         onClick={() => navigate('/viewReviewers')}
