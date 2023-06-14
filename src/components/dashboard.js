@@ -149,7 +149,8 @@ function Card() {
     axios
     .get("http://localhost:4000/routes/get_id_from_firebaseuid", {
       params: {
-        firebase_id: "i7JdvmMfvfe0A7dzLUCiOS4zngi1",
+        firebase_id: "ZhxlJLC8HXZwIVaXhgFP4HCqZSv1",
+
       },
       withCredentials: true,
       headers: {
