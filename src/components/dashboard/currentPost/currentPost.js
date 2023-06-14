@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './currentPost.module.css';
 
-const CurrentPost = () => {
+const CurrentPost = ({ user }) => {
   return (
     <div>
       <p>CurrentPost</p>

@@ -10,10 +10,12 @@ const Content = ({ currentTab, user }) => {
   console.log('user', user);
   return (
     <div className={s.container}>
-      {currentTab === sideBarConst.curentPost && <CurrentPost />}
-      {currentTab === sideBarConst.pastPost && <PastPosts />}
-      {currentTab === sideBarConst.currentReview && <CurrentReview />}
-      {currentTab === sideBarConst.pastReview && <PastReviews />}
+      {currentTab === sideBarConst.curentPost && <CurrentPost user={user} />}
+      {currentTab === sideBarConst.pastPost && <PastPosts user={user} />}
+      {currentTab === sideBarConst.currentReview && (
+        <CurrentReview user={user} />
+      )}
+      {currentTab === sideBarConst.pastReview && <PastReviews user={user} />}
     </div>
   );
 };

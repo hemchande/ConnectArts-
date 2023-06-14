@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './pastPosts.module.css';
 
-const PastPosts = () => {
+const PastPosts = ({user}) => {
   return (
     <div>
       <p>PastPosts</p>
