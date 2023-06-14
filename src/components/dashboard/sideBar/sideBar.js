@@ -30,7 +30,7 @@ const SideBar = ({ openedTab, setOpenedTab }) => {
             <ArrowUpIcon className={`${s.icon} ${openPost ? s.active : ''}`} />
           </div>
           <div className={`${s.subTabContainer} ${openPost ? s.opened : ''}`}>
-            <buttno
+            <p
               type="button"
               className={`${s.subTab} ${
                 openedTab === sideBarConst.curentPost ? s.activeSubTab : ''
@@ -38,8 +38,8 @@ const SideBar = ({ openedTab, setOpenedTab }) => {
               onClick={() => handleOpenTab(sideBarConst.curentPost)}
             >
               Current Post
-            </buttno>
-            <buttno
+            </p>
+            <p
               type="button"
               className={`${s.subTab} ${
                 openedTab === sideBarConst.pastPost ? s.activeSubTab : ''
@@ -47,7 +47,7 @@ const SideBar = ({ openedTab, setOpenedTab }) => {
               onClick={() => handleOpenTab(sideBarConst.pastPost)}
             >
               Past Posts
-            </buttno>
+            </p>
           </div>
         </li>
         <li>
@@ -64,7 +64,7 @@ const SideBar = ({ openedTab, setOpenedTab }) => {
             />
           </div>
           <div className={`${s.subTabContainer} ${openReview ? s.opened : ''}`}>
-            <buttno
+            <p
               type="button"
               className={`${s.subTab} ${
                 openedTab === sideBarConst.currentReview ? s.activeSubTab : ''
@@ -72,8 +72,8 @@ const SideBar = ({ openedTab, setOpenedTab }) => {
               onClick={() => handleOpenTab(sideBarConst.currentReview)}
             >
               Current Review
-            </buttno>
-            <buttno
+            </p>
+            <p
               type="button"
               className={`${s.subTab} ${
                 openedTab === sideBarConst.pastReview ? s.activeSubTab : ''
@@ -81,7 +81,7 @@ const SideBar = ({ openedTab, setOpenedTab }) => {
               onClick={() => handleOpenTab(sideBarConst.pastReview)}
             >
               Past Reviews
-            </buttno>
+            </p>
           </div>
         </li>
         <li className={s.linkWrapper}>

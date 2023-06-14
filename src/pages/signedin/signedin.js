@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { SideBar, Content } from '../../components/dashboard';
 import NavBar from '../../components/navBar/navbar';
 import Card from '../../components/card';
-import Button from '@mui/material/Button';
 import { useAuth } from '../../components/firebase/AuthContext';
 import s from './signedin.module.css';
 
 function SignedInPage() {
-  const navigate = useNavigate();
   const { currentUser } = useAuth();
   const [openedTab, setOpenedTab] = useState(null);
-
   const uid = currentUser ? currentUser.uid : null;
   const [id, setId] = useState('');
 
@@ -43,16 +39,9 @@ function SignedInPage() {
       <NavBar />
       <div className={s.wrapper}>
         <SideBar openedTab={openedTab} setOpenedTab={setOpenedTab} />
-        <Content />
+        <Content currentTab={openedTab} id={id} />
       </div>
-      <Button
-        variant="outlined"
-        onClick={() => navigate('/viewReviewers')}
-        sx={{ width: '120px' }}
-      >
-        View Available Reviewers
-      </Button>
-      <Card />
+      {/* <Card /> */}
     </div>
   );
 }
