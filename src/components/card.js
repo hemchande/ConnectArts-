@@ -12,7 +12,7 @@ function Card() {
   const [currentReviewsOpen, setCurrentReviewsOpen] = useState(false);
   //const [uid,setUid] = useState('');
   const [userId, setUserId] = useState('');
-  const [review, setReview] = useState(null); // used to be {}
+  const [review, setReview] = useState('wc8QXHYRE1ej9Mj9BB5IEUNPRLD2'); // used to be {}
   const [reviewPost, setReviewPost] = useState({});
   const [selectedPastPostIndex, setSelectedPastPostIndex] = useState(0);
   const [selectedPastReviewIndex, setSelectedPastReviewIndex] = useState(0);
@@ -20,21 +20,23 @@ function Card() {
   const [newreviewStatus, setnewreviewStatus] = useState(null);
 
   const [curr_post, setPost] = useState(null);
-  const [pastReviews, setPastReviews] = useState(null); //used to be []
+  const [pastReviews, setPastReviews] = useState(
+    'wc8QXHYRE1ej9Mj9BB5IEUNPRLD2',
+  ); //used to be []
   const [pastPosts, setPastPosts] = useState([]);
-  const [id, setid] = useState('');
+  const [id, setid] = useState('wc8QXHYRE1ej9Mj9BB5IEUNPRLD2');
   const [pastPostReviews, setPastPostReviews] = useState(null); // used to be []
   const [numPosts, setNumPosts] = useState(4);
   const [numPostReviews, setNumPostReviews] = useState(null);
   const [numReviews, setNumReviews] = useState(null);
 
   const { currentUser } = useAuth();
-  const uid = currentUser ? currentUser.uid : null;
+  const uid = currentUser ? 'wc8QXHYRE1ej9Mj9BB5IEUNPRLD2' : null;
   console.log(uid);
 
   // const finalObj = {"performer_posts": posts,
   //"performer_post_reviews": performer_posts}
-
+  console.log('id', id);
   function toggleCurrentPosts() {
     console.log(curr_post);
     setCurrentPostsOpen(prevOpen => !prevOpen);
