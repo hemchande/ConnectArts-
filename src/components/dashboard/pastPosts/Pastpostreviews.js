@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function PastPost ({post}) {
+function PastPostReviews ({post}) {
 
     const [activeId, setActiveId] = useState(null);
 
@@ -218,4 +218,4 @@ function PastPost ({post}) {
       );
     }
 
-export default PastPost;
+export default PastPostReviews;

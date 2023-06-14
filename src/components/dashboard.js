@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {useAuth} from "./firebase/AuthContext"
-import CurrentPost from "./currentpost";
-import CurrentReview from "./currentreview";
-import PastPost from "./Pastpost";
-import PastReview from "./Pastreview";
+import CurrentPost from "./dashboard/currentPost/currentpostreviews";
+import CurrentReview from "./dashboard/currentReview/currentreviewdetails";
+import PastPost from "./dashboard/pastPosts/Pastpostreviews";
+import PastReview from "./dashboard/pastReviews/Pastreviewdetails";
 import { Button, TextField, Typography } from "@material-ui/core";
 
 

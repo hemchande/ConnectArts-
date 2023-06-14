@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button, TextField, Typography } from "@material-ui/core";
 import { RateReviewOutlined } from '@mui/icons-material';
 
-const CurrentPost = ({ post }) => {
+const CurrentPostReviews = ({ post }) => {
 
 
 
@@ -353,4 +353,4 @@ useEffect(() => {
 }
 
 
-export default CurrentPost;
+export default CurrentPostReviews;

@@ -41,30 +41,28 @@ const useStyles = makeStyles((theme) => ({
 function VideoPlayer() {
   const classes = useStyles();
   const [videoURL, setVideoURL] = useState("");
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const SAS_token = "?sv=2022-11-02&ss=bfqt&srt=c&sp=rwdlacupyx&se=2023-05-12T01:29:09Z&st=2023-05-11T17:29:09Z&spr=https&sig=GefmB0LLTuPHpG9aRKsRcZ6m7Q2XX2zkrcnBK8JySio%3D"
 
-  useEffect(() => {
-    axios.get("http://localhost:4000/routes/get_post_video", {
-    responseType: 'blob',
-    headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-      "Authorization": `SharedAccessSignature ${SAS_token}` // Replace with the actual origin of your frontend application
-    }
-  })
-    .then(response => {
-      const blobURL = URL.createObjectURL(response.data);
-      setVideoURL(blobURL);
-    })
-    .catch(error => console.error(error));
-  }, []);
 
-  console.log(videoURL);
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+
+  
 
   return (
-    <div>
+    <div className={`video-player ${isExpanded ? 'expanded' : ''}`}>
       <video controls>
-        <source src={videoURL} type="video/mp4" />
+        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${"VID_20210910_152033.mp4"}`} type="video/mp4" />
       </video>
+      <button onClick={toggleExpand}>
+        {isExpanded ? 'Collapse' : 'Expand'}
+      </button>
+
+      
 
 
     <TextField
@@ -115,6 +113,7 @@ function VideoPlayer() {
       Add Skill
     </Button>
     </div>
+
   );
 }
 

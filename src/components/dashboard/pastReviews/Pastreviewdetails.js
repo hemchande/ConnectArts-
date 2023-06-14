@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function PastReview ({review}) {
+function PastReviewDetails ({review}) {
 
     const [post, setPost] = useState({})
     //const [review, setReview] = useState(review)
@@ -203,7 +203,7 @@ function PastReview ({review}) {
     )};
 
 
-    export default PastReview;
+    export default PastReviewDetails;
     
 
 

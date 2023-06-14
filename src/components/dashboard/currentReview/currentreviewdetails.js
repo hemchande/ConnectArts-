@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CurrentReview({ review }) {
+function CurrentReviewDetails({ review }) {
 
   const classes = useStyles();
   const [error, setError] = useState(null);
@@ -449,4 +449,4 @@ function CurrentReview({ review }) {
   );
 }
 
-export default CurrentReview;
+export default CurrentReviewDetails;
