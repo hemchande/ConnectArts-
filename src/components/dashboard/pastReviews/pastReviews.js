@@ -23,7 +23,7 @@ const PastReviews = ({ user }) => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: 'ZhxlJLC8HXZwIVaXhgFP4HCqZSv1',
+          firebase_id: uid,
         },
         withCredentials: true,
         headers: {

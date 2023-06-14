@@ -48,7 +48,7 @@ function CurrentReviewDetails({ review }) {
   const [newExplanation, setNewExplanation] = useState("");
   const [newSuggestion, setNewSuggestion] = useState("");
   const [newObservation, setNewObservation] = useState("");
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState(null);
   const [postComments, setPostComments] = useState('')
   const [generalFeedback, setGeneralFeedback] = useState('')
   const [verificationText, setVerificationtext] = useState('')
@@ -319,14 +319,22 @@ function CurrentReviewDetails({ review }) {
       
 
 
-      <strong> Post Additional Comments</strong>
-        <Typography> {postComments}</Typography>
+{post && (
+  <div>
+    <strong>Post Additional Comments</strong>
+    <Typography>{postComments}</Typography>
 
-        <div >
+    <div>
       <video controls>
-        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`} type="video/mp4" />
+        <source
+          src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
+          type="video/mp4"
+        />
       </video>
-      </div>
+    </div>
+  </div>
+)}
+
 
 
 
