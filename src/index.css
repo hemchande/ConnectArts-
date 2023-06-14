@@ -223,3 +223,17 @@ img {
 .accordion-item.active .accordion-content {
   display: block;
 }
+
+
+.video-player {
+  width: 400px; /* Set the initial width of the video player */
+  height: 300px; /* Set the initial height of the video player */
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out; /* Add transition for smooth animation */
+
+}
+
+.expanded {
+    width: 100%; /* Set the expanded width of the video player */
+    height: 100%; /* Set the expanded height of the video player */
+  }
+
