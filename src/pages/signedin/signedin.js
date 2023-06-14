@@ -9,15 +9,15 @@ import s from './signedin.module.css';
 function SignedInPage() {
   const { currentUser } = useAuth();
   const [openedTab, setOpenedTab] = useState(null);
-  const uid = currentUser ? currentUser.uid : null;
-  const [id, setId] = useState('');
+  const uid = currentUser?.uid || null;
+  const [user, setUser] = useState(null);
 
   //get the
   useEffect(() => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: 'ZhxlJLC8HXZwIVaXhgFP4HCqZSv1',
+          firebase_id: 'ZhxlJLC8HXZwIVaXhgFP4HCqZSv1', //uid
         },
         withCredentials: true,
         headers: {
@@ -26,20 +26,19 @@ function SignedInPage() {
       })
       .then(response => {
         //console.log(response);
-        setId(response.data._id);
-        console.log(response.data);
+        setUser(response.data);
       })
       .catch(error => {
         console.error(error);
       });
-  }, [uid, id]);
+  }, [uid]);
 
   return (
     <div className={s.container}>
       <NavBar />
       <div className={s.wrapper}>
         <SideBar openedTab={openedTab} setOpenedTab={setOpenedTab} />
-        <Content currentTab={openedTab} id={id} />
+        <Content currentTab={openedTab} user={user} />
       </div>
       {/* <Card /> */}
     </div>

@@ -6,8 +6,8 @@ import PastReviews from '../pastReviews/pastReviews';
 import { sideBarConst } from '../../../constants';
 import s from './content.module.css';
 
-const Content = ({ currentTab, id }) => {
-  console.log(id);
+const Content = ({ currentTab, user }) => {
+  console.log('user', user);
   return (
     <div className={s.container}>
       {currentTab === sideBarConst.curentPost && <CurrentPost />}
