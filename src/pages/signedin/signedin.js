@@ -1,25 +1,23 @@
-import NavBar from '../../components/navBar/navbar';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Card from '../../components/dashboard';
-import Button from '@mui/material/Button';
-import { useAuth } from '../../components/firebase/AuthContext';
-import Blob from 'blob';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { SideBar, Content } from '../../components/dashboard';
+import NavBar from '../../components/navBar/navbar';
+import Card from '../../components/card';
+import { useAuth } from '../../components/firebase/AuthContext';
+import s from './signedin.module.css';
+
 function SignedInPage() {
   const { currentUser } = useAuth();
-  const uid = currentUser ? currentUser.uid : null;
-  const [id, setId] = useState('');
+  const [openedTab, setOpenedTab] = useState(null);
+  const uid = currentUser?.uid || null;
+  const [user, setUser] = useState(null);
 
   //get the
-
-  const navigate = useNavigate();
-
   useEffect(() => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: 'i7JdvmMfvfe0A7dzLUCiOS4zngi1',
+          firebase_id: 'ZhxlJLC8HXZwIVaXhgFP4HCqZSv1', //uid
         },
         withCredentials: true,
         headers: {
@@ -28,25 +26,21 @@ function SignedInPage() {
       })
       .then(response => {
         //console.log(response);
-        setId(response.data._id);
-        console.log(response.data);
+        setUser(response.data);
       })
       .catch(error => {
         console.error(error);
       });
-  });
+  }, [uid]);
 
   return (
-    <div>
+    <div className={s.container}>
       <NavBar />
-      <Button
-        variant="outlined"
-        onClick={() => navigate('/viewReviewers')}
-        sx={{ width: '120px' }}
-      >
-        View Available Reviewers
-      </Button>
-      <Card />
+      <div className={s.wrapper}>
+        <SideBar openedTab={openedTab} setOpenedTab={setOpenedTab} />
+        <Content currentTab={openedTab} user={user} />
+      </div>
+      {/* <Card /> */}
     </div>
   );
 }
