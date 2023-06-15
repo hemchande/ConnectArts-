@@ -1,7 +1,7 @@
-import React, { useState, memo,useEffect } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import Popup from 'reactjs-popup';
-import {useAuth} from "../firebase/AuthContext"
-import axios from "axios"
+import { useAuth } from '../firebase/AuthContext';
+import axios from 'axios';
 
 import Logo from '../logo/Logo';
 import { ReactComponent as ArrowDown } from '../../assets/arrowDown.svg';
@@ -17,8 +17,7 @@ import s from './navBar.module.css';
 function Navbar() {
   const [isOpenGuides, setIsOpenGuides] = useState(false);
   const { pathname } = useLocation();
-  const [user, setUser] = useState(null)
-
+  const [user, setUser] = useState(null);
 
   const handleOpenGuides = () => {
     setIsOpenGuides(!isOpenGuides);
@@ -28,29 +27,25 @@ function Navbar() {
   const uid = currentUser ? currentUser.uid : null;
   console.log(uid);
 
-
   useEffect(() => {
-
     axios
-    .get("http://localhost:4000/routes/get_id_from_firebaseuid", {
-      params: {
-        firebase_id: uid,
-      },
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => {
-      //console.log(response);
-      setUser(response.data);
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
-
+      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
+        params: {
+          firebase_id: uid,
+        },
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        //console.log(response);
+        setUser(response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
   return (
@@ -100,14 +95,14 @@ function Navbar() {
                     <p className={s.secondaryText}>Hint text</p>
                   </div>
                 </Link>
-                <Link to={routes.skills} className={s.guideLink}>
+                <Link to={routes.depthSkills} className={s.guideLink}>
                   <Star />
                   <div>
                     <p>Dance Genre Guide</p>
                     <p className={s.secondaryText}>Hint text</p>
                   </div>
                 </Link>
-                <Link to={routes.depthSkills} className={s.guideLink}>
+                <Link to={routes.skills} className={s.guideLink}>
                   <Play />
                   <div>
                     <p>Skills Guide</p>
@@ -118,17 +113,15 @@ function Navbar() {
             </Popup>
           </div>
           <div className={s.rightContent}>
-          {user && (
-  <div>
-    <img className={s.avatar} src={avatar} alt="avatar" />
-    <div className={s.user}>
-      <p className={s.name}>{user.name}</p>
-      <p className={s.mail}>{user.email}</p>
-    </div>
-  </div>
-)}
-
-            
+            {user && (
+              <div>
+                <img className={s.avatar} src={avatar} alt="avatar" />
+                <div className={s.user}>
+                  <p className={s.name}>{user.name}</p>
+                  <p className={s.mail}>{user.email}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
