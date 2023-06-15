@@ -29,7 +29,7 @@ const FirstStep = ({
         value={firstName}
         onChange={e => setFirstName(e.target.value)}
         label="First Name"
-        requirerd
+        required
       />
       <Input
         type="lastname"
@@ -38,7 +38,7 @@ const FirstStep = ({
         value={lastName}
         onChange={e => setLastName(e.target.value)}
         label="Last Name"
-        requirerd
+        required
       />
       <Input
         type="email"
@@ -47,7 +47,7 @@ const FirstStep = ({
         value={email}
         onChange={e => setEmail(e.target.value)}
         label="Email"
-        requirerd
+        required
       />
       <Input
         type="password"
@@ -56,7 +56,7 @@ const FirstStep = ({
         value={password}
         onChange={e => setPassword(e.target.value)}
         label="Password"
-        requirerd
+        required
       />
       <CustomSelect
         options={genresOptions}
@@ -67,6 +67,7 @@ const FirstStep = ({
         label="Select all Performance Genres"
         closeMenuOnSelect={false}
         id="genresSelect"
+        required
       />
     </div>
   );

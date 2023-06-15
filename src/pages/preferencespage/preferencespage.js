@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../../components/navBar/navbar';
 import { Grid, Typography, Divider, TextField, Button, Chip,Box,Tooltip } from "@material-ui/core";
+import { useAuth } from '../../components/firebase/AuthContext'
 import axios from 'axios';
 
 function PreferencesPage() {
@@ -21,6 +22,10 @@ function PreferencesPage() {
     { category: "Structure", info: "Description of structure", show: false },
     { category: "Form", info: "Description of form", show: false }
   ]);
+
+  const { currentUser } = useAuth();
+  const uid = currentUser ? currentUser.uid : null;
+  console.log(uid);
 
 
 
@@ -135,7 +140,7 @@ function PreferencesPage() {
 
   useEffect(() => {
 
-    axios.get('http://localhost:4000/routes/get_id_from_firebaseuid', {params: {firebase_id: "VuU2sorXLMQoUYJp9lup3RKROpi2"}
+    axios.get('http://localhost:4000/routes/get_id_from_firebaseuid', {params: {firebase_id: uid}
   }).then(response => {
       console.log(response.data);
 
@@ -143,6 +148,7 @@ function PreferencesPage() {
     })
     .catch(error => {
       console.log(error);
+      window.location.href = '/signedin'
     })
 
 

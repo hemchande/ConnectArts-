@@ -6,7 +6,7 @@ import { initializeAnalytics } from 'firebase/analytics';
 
 
 
-const serviceAccount = require("../serviceAccountKey.json")
+//const serviceAccount = require("../serviceAccountKey.json")
 
 const firebaseConfig = {
   apiKey: "AIzaSyD3k7K7kiXAAW4lq5KKiiXeW0ZiV9FHn1o",

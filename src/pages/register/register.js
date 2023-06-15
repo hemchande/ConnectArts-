@@ -63,152 +63,147 @@ function RegisterPage() {
 
   const handleSignUp = event => {
     event.preventDefault();
-    signUp(email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-
-        const formData = new FormData();
-        const formData1 = new FormData();
-
-        let newRole = null;
-
-        formData.append('name', `${firstName} ${lastName}`);
-        formData.append('email', email);
-        formData.append(
-          'genres',
-          Object.values(genres).map(item => item.value),
-        );
-        formData.append('payRange', parseInt(desiredPayRange));
-
-        formData.append(
-          'skillFields',
-          Object.values(selectedSkills).map(item => item.value),
-        );
-        formData.append('payRate', parseInt(desiredPayRate));
-        formData.append(
-          'technique',
-          techniqueValues.length / techniqueSkills.length,
-        );
-        formData.append(
-          'texture',
-          parseFloat(textureValues.length / textureSkills.length),
-        );
-        formData.append(
-          'structure',
-          parseFloat(structureValues.length / structureSkills.length),
-        );
-        formData.append(
-          'musicality',
-          parseFloat(musicalityValues.length / musicalitySkills.length),
-        );
-        formData.append('current_post', null);
-        formData.append('resume', resume);
-        formData.append('uid', user.uid);
-        formData.append('structure_fields', structureValues);
-        formData.append('technique_fields', techniqueValues);
-        formData.append('musicality_fields', musicalityValues);
-        formData.append('reviewer_avg_rating', null);
-        formData.append('modelCritique', null);
-
-        if (role.value === roles[0].value) {
-          formData.append('role', [roles[0].value]);
-          newRole = [roles[0].value];
-        }
-
-        if (role.value === roles[1].value) {
-          formData.append('role', [roles[1].value]);
-          newRole = [roles[1].value];
-        }
-
-        if (role.value === roles[2].value) {
-          formData.append('role', [roles[0].value, roles[1].value]);
-          newRole = [roles[0].value, roles[1].value];
-        }
-
-        formData1.append('resume', resume);
-
-        const obj = {
-          name: `${firstName} ${lastName}`,
-          email: email,
-          genres: Object.values(genres).map(item => item.value),
-          payRange: desiredPayRange,
-          skillFields: Object.values(selectedSkills).map(item => item.value),
-          payRate: parseInt(desiredPayRate),
-          technique: techniqueValues.length / techniqueSkills.length,
-          texture: textureValues.length / textureSkills.length,
-          structure: structureValues.length / structureSkills.length,
-          musicality: musicalityValues.length / musicalitySkills.length,
-          current_post: null,
-          resume: resume,
-          uid: user.uid,
-          structure_fields: structureValues,
-          technique_fields: techniqueValues,
-          musicality_fields: musicalityValues,
-          reviewer_avg_rating: null,
-          modelCritique: null,
-          role: newRole,
-          reviewer_post_status: null,
-        };
-
-        //if(obj[role].includes("Reviewer")){
-        //obj["reviewer_post_status"] = null
-        //}
-
-        //if(obj[role].includes("Performer")){
-        //obj["reviewer_post_status"] = null
-        //}
-
-        if (resume) {
+  
+    if (uid) {
+      // Use the existing UID without signing up again
+      const formData = new FormData();
+  
+      formData.append('name', `${firstName} ${lastName}`);
+      formData.append('email', email);
+      formData.append(
+        'genres',
+        Object.values(genres).map(item => item.value),
+      );
+      formData.append('payRange', parseInt(desiredPayRange));
+      formData.append(
+        'skillFields',
+        Object.values(selectedSkills).map(item => item.value),
+      );
+      formData.append('payRate', parseInt(desiredPayRate));
+      formData.append(
+        'technique',
+        techniqueValues.length / techniqueSkills.length,
+      );
+      formData.append(
+        'texture',
+        parseFloat(textureValues.length / textureSkills.length),
+      );
+      formData.append(
+        'structure',
+        parseFloat(structureValues.length / structureSkills.length),
+      );
+      formData.append(
+        'musicality',
+        parseFloat(musicalityValues.length / musicalitySkills.length),
+      );
+      formData.append('current_post', null);
+      formData.append('resume', resume);
+      formData.append('uid', uid);
+      formData.append('structure_fields', structureValues);
+      formData.append('technique_fields', techniqueValues);
+      formData.append('musicality_fields', musicalityValues);
+      formData.append('reviewer_avg_rating', null);
+      formData.append('modelCritique', null);
+  
+      let newRole = null;
+      if (role.value === roles[0].value) {
+        formData.append('role', [roles[0].value]);
+        newRole = [roles[0].value];
+      } else if (role.value === roles[1].value) {
+        formData.append('role', [roles[1].value]);
+        newRole = [roles[1].value];
+      } else if (role.value === roles[2].value) {
+        formData.append('role', [roles[0].value, roles[1].value]);
+        newRole = [roles[0].value, roles[1].value];
+      }
+  
+      axios
+        .post('http://localhost:4000/routes/adduserwithNoResumeNew', formData)
+        .then(response => {
+          console.log(response.data);
+          createAccountLink(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      // Sign up and generate new credentials
+      signUp(email, password)
+        .then(userCredential => {
+          const user = userCredential.user;
+  
+          const formData = new FormData();
+          const formData1 = new FormData();
+  
+          formData.append('name', `${firstName} ${lastName}`);
+          formData.append('email', email);
+          formData.append(
+            'genres',
+            Object.values(genres).map(item => item.value),
+          );
+          formData.append('payRange', parseInt(desiredPayRange));
+          formData.append(
+            'skillFields',
+            Object.values(selectedSkills).map(item => item.value),
+          );
+          formData.append('payRate', parseInt(desiredPayRate));
+          formData.append(
+            'technique',
+            techniqueValues.length / techniqueSkills.length,
+          );
+          formData.append(
+            'texture',
+            parseFloat(textureValues.length / textureSkills.length),
+          );
+          formData.append(
+            'structure',
+            parseFloat(structureValues.length / structureSkills.length),
+          );
+          formData.append(
+            'musicality',
+            parseFloat(musicalityValues.length / musicalitySkills.length),
+          );
+          formData.append('current_post', null);
+          formData.append('resume', resume);
+          formData.append('uid', user.uid);
+          formData.append('structure_fields', structureValues);
+          formData.append('technique_fields', techniqueValues);
+          formData.append('musicality_fields', musicalityValues);
+          formData.append('reviewer_avg_rating', null);
+          formData.append('modelCritique', null);
+  
+          let newRole = null;
+          if (role.value === roles[0].value) {
+            formData.append('role', [roles[0].value]);
+            newRole = [roles[0].value];
+          } else if (role.value === roles[1].value) {
+            formData.append('role', [roles[1].value]);
+            newRole = [roles[1].value];
+          } else if (role.value === roles[2].value) {
+            formData.append('role', [roles[0].value, roles[1].value]);
+            newRole = [roles[0].value, roles[1].value];
+          }
+  
+          formData1.append('resume', resume);
+  
           axios
             .post('http://localhost:4000/routes/adduserwithResume', formData)
             .then(response => {
               console.log(response.data);
-              //setaccountId(response.data);
-
-              //stripeId = response.data;
-
-              // console.log(stripeId);
-
-              //navigate('/signedin')
               createAccountLink(response.data);
             })
             .catch(error => {
               console.log(error);
             });
-
-          //createAccountLink();
-
-          //console.log(accountId);
-
-          //createAccountLink();
-        } else {
-          console.log(obj);
-
-          axios
-            .post('http://localhost:4000/routes/adduserwithNoResumeNew', obj)
-            .then(response => {
-              console.log(obj);
-              console.log(response.data);
-              //setaccountId(response.data);
-
-              //stripeId = response.data;
-
-              // console.log(stripeId);
-
-              //navigate('/signedin')
-              createAccountLink(response.data);
-            })
-            .catch(error => {
-              console.log(error);
-            });
-        }
-
-        console.log('User signed up:', user);
-      })
-      .catch(error => {
-        console.error('Error signing up:', error);
-      });
+  
+          console.log('User signed up:', user);
+        })
+        .catch(error => {
+          console.error('Error signing up:', error);
+        });
+    }
   };
+  
 
   const renderStep = currentStep => {
     switch (currentStep) {

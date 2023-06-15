@@ -114,7 +114,23 @@ const CurrentPostReviews = ({ post }) => {
   }
 
 
-  const addRating = async() => {
+  const addRating = async(event) => {
+
+    const revId = event.target.id;
+
+    axios.patch('http://localhost:4000/routes/add_review_rating', {
+      review_id: revId,
+      rating: rating, // The rating value you want to send
+    })
+      .then(response => {
+        // Handle the successful response
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Handle the error
+        console.error(error);
+      });
+
 
 
 
@@ -321,7 +337,7 @@ useEffect(() => {
       max="5"
       step="1"
     />
-    <Button id={reviewId}>Add</Button>
+    <Button id={reviewId} onClick = {addRating}>Add</Button>
   </p>
 )}
 

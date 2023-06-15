@@ -28,7 +28,7 @@ function LoginPage() {
 
   const checkUserUidAuth = async (firebaseUid) => {
     try {
-      const response = await axios.get('/check_user_uid_auth', {
+      const response = await axios.get('http://localhost:4000/routes/check_user_uid_auth', {
         params: {
           firebase_uid: firebaseUid
         }
@@ -78,13 +78,14 @@ function LoginPage() {
       .then((user) => {
         const uid = user.uid;
         checkUserUidAuth(uid)
-        //window.location.href = "/signedin"
+        window.location.href = "/signedin"
 
 
       })
       .catch((error) => {
 
         alert(error.message)
+        window.location.href = "/register"
 
       })
 

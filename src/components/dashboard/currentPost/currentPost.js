@@ -103,7 +103,7 @@ const CurrentPost = ({ user }) => {
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  }, [uid]);
 
   //check post review(performer) status
   useEffect(() => {
@@ -124,7 +124,7 @@ const CurrentPost = ({ user }) => {
           }
         });
     }
-  }, []);
+  }, [id]);
   
 
   useEffect(() => {
