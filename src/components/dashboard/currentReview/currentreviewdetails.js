@@ -32,7 +32,6 @@ function CurrentReviewDetails({ review }) {
 
   const navigate = useNavigate();
   // const [error, setError] = useState(null);
-  console.log('post', post);
 
   // const handleAddHeader = () => {
   //   if (countWords(newText) < 60) {

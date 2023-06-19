@@ -1,38 +1,18 @@
 import React from 'react';
-import s from './pastReviews.module.css';
+
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../firebase/AuthContext';
 import PastReviewDetails from './Pastreviewdetails';
+import s from './pastReviews.module.css';
 
 const PastReviews = ({ user }) => {
   const [selectedPastReviewIndex, setSelectedPastReviewIndex] = useState(0);
   const [pastReviews, setPastReviews] = useState(null); //used to be []
   const [numReviews, setNumReviews] = useState(null);
-  const [id, setid] = useState(null);
 
   const handleSelectReviewChange = event => {
     setSelectedPastReviewIndex(event.target.value);
   };
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
-        params: {
-          firebase_id: user.firebase_uid,
-        },
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        setid(response.data._id);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
 
   useEffect(() => {
     const fetchData2 = async () => {
@@ -40,7 +20,7 @@ const PastReviews = ({ user }) => {
       axios
         .get('http://localhost:4000/routes/get_past_reviews_from_user_id', {
           params: {
-            userId: id,
+            userId: user._id,
           },
           withCredentials: true,
           headers: {
@@ -48,7 +28,7 @@ const PastReviews = ({ user }) => {
           },
         })
         .then(response => {
-          //console.log(response);
+          console.log(response);
           setPastReviews(response.data);
           setNumReviews(response.data.length);
         })
@@ -56,10 +36,10 @@ const PastReviews = ({ user }) => {
           console.error(error);
         });
     };
-    if (id) {
+    if (user._id) {
       fetchData2();
     }
-  }, [id]);
+  }, [user._id]);
   return (
     <div>
       {pastReviews && pastReviews.length > 0 && (
