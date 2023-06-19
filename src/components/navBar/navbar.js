@@ -25,7 +25,6 @@ function Navbar() {
 
   const { currentUser } = useAuth();
   const uid = currentUser ? currentUser.uid : null;
-  console.log(uid);
 
   useEffect(() => {
     axios
@@ -39,9 +38,7 @@ function Navbar() {
         },
       })
       .then(response => {
-        //console.log(response);
         setUser(response.data);
-        console.log(response.data);
       })
       .catch(error => {
         console.error(error);
@@ -114,11 +111,11 @@ function Navbar() {
           </div>
           <div className={s.rightContent}>
             {user && (
-              <div>
+              <div className={s.imageWrapper}>
                 <img className={s.avatar} src={avatar} alt="avatar" />
                 <div className={s.user}>
-                  <p className={s.name}>{user.name}</p>
-                  <p className={s.mail}>{user.email}</p>
+                  <p className={s.name}>{user?.name}</p>
+                  <p className={s.mail}>{user?.email}</p>
                 </div>
               </div>
             )}

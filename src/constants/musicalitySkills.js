@@ -1,5 +1,1 @@
-export default [
-  'Rhytmic Content',
-  'Timing Content',
-  'Stylictic Accuramcy',
-];
+export default ['Rhytmic Content', 'Timing Content', 'Stylictic Accuramcy'];

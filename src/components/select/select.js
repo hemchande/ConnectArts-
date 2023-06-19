@@ -48,6 +48,7 @@ const CustomSelect = ({
   label,
   closeMenuOnSelect,
   id,
+  isDisabled,
 }) => {
   return (
     <div className={s.container}>
@@ -65,6 +66,7 @@ const CustomSelect = ({
         placeholder={placeholder}
         id={id}
         closeMenuOnSelect={closeMenuOnSelect}
+        isDisabled={isDisabled}
       />
     </div>
   );
