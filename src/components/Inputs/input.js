@@ -10,9 +10,10 @@ const Input = ({
   onChange,
   requirerd,
   withSymbols,
+  isDisabled,
 }) => {
   return (
-    <div className={withSymbols ? s.container : ''}>
+    <div className={withSymbols ? `${s.container} ${s.maxWidth}` : s.maxWidth}>
       {label && <label className={s.label}>{label}</label>}
       <input
         className={`${s.field} ${withSymbols ? s.withSymbolField : ''}`}
@@ -22,6 +23,7 @@ const Input = ({
         name={name}
         onChange={onChange}
         required={requirerd}
+        disabled={isDisabled}
       />
     </div>
   );
