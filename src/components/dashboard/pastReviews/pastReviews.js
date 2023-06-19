@@ -7,7 +7,7 @@ import s from './pastReviews.module.css';
 
 const PastReviews = ({ user }) => {
   const [selectedPastReviewIndex, setSelectedPastReviewIndex] = useState(0);
-  const [pastReviews, setPastReviews] = useState(null); //used to be []
+  const [pastReviews, setPastReviews] = useState([]); //used to be []
   const [numReviews, setNumReviews] = useState(null);
 
   const handleSelectReviewChange = event => {
@@ -60,7 +60,7 @@ const PastReviews = ({ user }) => {
           <PastReviewDetails review={pastReviews[selectedPastReviewIndex]} />
         </article>
       )}
-      {!pastReviews && <strong> No Previous Reviews</strong>}
+      {pastReviews.length < 1 && <strong> No Previous Reviews</strong>}
     </div>
   );
 };
