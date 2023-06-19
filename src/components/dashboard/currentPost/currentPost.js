@@ -55,8 +55,6 @@ const CurrentPost = ({ user }) => {
         },
       })
       .then(response => {
-        //console.log(response);
-        console.log(response.data);
         setPost(response.data);
         setGenres(
           genresOptions.filter(
@@ -202,7 +200,6 @@ const CurrentPost = ({ user }) => {
           <CurrentPostReviews post={post.current_post} user={user} />
         </>
       )}
-
       {!post && <strong> No Current Post</strong>}
     </div>
   );

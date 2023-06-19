@@ -38,9 +38,7 @@ function Navbar() {
         },
       })
       .then(response => {
-        //console.log(response);
         setUser(response.data);
-        console.log(response.data);
       })
       .catch(error => {
         console.error(error);

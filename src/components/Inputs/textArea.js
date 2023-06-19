@@ -1,9 +1,17 @@
 import React from 'react';
 import s from './input.module.css';
 
-const TextArea = ({ label, id, placeholder, value, setValue, isDisabled }) => {
+const TextArea = ({
+  label,
+  id,
+  placeholder,
+  value,
+  setValue,
+  isDisabled,
+  width,
+}) => {
   return (
-    <div>
+    <div style={width && { width: `${width}px` }}>
       {label && (
         <label htmlFor={id} className={s.label}>
           {label}

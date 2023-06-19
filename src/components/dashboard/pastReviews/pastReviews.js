@@ -11,10 +11,6 @@ const PastReviews = ({ user }) => {
   const [numReviews, setNumReviews] = useState(null);
   const [id, setid] = useState(null);
 
-  const { currentUser } = useAuth();
-  const uid = currentUser ? currentUser.uid : null;
-  console.log(uid);
-
   const handleSelectReviewChange = event => {
     setSelectedPastReviewIndex(event.target.value);
   };
@@ -23,7 +19,7 @@ const PastReviews = ({ user }) => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: uid,
+          firebase_id: user.firebase_uid,
         },
         withCredentials: true,
         headers: {
@@ -31,15 +27,12 @@ const PastReviews = ({ user }) => {
         },
       })
       .then(response => {
-        //console.log(response);
         setid(response.data._id);
-        console.log(response.data);
       })
       .catch(error => {
         console.error(error);
       });
   }, []);
-
 
   useEffect(() => {
     const fetchData2 = async () => {
@@ -69,7 +62,7 @@ const PastReviews = ({ user }) => {
   }, [id]);
   return (
     <div>
-      { pastReviews && pastReviews.length > 0 && (
+      {pastReviews && pastReviews.length > 0 && (
         <article className="card">
           <h1> Past Reviews</h1>
           <div className="accordion">
@@ -87,9 +80,7 @@ const PastReviews = ({ user }) => {
           <PastReviewDetails review={pastReviews[selectedPastReviewIndex]} />
         </article>
       )}
-      { !pastReviews && (
-        <strong> No Previous Reviews</strong>
-      )}
+      {!pastReviews && <strong> No Previous Reviews</strong>}
     </div>
   );
 };

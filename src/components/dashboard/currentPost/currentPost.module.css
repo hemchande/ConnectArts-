@@ -79,13 +79,6 @@
   align-items: center;
 }
 
-.title {
-  font-size: 18px;
-  line-height: 28px;
-  color: #344054;
-  margin-right: 30px;
-}
-
 .minWidth {
   min-width: 170px;
   margin-right: 0;

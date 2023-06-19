@@ -15,7 +15,7 @@ const CurrentPostReviews = ({ post, user }) => {
   const [ratingStatus, setratingStatus] = useState(null);
   const [reviewComments, setreviewComments] = useState({});
   const [rating, setRating] = useState(null);
-  console.log('post', post);
+
   const changeRating = event => {
     setRating(event.target.value);
   };
@@ -143,16 +143,12 @@ const CurrentPostReviews = ({ post, user }) => {
         },
       })
       .then(response => {
-        console.log(response);
         setReviews(response.data.review_ids);
         setreviewerInfo(response.data.reviewer_information);
-        console.log(response.data.reviewer_information);
       })
       .catch(error => {
         console.error(error);
       });
-
-    console.log(postReviewIds);
   }, []);
 
   const updateReview = async event => {
@@ -260,7 +256,7 @@ const CurrentPostReviews = ({ post, user }) => {
         <div className={s.wrapper}>
           <h3 className={s.title}>Texture:</h3>
           <ul className={s.list}>
-            {post?.form_fields.map((skillField, index) => (
+            {post?.form_fields?.map((skillField, index) => (
               <li key={index} className={s.preferencesItem}>
                 {skillField}
               </li>
