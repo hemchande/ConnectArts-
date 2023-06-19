@@ -3,7 +3,7 @@ import { ReactComponent as UploadIcon } from '../../assets/upload.svg';
 import { ReactComponent as Remove } from '../../assets/close.svg';
 import s from './dragAndDropField.module.css';
 
-const DragAndDropField = ({ file, setFile, isVideo, label }) => {
+const DragAndDropField = ({ file, setFile, isVideo, label, withoutLabel }) => {
   const fileInputRef = useRef();
 
   const handleButtonClick = () => {
@@ -69,7 +69,9 @@ const DragAndDropField = ({ file, setFile, isVideo, label }) => {
 
   return (
     <div className={s.container}>
-      <p className={s.label}>{label ? label : 'Upload your resume'}</p>
+      {!withoutLabel && (
+        <p className={s.label}>{label ? label : 'Upload your resume'}</p>
+      )}
       <div
         className={s.dropField}
         onDrop={handleDrop}

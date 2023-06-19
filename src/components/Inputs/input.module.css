@@ -87,6 +87,10 @@
   right: 14px;
 }
 
+.maxWidth {
+  width: 100%;
+}
+
 .textarea {
   resize: none;
   background: var(--white-color);
