@@ -194,24 +194,24 @@ const CurrentPostReviews = ({ post, user }) => {
         </div>
         {user?.payRate && (
           <div className={s.wrapper}>
-            <h3 className={`${s.title} ${s.minWidth}`}>Pay Rate:</h3>
+            <h3 className={`${s.postTitle} ${s.minWidth}`}>Pay Rate:</h3>
             <p className={s.payRate}>{`${user.payRate}$`}</p>
           </div>
         )}
         {user?.payRange?.from && user?.payRange?.to && (
           <div className={s.wrapper}>
-            <h3 className={`${s.title} ${s.minWidth}`}>Pay Range:</h3>
+            <h3 className={`${s.postTitle} ${s.minWidth}`}>Pay Range:</h3>
             <p
               className={s.payRate}
             >{`${user.payRange.from}$ - ${user.payRange.to}$`}</p>
           </div>
         )}
         <div className={s.wrapper}>
-          <h3 className={`${s.title} ${s.minWidth}`}>Dance Genre:</h3>
+          <h3 className={`${s.postTitle} ${s.minWidth}`}>Dance Genre:</h3>
           <p className={s.genreItem}>{post?.genre}</p>
         </div>
         <div className={s.wrapper}>
-          <h3 className={`${s.title} ${s.minWidth}`}>Skills:</h3>
+          <h3 className={`${s.postTitle} ${s.minWidth}`}>Skills:</h3>
           <ul className={s.list}>
             {post?.additional_skill_keywords?.map((skillField, index) => (
               <li key={index} className={s.skillItem}>
@@ -221,10 +221,10 @@ const CurrentPostReviews = ({ post, user }) => {
           </ul>
         </div>
         <div className={s.wrapper}>
-          <h3 className={s.title}>Categorical Preferences:</h3>
+          <h3 className={s.postTitle}>Categorical Preferences:</h3>
         </div>
         <div className={s.wrapper}>
-          <h3 className={s.title}>Musicality:</h3>
+          <h3 className={s.postTitle}>Musicality:</h3>
           <ul className={s.list}>
             {post?.musicality_fields?.map((skillField, index) => (
               <li key={index} className={s.preferencesItem}>
@@ -234,7 +234,7 @@ const CurrentPostReviews = ({ post, user }) => {
           </ul>
         </div>
         <div className={s.wrapper}>
-          <h3 className={s.title}>Structure:</h3>
+          <h3 className={s.postTitle}>Structure:</h3>
           <ul className={s.list}>
             {post?.structure_fields?.map((skillField, index) => (
               <li key={index} className={s.preferencesItem}>
@@ -244,7 +244,7 @@ const CurrentPostReviews = ({ post, user }) => {
           </ul>
         </div>
         <div className={s.wrapper}>
-          <h3 className={s.title}>Technique:</h3>
+          <h3 className={s.postTitle}>Technique:</h3>
           <ul className={s.list}>
             {post?.technique_fields?.map((skillField, index) => (
               <li key={index} className={s.preferencesItem}>
@@ -254,7 +254,7 @@ const CurrentPostReviews = ({ post, user }) => {
           </ul>
         </div>
         <div className={s.wrapper}>
-          <h3 className={s.title}>Texture:</h3>
+          <h3 className={s.postTitle}>Texture:</h3>
           <ul className={s.list}>
             {post?.form_fields?.map((skillField, index) => (
               <li key={index} className={s.preferencesItem}>
