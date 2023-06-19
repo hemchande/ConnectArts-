@@ -57,7 +57,7 @@ const PastPosts = ({user}) => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: uid,
+          firebase_id: "ZhxlJLC8HXZwIVaXhgFP4HCqZSv1",
         },
         withCredentials: true,
         headers: {
@@ -106,7 +106,7 @@ const PastPosts = ({user}) => {
           <li>{post.form}</li>
         </p>
         <div >
-      <video controls>
+      <video class = "video-player" controls>
         <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`} type="video/mp4" />
       </video>
       </div>

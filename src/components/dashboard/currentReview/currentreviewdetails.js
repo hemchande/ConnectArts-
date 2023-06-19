@@ -325,7 +325,7 @@ function CurrentReviewDetails({ review }) {
     <Typography>{postComments}</Typography>
 
     <div>
-      <video controls>
+      <video class = "video-player" controls>
         <source
           src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
           type="video/mp4"

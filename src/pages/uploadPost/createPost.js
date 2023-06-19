@@ -47,6 +47,7 @@ function CreatePost() {
       })
       .catch(error => {
         console.error(error);
+        window.location.href = "/"
       });
   }, [uid]);
 
@@ -182,6 +183,7 @@ function CreatePost() {
     } catch (error) {
       console.log(error);
       setError('Error: ' + error.message);
+      window.location.href = "/signedin"
     }
   };
 

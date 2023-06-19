@@ -40,6 +40,11 @@ const useStyles = makeStyles((theme) => ({
 
 function VideoPlayer() {
   const classes = useStyles();
+  const [messages, setMessages] = useState([]);
+  const [userInput, setUserInput] = useState('');
+
+  const [request, setRequest] = useState("how to improve my turnout in ballet ")
+  const [requestresponse, setRequestResponse] = useState(null)
   const [videoURL, setVideoURL] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -49,6 +54,83 @@ function VideoPlayer() {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
+
+
+
+  const callChat2 = async(event) => {
+
+    const req = event.target.value;
+
+
+    try {
+      const requestBody = {
+        "request": req,
+
+      };
+  
+  
+  
+      const response = await axios.post('http://localhost:4000/routes/call_chat', requestBody);
+      console.log(response.data);
+      //return response.data;
+      setRequestResponse(response.data.text)
+    } catch (error) {
+      console.error(error);
+      // Handle error case
+    }
+
+
+
+
+
+  }
+
+
+  const callChatEndpoint = async (event) => {
+
+    console.log(event.target.value)
+
+    const req = event.target.value;
+    try {
+      const requestBody = {
+        "model": "text-davinci-003",
+        "prompt": req,
+        "temperature": 0.9,
+        "max_tokens": 100,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0.6
+      };
+  
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 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',
+      };
+  
+      const response = await axios.post('https://api.openai.com/v1/completions', requestBody, { headers });
+      console.log(response.data.choices[0].text);
+      //return response.data;
+      setRequestResponse(response.data.choices[0].text)
+    } catch (error) {
+      console.error(error);
+      // Handle error case
+    }
+  };
+
+
+  const changeRequest = (event) => {
+
+    const bod = event.target.value;
+
+    setRequest(bod)
+
+
+
+  }
+
+
+
+  
 
 
   
@@ -61,6 +143,32 @@ function VideoPlayer() {
       <button onClick={toggleExpand}>
         {isExpanded ? 'Collapse' : 'Expand'}
       </button>
+
+
+    <TextField
+      label="Send Chat"
+      value= {request}
+      onChange = {changeRequest}
+      
+      className={classes.textInput}
+    />
+
+
+<Button
+      variant="contained"
+      color="primary"
+      className={classes.addButton}
+      value = {request}
+      onClick = {callChat2}
+     
+    >
+      Send Chat
+    </Button>
+
+
+    <div>
+      {requestresponse && <div>{requestresponse}</div>}
+    </div>
 
       
 
