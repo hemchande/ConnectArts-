@@ -41,6 +41,11 @@
   justify-content: space-between;
 }
 
+.logoWrapper {
+  display: flex;
+  align-items: center;
+}
+
 .forgotPass {
   font-size: 14px;
   line-height: 20px;

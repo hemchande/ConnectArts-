@@ -48,6 +48,11 @@
   align-items: center;
 }
 
+.imageWrapper {
+  display: flex;
+  align-items: center;
+}
+
 .user {
   margin-left: 12px;
 }

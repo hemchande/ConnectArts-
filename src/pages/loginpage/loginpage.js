@@ -157,7 +157,6 @@ function LoginPage() {
               </Link>
             </div>
             <Button type="submit" text="Sign in" />
-            
             <div className={s.logoWrapper}>
               <p className={s.text}>Don’t have an account?</p>
               <Link to={routes.register} className={s.forgotPass}>

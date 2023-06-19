@@ -1,20 +1,24 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../firebase/AuthContext';
 import axios from 'axios';
 import CurrentPostReviews from './currentpostreviews';
+import CustomSelect from '../../select/select';
+import {
+  genresOptions,
+  skills,
+  techniqueSkills,
+  structureSkills,
+  textureSkills,
+  musicalitySkills,
+} from '../../../constants';
+import CustomPtogressBar from '../../progressBar/customProgressBar';
+import { Button } from '../../button';
 import s from './currentPost.module.css';
-import { Button, TextField, Typography } from '@material-ui/core';
 
 const CurrentPost = ({ user }) => {
-
-  const [currentPostsOpen, setCurrentPostsOpen] = useState(false);
-  const [curr_post, setPost] = useState(null);
-  const [id, setid] = useState(null);
-  const [newpostReviewStatus, setnewpostReviewStatus] = useState(null);
-  const { currentUser } = useAuth();
-  const uid = currentUser ? currentUser.uid : null;
-  console.log(uid);
+  const [post, setPost] = useState(null);
+  const [genres, setGenres] = useState(null);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   const handleViewPerformancePostClick = postId => {
     try {
@@ -43,7 +47,7 @@ const CurrentPost = ({ user }) => {
     await axios
       .get('http://localhost:4000/routes/users/id/current_post', {
         params: {
-          id: id,
+          id: user._id,
         },
         withCredentials: true,
         headers: {
@@ -51,9 +55,18 @@ const CurrentPost = ({ user }) => {
         },
       })
       .then(response => {
-        //console.log(response);
-        console.log(response.data);
         setPost(response.data);
+        setGenres(
+          genresOptions.filter(
+            el => response.data.current_post?.genre === el.value,
+          ),
+        );
+        setSelectedSkills(
+          response.data.current_post?.additional_skill_keywords?.map(el => {
+            const label = el.split(' ');
+            return { value: el, label: label[label.length - 1] };
+          }),
+        );
       })
       .catch(error => {
         console.error(error);
@@ -63,132 +76,136 @@ const CurrentPost = ({ user }) => {
     //call the above after getting the current post
   };
 
-
-  const updateUser = () => {
-    try {
-      console.log(id)
-      const response = axios.get(
-        'http://localhost:4000/routes/check_currentPost_reviews_updatePost_updateUser',
-        {
-          params: {
-            id: id,
-          },
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-    } catch (error) {
+   const updateUser = () => {
+     try {
+       const response = axios.get(
+         'http://localhost:4000/routes/check_currentPost_reviews_updatePost_updateUser',
+         {
+           params: {
+             id: user._id,
+           },
+           withCredentials: true,
+           headers: {
+             'Content-Type': 'application/json',
+           },
+         },
+       );
+     } catch (error) {
       console.error(error);
       // Handle the error as necessary
-    }
-  };
-  useEffect(() => {
-    axios
-      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
-        params: {
-          firebase_id: "ZhxlJLC8HXZwIVaXhgFP4HCqZSv1",
-        },
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        //console.log(response);
-        setid(response.data._id);
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, [uid]);
+     }
+   };
 
   //check post review(performer) status
-  useEffect(() => {
-    if (id) {
-      axios
-        .get('http://localhost:4000/routes/check_post_review_status_for_user', {
-          params: {
-            _id: id,
-          },
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        .then(response => {
-          if (response.data != null) {
-            setnewpostReviewStatus('New Post Reviews');
-          }
-        });
-    }
-  }, [id]);
-  
+  // useEffect(() => {
+  //   if (user._id) {
+  //     axios
+  //       .get('http://localhost:4000/routes/check_post_review_status_for_user', {
+  //         params: {
+  //           _id: user._id,
+  //         },
+  //         withCredentials: true,
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       })
+  //       .then(response => {
+  //         if (response.data != null) {
+  //           setnewpostReviewStatus('New Post Reviews');
+  //         }
+  //       });
+  //   }
+  // }, [user._id]);
 
   useEffect(() => {
-    const updateUserStatus = async () => {
-      updateUser();
-    };
+    // updateUser();
+    fetchData4();
+    updateUser();
+  }, [user._id]);
 
-    
-      updateUserStatus();
-      fetchData4();
-    
-  }, [id]);
+  const handleGenresChange = selectedOptions => {
+    setGenres(selectedOptions);
+  };
+
+  const handleSkilsChange = selectedOptions => {
+    setSelectedSkills(selectedOptions);
+  };
 
   return (
     <div>
-      { curr_post && (
-            <div>
-              <article className="card">
-                <div className="accordion-content">
-                  <h1>Current Post</h1>
-
-                  <p>
-                    <strong>Dance Genre:</strong> {curr_post.current_post.genre}
-                  </p>
-                  <p>
-                    <strong>Skills:</strong>{' '}
-                    {curr_post.current_post.additional_skill_keywords.map(
-                      (skillField, index) => (
-                        <li key={index}>{skillField}</li>
-                      ),
-                    )}
-                  </p>
-                  <p>
-                    <strong>Categorical Preferences:</strong>
-                    <li> Musicality: {curr_post.current_post.musicality}</li>
-                    <li>Structure: {curr_post.current_post.structure}</li>
-                    <li>Technique: {curr_post.current_post.technique}</li>
-                    <li>Form: {curr_post.current_post.form}</li>
-                  </p>
-                  <Button
-                    className="view-performance-btn"
-                    color="secondary"
-                    variant="contained"
-                    onClick={() =>
-                      handleViewPerformancePostClick(curr_post.current_post._id)
-                    }
-                  >
-                    View Performance
-                  </Button>
-                </div>
-                <div >
-      <video class = "video-player" controls>
-        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${curr_post.current_post.video_field}`} type="video/mp4" />
+      <h2 className={s.title}>Current Post</h2>
+      <p className={s.description}>{`Welcome back, ${user?.name}`}</p>
+      {post && (
+        <>
+          <div className={s.container}>
+            <CustomSelect
+              options={genresOptions}
+              onChange={handleGenresChange}
+              value={genres}
+              label="Dance Genre"
+              closeMenuOnSelect={false}
+              id="genresSelect"
+              isDisabled
+            />
+            <CustomSelect
+              options={skills}
+              onChange={handleSkilsChange}
+              value={selectedSkills}
+              label="Skills"
+              id="skillsSelect"
+              isMulti
+              closeMenuOnSelect={false}
+              isDisabled
+            />
+            <p className={s.preference}>Categorical Preferences:</p>
+            {post.current_post.musicality_fields && (
+              <CustomPtogressBar
+                label="Musicality:"
+                values={post.current_post.musicality_fields}
+                options={musicalitySkills}
+                isDisabled
+              />
+            )}
+            {post.current_post.structure_fields && (
+              <CustomPtogressBar
+                label="Structure:"
+                values={post.current_post.structure_fields}
+                options={structureSkills}
+                isDisabled
+              />
+            )}
+            {post.current_post.technique_fields && (
+              <CustomPtogressBar
+                label="Technique:"
+                values={post.current_post.technique_fields}
+                options={techniqueSkills}
+                isDisabled
+              />
+            )}
+            {post.current_post.form_fields && (
+              <CustomPtogressBar
+                label="Texture:"
+                values={post.current_post.form_fields}
+                options={textureSkills}
+                isDisabled
+              />
+            )}
+            <Button
+              text="View Performance"
+              type="button"
+              onClick={() =>
+                handleViewPerformancePostClick(post.current_post._id)
+                
+              }
+            />
+          </div>
+          <video class = "video-player" controls>
+        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.current_post.video_field}`} type="video/mp4" />
       </video>
-      </div>
-
-                <div>
-                  <h1>My Post Reviews + Additional Comments</h1>
-                  <CurrentPostReviews post={curr_post.current_post} />
-                </div>
-              </article>
-            </div>
-          )}
-          { !curr_post && <strong> No Current Post</strong>}
+          <CurrentPostReviews post={post.current_post} user={user} />
+        </>
+      )}
+      {!post && <strong> No Current Post</strong>}
     </div>
   );
 };

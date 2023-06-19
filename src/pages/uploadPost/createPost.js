@@ -102,20 +102,23 @@ function CreatePost() {
       .catch(error => console.error(error));
   };
 
-  const handleUploadVideo = async(postId) => {
+  const handleUploadVideo = async postId => {
     const formData2 = new FormData();
-    formData2.append("video", video);
+    formData2.append('video', video);
 
     axios
-      .post(`http://localhost:4000/routes/attach_post_video?post_id=${postId}`, formData2, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      })
-      .then((response) => console.log(response.data))
-      .catch((error) => console.error(error));
+      .post(
+        `http://localhost:4000/routes/attach_post_video?post_id=${postId}`,
+        formData2,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      )
+      .then(response => console.log(response.data))
+      .catch(error => console.error(error));
   };
-
 
   const handleSubmit = event => {
     event.preventDefault();

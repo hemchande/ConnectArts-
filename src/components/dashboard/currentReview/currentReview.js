@@ -1,41 +1,12 @@
 import React from 'react';
-import s from './currentReview.module.css';
-import { useAuth } from '../../firebase/AuthContext';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CurrentReviewDetails from './currentreviewdetails';
+import s from './currentReview.module.css';
 
-const CurrentReview = ({user}) => {
+const CurrentReview = ({ user }) => {
   const [review, setReview] = useState(null); // used to be {}
-  const [id, setid] = useState('');
-
-
-  const { currentUser } = useAuth();
-  const uid = currentUser ? currentUser.uid : null;
-  console.log(uid);
-
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
-        params: {
-          firebase_id: "ZhxlJLC8HXZwIVaXhgFP4HCqZSv1",
-        },
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        //console.log(response);
-        setid(response.data._id);
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +14,7 @@ const CurrentReview = ({user}) => {
       axios
         .get('http://localhost:4000/routes/get_current_reviewer_post_status', {
           params: {
-            userId: id,
+            userId: user._id,
           },
           withCredentials: true,
           headers: {
@@ -51,32 +22,23 @@ const CurrentReview = ({user}) => {
           },
         })
         .then(response => {
-          //console.log(response);
           setReview(response.data);
-          console.log(response.data);
         })
         .catch(error => {
           console.error(error);
         });
     };
 
-    if (id) {
+    if (user._id) {
       fetchData();
     }
-  }, [id]);
+  }, [user._id]);
 
   return (
     <div>
-       { review && (
-        <div>
-          <article className="card">
-            
-            <div className="accordion-content">
-              <CurrentReviewDetails review={review} />
-            </div>
-          </article>
-        </div>
-      )}
+      <h2 className={s.title}>Current Review</h2>
+      <p className={s.description}>{`Welcome back, ${user?.name}`}</p>
+      {review && <CurrentReviewDetails review={review} />}
     </div>
   );
 };
