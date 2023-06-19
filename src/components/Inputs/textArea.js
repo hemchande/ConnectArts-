@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './input.module.css';
 
-const TextArea = ({ label, id, placeholder, value, setValue }) => {
+const TextArea = ({ label, id, placeholder, value, setValue, isDisabled }) => {
   return (
     <div>
       {label && (
@@ -15,6 +15,7 @@ const TextArea = ({ label, id, placeholder, value, setValue }) => {
         placeholder={placeholder}
         value={value}
         onChange={e => setValue(e.target.value)}
+        disabled={isDisabled}
       />
     </div>
   );

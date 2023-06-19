@@ -1,10 +1,19 @@
 import React from 'react';
 import s from './customProgressBar.module.css';
 
-const CustomPtogressBar = ({ label, values, options, setValues }) => {
+const CustomPtogressBar = ({
+  label,
+  values,
+  options,
+  setValues,
+  isDisabled,
+}) => {
   const progress = (values.length / options.length) * 100;
 
   const handleAddSkill = e => {
+    if (isDisabled) {
+      return;
+    }
     if (!values.includes(e.target.textContent)) {
       setValues([...values, e.target.textContent]);
     } else {
