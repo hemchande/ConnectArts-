@@ -19,6 +19,7 @@ const mockData = {
 
 function PastReviewDetails({ review }) {
   const [post, setPost] = useState({});
+  const [commentLink, setCommentLink] = useState(null);
 
   useEffect(() => {
     //get the review feedback file
@@ -41,10 +42,15 @@ function PastReviewDetails({ review }) {
         console.error(error);
       });
 
+    
+    fetchComments();
+
     //get the review post skills
 
     //get the review post actegorical prefs
   }, [review]);
+
+
 
   const handleViewPerformanceClick = postId => {
     try {
@@ -68,6 +74,27 @@ function PastReviewDetails({ review }) {
       // Handle the error as necessary
     }
   };
+
+  const  fetchComments = async () => {
+
+
+
+
+    axios.get(`http://localhost:4000/routes/display_past_review_feedback_from_reviewid_new`, {params: {
+      rev_id: review.reviewer_id,
+      post_id: review.post_id
+    }, responseType: 'text' })
+.then(response => {
+  
+  setCommentLink(response.data);
+})
+.catch(error => {
+  console.error(error);
+  alert('Error downloading review comments file.');
+});
+
+
+};
 
   return (
     <div className={s.container}>
@@ -140,13 +167,33 @@ function PastReviewDetails({ review }) {
         id="PerformerComments"
         value="TEST Test test TEST Performer comments" // add to this field comments string from BE
       />
-      <TextArea
+      {commentLink && (
+
+<TextArea
+isDisabled
+label="Reviewer comments:"
+placeholder="Text"
+id="ReviewerComments"
+value={commentLink}// add to this field comments string from BE
+/>
+
+      )}
+
+      {post.video_field && (
+        <video className="video-player" controls>
+        <source
+          src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
+          type="video/mp4"
+        />
+      </video>
+      )}
+       {/* <TextArea 
         isDisabled
         label="Reviewer comments:"
         placeholder="Text"
         id="ReviewerComments"
         value="TEST Test test TEST Reviewer comments" // add to this field comments string from BE
-      />
+      /> */}
       <Button
         text="View Performance"
         type="button"

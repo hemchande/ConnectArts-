@@ -49,7 +49,14 @@ const PastPosts = ({ user }) => {
         {/* {pastPosts?.map(el => (
           <PastPostReviews post={el} key={el} />
         ))} */}
-        <PastPostReviews />
+        {pastPosts.length > 0 ? (
+        pastPosts.map(post => (
+          <PastPostReviews post={post} key={post.id} />
+        ))
+      ) : (
+        <p>No past posts available.</p>
+      )}
+        {/* <PastPostReviews /> */}
       </div>
     </>
   );

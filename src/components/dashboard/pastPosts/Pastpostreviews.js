@@ -44,77 +44,102 @@ const mockComments = [
 ];
 
 function PastPostReviews({ post }) {
-  // const [reviews, setReviews] = useState([]);
-  // const [reviewComments, setReviewComments] = useState(null);
-  // const [reviewInfo, setReviewInfo] = useState([]);
+   const [reviews, setReviews] = useState([]);
+   const [reviewComments, setReviewComments] = useState(null);
+   const [reviewInfo, setReviewInfo] = useState([]);
+   const [postComments, setPostComments] = useState(null)
 
   const handleViewPerformance = () => {
     console.log(new Date().getTime());
   };
-  // const fetchReviewInfo = () => {
-  //   //console.log(reviewComments);
+  const fetchReviewInfo = () => {
+     console.log(reviewComments);
 
-  //   axios
-  //     .get('http://localhost:4000/routes/users/id/current_post/get_reviews', {
-  //       params: {
-  //         post_id: post._id,
-  //       },
-  //       withCredentials: true,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //     .then(response => {
-  //       //console.log(response);
-  //       setReviews(response.data.review_ids);
-  //       setReviewInfo(response.data.reviewer_information);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // };
+     axios
+       .get('http://localhost:4000/routes/users/id/current_post/get_reviews', {
+         params: {
+           post_id: post._id,
+         },
+         withCredentials: true,
+         headers: {
+           'Content-Type': 'application/json',
+         },
+       })
+       .then(response => {
+         console.log(response);
+         setReviews(response.data.review_ids);
+         setReviewInfo(response.data.reviewer_information);
+       })
+       .catch(error => {
+         console.error(error);
+       });
+   };
 
-  // const fetchReviewComments = () => {
-  //   try {
-  //     let obj = {};
+   const fetchPostComments = async () => {
+    //let comments = ""
 
-  //     for (let i = 0; i <= post.reviewer_ids.length; i++) {
-  //       let revId = post.reviewer_ids[i];
+    axios
+      .get('http://localhost:4000/routes/getcomments', {
+        params: {
+          post_id: post._id,
+        },
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        console.log(response);
+        setPostComments(response.data.comments);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
-  //       axios
-  //         .get(
-  //           'http://localhost:4000/routes/display_past_review_feedback_from_reviewid_new',
-  //           {
-  //             params: {
-  //               rev_id: revId,
-  //               post_id: post._id,
-  //             },
-  //             withCredentials: true,
-  //             headers: {
-  //               'Content-Type': 'application/json',
-  //             },
-  //           },
-  //         )
-  //         .then(response => {
-  //           obj[revId] = response.data;
-  //           console.log(obj);
-  //         })
-  //         .catch(error => {
-  //           console.error(error);
-  //         });
-  //     }
+   const fetchReviewComments = () => {
+     try {
+       let obj = {};
 
-  //     setReviewComments(obj);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+       for (let i = 0; i <= post.reviewer_ids.length; i++) {
+         let revId = post.reviewer_ids[i];
 
-  // useEffect(() => {
-  //   fetchReviewComments();
+         axios
+           .get(
+             'http://localhost:4000/routes/display_past_review_feedback_from_reviewid_new',
+             {
+              params: {
+                 rev_id: revId,
+                 post_id: post._id,
+               },
+               withCredentials: true,
+               headers: {
+                 'Content-Type': 'application/json',
+               },
+             },
+           )
+           .then(response => {
+             obj[revId] = response.data;
+             console.log(obj);
+           })
+           .catch(error => {
+             console.error(error);
+           });
+       }
 
-  //   fetchReviewInfo();
-  // }, []);
+       setReviewComments(obj);
+     } catch (error) {
+       console.error(error);
+     }
+   };
+
+   useEffect(() => {
+     fetchReviewComments();
+
+     fetchReviewInfo();
+
+     fetchPostComments();
+   }, []);
 
   return (
     <>
@@ -126,12 +151,12 @@ function PastPostReviews({ post }) {
         <h3 className={s.date}>{`Review ${mockData.date}`}</h3>
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Dance Genre:</h4>
-          <p className={s.genre}>{mockData.genre}</p>
+          <p className={s.genre}>{post.genre}</p>
         </div>
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Skills:</h4>
           <ul className={s.list}>
-            {mockData.skills.map((el, index) => (
+            {post.additional_skill_keywords.map((el, index) => (
               <li className={s.listItem} key={`${index}-${el}`}>
                 {el}
               </li>
@@ -144,7 +169,7 @@ function PastPostReviews({ post }) {
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Musicality:</h4>
           <ul className={s.list}>
-            {mockData.musicality.map((el, index) => (
+            {post.musicality_fields && post.musicality_fields.map((el, index) => (
               <li className={s.skillItem} key={`${index}-${el}`}>
                 {el}
               </li>
@@ -154,7 +179,7 @@ function PastPostReviews({ post }) {
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Structure:</h4>
           <ul className={s.list}>
-            {mockData.structure.map((el, index) => (
+            {post.structure_fields && post.structure_fields.map((el, index) => (
               <li className={s.skillItem} key={`${index}-${el}`}>
                 {el}
               </li>
@@ -164,7 +189,7 @@ function PastPostReviews({ post }) {
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Technique:</h4>
           <ul className={s.list}>
-            {mockData.technique.map((el, index) => (
+            {post.technique_fields && post.technique_fields.map((el, index) => (
               <li className={s.skillItem} key={`${index}-${el}`}>
                 {el}
               </li>
@@ -174,42 +199,54 @@ function PastPostReviews({ post }) {
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Texture:</h4>
           <ul className={s.list}>
-            {mockData.texture.map((el, index) => (
+            {post.form_fields && post.form_fields.map((el, index) => (
               <li className={s.skillItem} key={`${index}-${el}`}>
                 {el}
               </li>
             ))}
           </ul>
         </div>
+        {postComments && (
         <TextArea
           isDisabled
           label="Reviewer comments:"
           placeholder="Text"
           id="ReviewerComments"
-          value="TEST Test test TEST Reviewer comments" // add to this field comments string from BE
+          value={postComments} // add to this field comments string from BE
         />
+
+        )}
         <Button
           text="View Performance"
           type="button"
           onClick={handleViewPerformance}
         />
+        {post.video_field && (
+        <video className="video-player" controls>
+        <source
+          src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
+          type="video/mp4"
+        />
+      </video>
+      )}
       </div>
       <div className={s.commentsWrapper}>
         <h3 className={s.date}>Reviewer comments:</h3>
         <div className={s.line}></div>
-        {mockComments.map(el => (
-          <div key={el.url}>
+        { reviewInfo.length > 0 &&  reviewComments && reviewInfo.map((id, index )=> (
+          <div key={index}>
             <div className={s.commentInfo}>
-              <img className={s.commentIcon} src={el.url} alt="icon" />
-              <p className={s.commentName}>{el.name}</p>
-              <p className={s.commentTime}>{timeDifference(el.time)}</p>
+              <img className={s.commentIcon} src={'https://images-on-off.com/images/129-130/kaknarisovatloshadsmozhetkazhdiy-f745b822.jpg'} alt="icon" /> 
+              <p className={s.commentName}>{reviewInfo[index].name}</p>
+              <p className={s.commentTime}> </p>
             </div>
-            <p className={s.commentText}>{el.comment}</p>
+            <p className={s.commentText}>{reviewComments[reviewInfo[index]._id]}</p>
           </div>
         ))}
       </div>
     </>
   );
 }
+
 
 export default PastPostReviews;

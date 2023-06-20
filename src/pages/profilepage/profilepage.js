@@ -33,12 +33,12 @@ const ProfilePage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [resume, setResume] = useState('');
+  const [resume, setResume] = useState(null);
   const [role, setRole] = useState(roles[0]);
-  const [desiredPayRate, setDesiredPayRate] = useState('');
+  const [desiredPayRate, setDesiredPayRate] = useState(null);
   const [desiredPayRange, setDesiredPayRange] = useState({
-    from: '',
-    to: '',
+    from: null,
+    to: null,
   });
   const [genres, setGenres] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -57,23 +57,150 @@ const ProfilePage = () => {
   };
 
   const handleSave = () => {
+    let finalGenres = []
+    let obj1 = {};
+    if(role.value === "Reviewer"){
+      obj1["role"] = ["Reviewer"]
+    } if (role.value === "Performer"){
+      obj1["role"] = ["Performer"]
+    }else{
+      obj1["role"] = ["Performer","Reviewer"]
+    }
+
+    
+
+    if(genres.length > 0){
+      console.log(genres)
+      for(let i = 0; i < genres.length; i ++){
+        console.log(genres[i])
+        finalGenres.push(genres[i]["value"])
+      }
+      obj1["genre"] = finalGenres
+    
+
+    }else{
+      obj1["genre"] = []
+
+    }
+
+    if(desiredPayRate){
+      obj1["payRate"] = desiredPayRate
+    }
+    if(!desiredPayRate){
+      obj1["payRate"] = null
+    }
+
+    if(!desiredPayRange.from && !desiredPayRange.to){
+      obj1["payRange"] = null
+    }
+    if(desiredPayRange.from && desiredPayRange.to){
+      obj1["payRange"] = [parseInt(desiredPayRange.from), parseInt(desiredPayRange.to) ]
+    }
+
+
+    try {
+
+
+    axios.patch('http://localhost:4000/routes/editInfo',obj1, {params : {id: mongoId}})
+       .then(response => {
+        console.log(obj1)
+        //console.log(formData);
+        console.log(response.data);
+        //setMessage("User Info Saved")
+        })
+        .catch(error => {
+         console.log(error);
+     });
+
+
+    }catch(err){
+      console.log(err);
+    }
+
+
+
+    if(selectedSkills.length > 0){
+      let body = {}
+      let finalSkills = []
+
+      for(let i = 0; i < selectedSkills.length; i ++){
+        finalSkills.push(selectedSkills[i].value)
+      }
+      body["skillFields"] = finalSkills
+      axios.patch('http://localhost:4000/routes/updateSkills/' ,body, {params :
+      {id: mongoId}
+   } )
+    .then(response => {
+     //console.log(formData);
+     
+     console.log(response.data);
+     console.log(body)
+
+
+
+
+    }).catch(error => {
+     console.log(error);
+     //setMessage("Performers can only add skills for performances")
+
+
+    });
+
+    }
+
+
+
+    
+
+
+
+
+
     console.log('handleSave');
+    
   };
 
   const handleSaveResume = () => {
     console.log('handleSaveResume');
+    const formData = new FormData();
+    if(resume){
+      formData.append('resume',resume);
+      axios.patch('http://localhost:4000/routes/users/patch_resume', formData, {params : {id: mongoId}})
+      .then(response => {
+       console.log(formData);
+       console.log(response.data);
+ 
+ 
+ 
+ 
+      }).catch(error => {
+       console.log(error);
+ 
+ 
+      });
+
+
+    }
+
   };
 
   const handleRolesChange = selectedOptions => {
     setRole(selectedOptions);
+    //console.log(role)
+    console.log(selectedSkills)
+    
   };
 
   const handleGenresChange = selectedOptions => {
     setGenres(selectedOptions);
+    console.log(genres)
+    console.log(selectedSkills)
   };
 
   const handleSkilsChange = selectedOptions => {
     setSelectedSkills(selectedOptions);
+    console.log(selectedSkills)
+    //console.log(desiredPayRange)
   };
 
   const onboardLink = () => {
@@ -94,7 +221,7 @@ const ProfilePage = () => {
   const stripeLink = () => {
     axios
       .get(
-        `http://localhost:4000/routes/generate_stripe_dashboard_link?id=${'63f3ecc1029b963390157389'}`,
+        `http://localhost:4000/routes/generate_stripe_dashboard_link?id=${mongoId}`,
       )
       .then(response => {
         // Redirect to the login link returned from the server
@@ -289,6 +416,7 @@ const ProfilePage = () => {
                 value={desiredPayRate}
                 onChange={e =>
                   setDesiredPayRate(e.target.value.replace(/[^0-9]/g, ''))
+                  
                 }
                 label="Desired Pay Rate"
                 withSymbols
@@ -370,6 +498,7 @@ const ProfilePage = () => {
                     withSymbols
                     isDisabled={editSkills}
                   />
+                  
                 </div>
               </>
             )}
@@ -448,8 +577,7 @@ const ProfilePage = () => {
         </div>
       ) : (
         <div className={s.userWrapper}>
-          <h2 className={s.title}>Skills info</h2>
-          <p className={s.description}>Change your skills here.</p>
+          
           <div className={s.userInfoWrapper}>
             <DragAndDropField file={resume} setFile={setResume} withoutLabel />
             <div>
@@ -457,7 +585,7 @@ const ProfilePage = () => {
               <iframe
                 title="Resume"
                 className={s.frame}
-                src={`http://localhost:4000/routes/users/${'6444057682ec17d80aba6db8'}/resume`} //need adapted from data
+                src={`http://localhost:4000/routes/users/${mongoId}/resume`} //need adapted from data
               />
             </div>
             <div className={s.controlBtnWrapper}>

@@ -14,7 +14,7 @@ const DragAndDropField = ({ file, setFile, isVideo, label, withoutLabel }) => {
     const selectedFile = e.target.files[0];
     const allowedTypes = isVideo
       ? ['video/mp4']
-      : ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif'];
+      : ['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif', 'application/pdf'];
     const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
     const isValidType =
       allowedTypes.includes(selectedFile.type) ||
@@ -91,7 +91,7 @@ const DragAndDropField = ({ file, setFile, isVideo, label, withoutLabel }) => {
           <p className={s.text}>or drag and drop</p>
         </div>
         <p className={s.text}>
-          {isVideo ? 'video' : 'SVG, PNG, JPG or GIF (max. 800x400px)'}
+          {isVideo ? 'video' : 'SVG, PNG,PDF, JPG or GIF (max. 800x400px)'}
         </p>
       </div>
       {file && (

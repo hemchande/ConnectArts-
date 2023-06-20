@@ -13,7 +13,7 @@ const CurrentPostReviews = ({ post, user }) => {
   const [postReviewIds, setReviewIds] = useState([post.reviewers]);
   const [reviewerInfo, setreviewerInfo] = useState([]);
   const [ratingStatus, setratingStatus] = useState(null);
-  const [reviewComments, setreviewComments] = useState({});
+  const [reviewComments, setreviewComments] = useState(null); //used to be {}
   const [rating, setRating] = useState(null);
 
   const changeRating = event => {
@@ -92,8 +92,10 @@ const CurrentPostReviews = ({ post, user }) => {
   const fetchReviewComments = async () => {
     let obj = {};
 
-    for (let i = 0; i <= post.reviewers; i++) {
-      let revId = post.reviewers[i];
+    console.log(post.reviewer_ids)
+
+    for (let i = 0; i < post.reviewer_ids; i++) {
+      let revId = post.reviewer_ids[i];
 
       axios
         .get(
@@ -179,103 +181,145 @@ const CurrentPostReviews = ({ post, user }) => {
 
   return (
     <div>
-      <h2 className={s.title}>Reviewer information</h2>
-      <div className={s.reviewWrapper}>
-        <div className={s.userInfoWrapper}>
-          <div className={s.userInfo}>
-            {/* don't see avatar field please check it and change src*/}
-            <img className={s.avatar} src={avatar} alt="avatar" />
-            <div className={s.user}>
-              <p className={s.name}>{user?.name || 'Eisha'}</p>
-              {/* don't see mail field please check it and change this field*/}
-              <p className={s.mail}>{user?.mail || 'olivia@gmail .com'}</p>
-            </div>
-          </div>
-        </div>
-        {user?.payRate && (
-          <div className={s.wrapper}>
-            <h3 className={`${s.postTitle} ${s.minWidth}`}>Pay Rate:</h3>
-            <p className={s.payRate}>{`${user.payRate}$`}</p>
-          </div>
-        )}
-        {user?.payRange?.from && user?.payRange?.to && (
-          <div className={s.wrapper}>
-            <h3 className={`${s.postTitle} ${s.minWidth}`}>Pay Range:</h3>
-            <p
-              className={s.payRate}
-            >{`${user.payRange.from}$ - ${user.payRange.to}$`}</p>
-          </div>
-        )}
-        <div className={s.wrapper}>
-          <h3 className={`${s.postTitle} ${s.minWidth}`}>Dance Genre:</h3>
-          <p className={s.genreItem}>{post?.genre}</p>
-        </div>
-        <div className={s.wrapper}>
-          <h3 className={`${s.postTitle} ${s.minWidth}`}>Skills:</h3>
-          <ul className={s.list}>
-            {post?.additional_skill_keywords?.map((skillField, index) => (
-              <li key={index} className={s.skillItem}>
-                {skillField}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={s.wrapper}>
-          <h3 className={s.postTitle}>Categorical Preferences:</h3>
-        </div>
-        <div className={s.wrapper}>
-          <h3 className={s.postTitle}>Musicality:</h3>
-          <ul className={s.list}>
-            {post?.musicality_fields?.map((skillField, index) => (
-              <li key={index} className={s.preferencesItem}>
-                {skillField}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={s.wrapper}>
-          <h3 className={s.postTitle}>Structure:</h3>
-          <ul className={s.list}>
-            {post?.structure_fields?.map((skillField, index) => (
-              <li key={index} className={s.preferencesItem}>
-                {skillField}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={s.wrapper}>
-          <h3 className={s.postTitle}>Technique:</h3>
-          <ul className={s.list}>
-            {post?.technique_fields?.map((skillField, index) => (
-              <li key={index} className={s.preferencesItem}>
-                {skillField}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className={s.wrapper}>
-          <h3 className={s.postTitle}>Texture:</h3>
-          <ul className={s.list}>
-            {post?.form_fields?.map((skillField, index) => (
-              <li key={index} className={s.preferencesItem}>
-                {skillField}
-              </li>
-            ))}
-          </ul>
-        </div>
-        {postComments && (
-        <TextArea
-          label="Additional comments:"
-          id="AdditionalComments:"
-          value={postComments}
-          setValue={setComment}
-          isDisabled
-        />
+      {reviewerInfo.length > 0 && ratingStatus && reviewComments && reviewerInfo.map((id, index) => (
+        <>
+          <h2 className={s.title}>Reviewer Information</h2>
 
-        )}
-      </div>
+          <div className={s.reviewWrapper}>
+            <div className={s.userInfoWrapper}>
+              <div className={s.userInfo}>
+                {/* don't see avatar field please check it and change src*/}
+                <img className={s.avatar} src={avatar} alt="avatar" />
+                <div className={s.user}>
+                  <p className={s.name}>{reviewerInfo[index].name || 'Eisha'}</p>
+                  {/* don't see mail field please check it and change this field*/}
+                  <p className={s.mail}>{reviewerInfo[index].email || 'olivia@gmail .com'}</p>
+                </div>
+              </div>
+            </div>
+            {/* {user?.payRate && (
+              <div className={s.wrapper}>
+                <h3 className={`${s.postTitle} ${s.minWidth}`}>Pay Rate:</h3>
+                <p className={s.payRate}>{`${user.payRate}$`}</p>
+              </div>
+            )}
+            {user?.payRange?.from && user?.payRange?.to && (
+              <div className={s.wrapper}>
+                <h3 className={`${s.postTitle} ${s.minWidth}`}>Pay Range:</h3>
+                <p
+                  className={s.payRate}
+                >{`${user.payRange.from}$ - ${user.payRange.to}$`}</p>
+              </div>
+            )} */}
+            <div className={s.wrapper}>
+              <h3 className={`${s.postTitle} ${s.minWidth}`}>Dance Genres:</h3>
+              <ul className={s.list}>
+                {reviewerInfo[index].genre.map((skillField, index) => (
+                  <ul key={index} className={s.genreItem}>
+                    {skillField}
+                  </ul>
+                ))}</ul>
+            </div>
+            <div className={s.wrapper}>
+              <h3 className={`${s.postTitle} ${s.minWidth}`}>Skills:</h3>
+              <ul className={s.list}>
+                {reviewerInfo[index].skillFields.map((skillField, index) => (
+                  <li key={index} className={s.skillItem}>
+                    {skillField}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={s.wrapper}>
+              <h3 className={s.postTitle}>Categorical Preferences:</h3>
+            </div>
+            <div className={s.wrapper}>
+              <h3 className={s.postTitle}>Musicality:</h3>
+              <ul className={s.list}>
+                {reviewerInfo[index].musicality_fields?.map((skillField, index) => (
+                  <li key={index} className={s.preferencesItem}>
+                    {skillField}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={s.wrapper}>
+              <h3 className={s.postTitle}>Structure:</h3>
+              <ul className={s.list}>
+                {reviewerInfo[index].structure_fields?.map((skillField, index) => (
+                  <li key={index} className={s.preferencesItem}>
+                    {skillField}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={s.wrapper}>
+              <h3 className={s.postTitle}>Technique:</h3>
+              <ul className={s.list}>
+                {reviewerInfo[index].technique_fields?.map((skillField, index) => (
+                  <li key={index} className={s.preferencesItem}>
+                    {skillField}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={s.wrapper}>
+              <h3 className={s.postTitle}>Texture:</h3>
+              <ul className={s.list}>
+                {reviewerInfo[index].form_fields?.map((skillField, index) => (
+                  <li key={index} className={s.preferencesItem}>
+                    {skillField}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {postComments && (
+              <TextArea
+                label="Additional comments:"
+                id="AdditionalComments:"
+                value={postComments}
+                setValue={setComment}
+                isDisabled
+              />
+            )}
+
+            <div className={s.commentsWrapper}>
+              <h3 className={s.date}>Reviewer comments:</h3>
+              <div className={s.line}></div>
+              
+                <div key={index}>
+                  <div className={s.commentInfo}>
+                    
+                   
+                  </div>
+                  <p className={s.commentText}>{reviewComments[reviewerInfo[index]._id]}</p>
+                </div>
+             
+            </div>
+            {ratingStatus && postReviews.length > 0 && Object.keys(ratingStatus).includes(postReviews[index]) && ratingStatus[postReviews[index]] && (
+  <p>
+    <strong>Add Rating</strong>
+    <input
+      type="number"
+      value={rating}
+      onChange={changeRating}
+      name="Reviewer Rating"
+      min="1"
+      max="5"
+      step="1"
+    />
+    <button id={postReviews[index]} onClick = {addRating}>Add</button>
+  </p>
+)}
+
+
+          </div>
+        </>
+      ))}
     </div>
   );
 };
 
 export default CurrentPostReviews;
+
