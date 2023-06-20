@@ -7,3 +7,4 @@ export { default as structureSkills } from './structureSkills';
 export { default as musicalitySkills } from './musicalitySkills';
 export { default as sideBarConst } from './sideBarConstant';
 export { default as skillsData } from './skillsData';
+export { default as preferenceTab } from './preferenceTab';
