@@ -83,8 +83,10 @@ function PastReviewDetails({ review }) {
       <div className={s.wrapper}>
         <h4 className={s.reviewTitle}>Skills:</h4>
         <ul className={s.list}>
-          {post?.additional_skill_keywords?.map(el => (
-            <li className={s.listItem}>{el}</li>
+          {post?.additional_skill_keywords?.map((el, index) => (
+            <li className={s.listItem} key={`${index}-${el}`}>
+              {el}
+            </li>
           ))}
         </ul>
       </div>
@@ -94,32 +96,40 @@ function PastReviewDetails({ review }) {
       <div className={s.wrapper}>
         <h4 className={s.reviewTitle}>Musicality:</h4>
         <ul className={s.list}>
-          {mockData.musicality.map(el => (
-            <li className={s.skillItem}>{el}</li>
+          {mockData.musicality.map((el, index) => (
+            <li className={s.skillItem} key={`${index}-${el}`}>
+              {el}
+            </li>
           ))}
         </ul>
       </div>
       <div className={s.wrapper}>
         <h4 className={s.reviewTitle}>Structure:</h4>
         <ul className={s.list}>
-          {mockData.structure.map(el => (
-            <li className={s.skillItem}>{el}</li>
+          {mockData.structure.map((el, index) => (
+            <li className={s.skillItem} key={`${index}-${el}`}>
+              {el}
+            </li>
           ))}
         </ul>
       </div>
       <div className={s.wrapper}>
         <h4 className={s.reviewTitle}>Technique:</h4>
         <ul className={s.list}>
-          {mockData.technique.map(el => (
-            <li className={s.skillItem}>{el}</li>
+          {mockData.technique.map((el, index) => (
+            <li className={s.skillItem} key={`${index}-${el}`}>
+              {el}
+            </li>
           ))}
         </ul>
       </div>
       <div className={s.wrapper}>
         <h4 className={s.reviewTitle}>Texture:</h4>
         <ul className={s.list}>
-          {mockData.texture.map(el => (
-            <li className={s.skillItem}>{el}</li>
+          {mockData.texture.map((el, index) => (
+            <li className={s.skillItem} key={`${index}-${el}`}>
+              {el}
+            </li>
           ))}
         </ul>
       </div>

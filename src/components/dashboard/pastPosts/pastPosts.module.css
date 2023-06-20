@@ -1,0 +1,139 @@
+.container {
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  box-shadow: 0px 10px 12px -4px rgba(16, 24, 40, 0.08),
+    0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 10px;
+}
+
+.pastPostWrapper,
+.commentsWrapper {
+  width: 100%;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 38px;
+  color: #101828;
+  margin-bottom: 4px;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 24px;
+  color: #475467;
+  margin-bottom: 32px;
+}
+
+.flagIcon {
+  height: 48px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white-color);
+  border: 1px solid #eaecf0;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.date {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  color: #101828;
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.reviewTitle {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  color: #344054;
+  min-width: 150px;
+}
+
+.genre {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--accent-color);
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listItem {
+  padding: 4px 10px 4px 12px;
+  background-color: #fff4ed;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #c11574;
+}
+
+.skillItem {
+  padding: 0 10px;
+  border: 1px solid #e064a0;
+  border-radius: 15px;
+  background-color: #e064a0;
+  color: var(--white-color);
+  line-height: 38px;
+  outline: none;
+}
+
+.line {
+  height: 1px;
+  background-color: #eaecf0;
+  margin-bottom: 10px;
+}
+
+.commentInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.commentIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.commentName {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #344054;
+}
+
+.commentTime {
+  font-size: 12px;
+  line-height: 28px;
+  color: #888e96;
+}
+
+.commentText {
+  font-size: 16px;
+  line-height: 28px;
+  color: #000000;
+  padding: 0 56px;
+}

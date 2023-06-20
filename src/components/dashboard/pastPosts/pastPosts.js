@@ -1,7 +1,6 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import PastPostReviews from './Pastpostreviews';
-import { useEffect, useState } from 'react';
+
 import axios from 'axios';
 
 import s from './pastPosts.module.css';
@@ -13,10 +12,6 @@ const PastPosts = ({ user }) => {
 
   // console.log('pastPosts', pastPosts);
   // console.log('pastPostReviews', pastPostReviews);
-
-  const handleSelectPostChange = event => {
-    setSelectedPastPostIndex(event.target.value);
-  };
 
   const fetchData3 = async () => {
     //JSON OBJ OF CURRENT REVIEW
@@ -45,69 +40,18 @@ const PastPosts = ({ user }) => {
   useEffect(() => {
     fetchData3();
   }, []);
-
-  function PastPostOption({ post }) {
-    return (
-      <>
-        <p>
-          <strong>Reviewer:</strong> John Smith
-        </p>
-        <p>
-          <strong>Dance Genre:</strong> {post.genre}
-        </p>
-        <p>
-          <strong>Skills:</strong>
-          {post.additional_skill_keywords.map((skillField, index) => (
-            <li key={index}>{skillField}</li>
-          ))}
-        </p>
-        <p>
-          <strong>Categorical Preferences:</strong>
-          <li> {post.musicality}</li>
-          <li>{post.structure}</li>
-          <li>{post.technique}</li>
-          <li>{post.form}</li>
-        </p>
-        <div>
-          <video controls>
-            <source
-              src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
-              type="video/mp4"
-            />
-          </video>
-        </div>
-        <div>
-          <h1>My Post Reviews</h1>
-          <PastPostReviews post={post} />
-        </div>
-      </>
-    );
-  }
   return (
-    <div>
-      {pastPosts && pastPosts.length > 0 && (
-        <div>
-          <div>
-            <article className="card">
-              <div className="accordion">
-                <select
-                  className="select-option"
-                  onChange={handleSelectPostChange}
-                >
-                  {[...Array(pastPosts.length)].map((_, index) => (
-                    <option key={index} value={index}>
-                      Post {index + 1}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <PastPostOption post={pastPosts[selectedPastPostIndex]} />
-            </article>
-          </div>
-        </div>
-      )}
-      {pastPosts.length == 0 && <strong> No Previous Posts</strong>}
-    </div>
+    <>
+      <h2 className={s.title}>Past Posts</h2>
+      <p className={s.description}>{`Welcome back, ${user?.name}`}</p>
+      <div className={s.container}>
+        {/* lease after data will coming need 49-51 line uncommented and removed 52 lineP */}
+        {/* {pastPosts?.map(el => (
+          <PastPostReviews post={el} key={el} />
+        ))} */}
+        <PastPostReviews />
+      </div>
+    </>
   );
 };
 

@@ -76,25 +76,25 @@ const CurrentPost = ({ user }) => {
     //call the above after getting the current post
   };
 
-   const updateUser = () => {
-     try {
-       const response = axios.get(
-         'http://localhost:4000/routes/check_currentPost_reviews_updatePost_updateUser',
-         {
-           params: {
-             id: user._id,
-           },
-           withCredentials: true,
-           headers: {
-             'Content-Type': 'application/json',
-           },
-         },
-       );
-     } catch (error) {
+  const updateUser = () => {
+    try {
+      const response = axios.get(
+        'http://localhost:4000/routes/check_currentPost_reviews_updatePost_updateUser',
+        {
+          params: {
+            id: user._id,
+          },
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+    } catch (error) {
       console.error(error);
       // Handle the error as necessary
-     }
-   };
+    }
+  };
 
   //check post review(performer) status
   // useEffect(() => {
@@ -195,13 +195,15 @@ const CurrentPost = ({ user }) => {
               type="button"
               onClick={() =>
                 handleViewPerformancePostClick(post.current_post._id)
-                
               }
             />
           </div>
-          <video class = "video-player" controls>
-        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.current_post.video_field}`} type="video/mp4" />
-      </video>
+          <video className="video-player" controls>
+            <source
+              src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.current_post.video_field}`}
+              type="video/mp4"
+            />
+          </video>
           <CurrentPostReviews post={post.current_post} user={user} />
         </>
       )}

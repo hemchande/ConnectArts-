@@ -39,7 +39,7 @@ const PastReviews = ({ user }) => {
       <p className={s.description}>{`Welcome back, ${user?.name}`}</p>
       <div className={s.pastReviewontainer}>
         {pastReviews?.map(el => (
-          <PastReviewDetails review={el} />
+          <PastReviewDetails review={el} key={el} />
         ))}
       </div>
       {pastReviews.length < 1 && <strong> No Previous Reviews</strong>}
