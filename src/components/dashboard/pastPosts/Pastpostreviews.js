@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Flag } from '../../../assets/flag.svg';
 import { TextArea } from '../../Inputs';
 import { Button } from '../../button';
 import { timeDifference } from '../../../helpers';
+import routes from '../../../routes';
 
 import s from './pastPosts.module.css';
 
@@ -47,10 +49,16 @@ function PastPostReviews({ post }) {
   // const [reviews, setReviews] = useState([]);
   // const [reviewComments, setReviewComments] = useState(null);
   // const [reviewInfo, setReviewInfo] = useState([]);
+  const navigate = useNavigate();
 
   const handleViewPerformance = () => {
     console.log(new Date().getTime());
   };
+
+  const handleUserLink = link => {
+    navigate(link);
+  };
+
   // const fetchReviewInfo = () => {
   //   //console.log(reviewComments);
 
@@ -117,7 +125,7 @@ function PastPostReviews({ post }) {
   // }, []);
 
   return (
-    <>
+    <div className={s.pastPostContainer}>
       <div className={s.pastPostWrapper}>
         <div className={s.flagIcon}>
           <Flag />
@@ -199,16 +207,24 @@ function PastPostReviews({ post }) {
         <div className={s.line}></div>
         {mockComments.map(el => (
           <div key={el.url}>
-            <div className={s.commentInfo}>
-              <img className={s.commentIcon} src={el.url} alt="icon" />
-              <p className={s.commentName}>{el.name}</p>
-              <p className={s.commentTime}>{timeDifference(el.time)}</p>
+            <div className={s.commentInfoWrapper}>
+              <div className={s.commentInfo}>
+                <img className={s.commentIcon} src={el.url} alt="icon" />
+                <p className={s.commentName}>{el.name}</p>
+                <p className={s.commentTime}>{timeDifference(el.time)}</p>
+              </div>
+              <p
+                className={s.userLink}
+                onClick={() => handleUserLink(routes.profile)} // from BE need coming link for redirect
+              >
+                View Porile
+              </p>
             </div>
             <p className={s.commentText}>{el.comment}</p>
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
