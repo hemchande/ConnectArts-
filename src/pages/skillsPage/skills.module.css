@@ -7,9 +7,9 @@
 }
 
 .container {
-  max-width: 1440px;
+  max-width: 1260px;
   margin: 0 auto;
-  padding: 24px 80px;
+  padding: 24px 20px;
 }
 
 .line {
@@ -20,7 +20,7 @@
 
 .contentContainer {
   display: flex;
-  gap: 80px;
+  gap: 60px;
 }
 
 .leftContainer {
