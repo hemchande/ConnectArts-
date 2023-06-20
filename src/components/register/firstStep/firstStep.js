@@ -23,7 +23,7 @@ const FirstStep = ({
   return (
     <div className={s.container}>
       <Input
-        type="firstname"
+        type="text"
         name="firstname"
         placeholder="Enter your First Name"
         value={firstName}
@@ -32,7 +32,7 @@ const FirstStep = ({
         required
       />
       <Input
-        type="lastname"
+        type="text"
         name="lastname"
         placeholder="Enter your Last Name"
         value={lastName}
