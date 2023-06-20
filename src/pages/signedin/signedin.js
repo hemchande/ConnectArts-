@@ -18,7 +18,7 @@ function SignedInPage() {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: 'wc8QXHYRE1ej9Mj9BB5IEUNPRLD2', // uid
+          firebase_id: 'i7JdvmMfvfe0A7dzLUCiOS4zngi1', // uid
         },
         withCredentials: true,
         headers: {
