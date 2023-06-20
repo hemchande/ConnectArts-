@@ -6,13 +6,7 @@ import PastReviewDetails from './Pastreviewdetails';
 import s from './pastReviews.module.css';
 
 const PastReviews = ({ user }) => {
-  const [selectedPastReviewIndex, setSelectedPastReviewIndex] = useState(0);
   const [pastReviews, setPastReviews] = useState([]); //used to be []
-  const [numReviews, setNumReviews] = useState(null);
-
-  const handleSelectReviewChange = event => {
-    setSelectedPastReviewIndex(event.target.value);
-  };
 
   useEffect(() => {
     const fetchData2 = async () => {
@@ -30,7 +24,6 @@ const PastReviews = ({ user }) => {
         .then(response => {
           console.log(response);
           setPastReviews(response.data);
-          setNumReviews(response.data.length);
         })
         .catch(error => {
           console.error(error);
@@ -41,27 +34,16 @@ const PastReviews = ({ user }) => {
     }
   }, [user._id]);
   return (
-    <div>
-      {pastReviews && pastReviews.length > 0 && (
-        <article className="card">
-          <h1> Past Reviews</h1>
-          <div className="accordion">
-            <select
-              className="select-option"
-              onChange={handleSelectReviewChange}
-            >
-              {[...Array(pastReviews.length)].map((_, index) => (
-                <option key={index} value={index}>
-                  Review {index + 1}
-                </option>
-              ))}
-            </select>
-          </div>
-          <PastReviewDetails review={pastReviews[selectedPastReviewIndex]} />
-        </article>
-      )}
+    <>
+      <h2 className={s.title}>Past Reviews</h2>
+      <p className={s.description}>{`Welcome back, ${user?.name}`}</p>
+      <div className={s.pastReviewontainer}>
+        {pastReviews?.map(el => (
+          <PastReviewDetails review={el} key={el} />
+        ))}
+      </div>
       {pastReviews.length < 1 && <strong> No Previous Reviews</strong>}
-    </div>
+    </>
   );
 };
 

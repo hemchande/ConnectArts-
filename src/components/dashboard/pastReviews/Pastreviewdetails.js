@@ -1,133 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { ReactComponent as Attachment } from '../../../assets/attachment.svg';
+import { TextArea } from '../../Inputs';
+import { Button } from '../../button';
+import s from './pastReviews.module.css';
 
-const useStyles = makeStyles((theme) => ({
-    container: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gridTemplateRows: 'auto 1fr',
-      gridGap: theme.spacing(2),
-      height: '100vh',
-    },
-    videoSection: {
-      gridColumn: '1 / 2',
-      gridRow: '1 / 2',
-    },
-    feedbackSection: {
-      gridColumn: '2 / 3',
-      gridRow: '1 / 2',
-    },
-    bottomSection: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      gridGap: theme.spacing(2),
-      gridColumn: '1 / 3',
-      gridRow: '2 / 3',
-    },
-    categoryPrefs: {
-      backgroundColor: 'lightblue',
-    },
-    additionalSkills: {
-      backgroundColor: 'lightgreen',
-    },
-    additionalNotes: {
-      backgroundColor: 'lightpink',
-    },
-  }));
+const mockData = {
+  date: '12.12.2012',
+  musicality: ['Rhytmic Content', 'Timing Content'],
+  structure: ['Spatial Levels', 'Movement Pathways'],
+  texture: [
+    'Fast + Slow Dynamics',
+    'Sudden/Sustained Dynamics',
+    'Acceleration + Deceleration ',
+  ],
+  technique: ['Posture', 'Alignment', 'Balance', 'Coordination'],
+};
 
+function PastReviewDetails({ review }) {
+  const [post, setPost] = useState({});
 
+  useEffect(() => {
+    //get the review feedback file
 
-function PastReviewDetails ({review}) {
-
-    const [post, setPost] = useState({})
-    //const [review, setReview] = useState(review)
-    const [commentLink, setCommentLink] = useState(null);
-
-    const classes = useStyles();
-
-
-    const  fetchComments = async () => {
-
-
-
-
-      axios.get(`http://localhost:4000/routes/display_past_review_feedback_from_reviewid_new`, {params: {
-        rev_id: review.reviewer_id,
-        post_id: review.post_id
-      }, responseType: 'text' })
-  .then(response => {
-    
-    setCommentLink(response.data);
-  })
-  .catch(error => {
-    console.error(error);
-    alert('Error downloading review comments file.');
-  });
-
-
-  };
-
-
-    useEffect(() => {
-
-        //get the review feedback file 
-        
-
-        axios.get('http://localhost:4000/routes/get_post_from_review', {
-          params: {
-            review_id: review._id,
-          },
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then(response => {
-          //console.log(response.data);
-          setPost(response.data)
-         })
-        .catch(error => {
-        console.error(error);
-        });
-
-
-
-      
-
-
-
-        //get the review post skills
-
-
-
-
-
-        //get the review post actegorical prefs 
-
-
-    }, [review]);
-
-    useEffect(() => { 
-
-
-      fetchComments();
-
-
-
-  }, []);
-
-
-
-
-  const handleViewPerformanceClick =  (postId) => {
-    try {
-      const response = axios.get("http://localhost:4000/routes/get_post_video_from_review", {
+    axios
+      .get('http://localhost:4000/routes/get_post_from_review', {
         params: {
-          post_id: postId,
+          review_id: review._id,
         },
-        responseType: 'blob',
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        //console.log(response.data);
+        setPost(response.data);
+      })
+      .catch(error => {
+        console.error(error);
       });
-      
+
+    //get the review post skills
+
+    //get the review post actegorical prefs
+  }, [review]);
+
+  const handleViewPerformanceClick = postId => {
+    try {
+      const response = axios.get(
+        'http://localhost:4000/routes/get_post_video_from_review',
+        {
+          params: {
+            post_id: postId,
+          },
+          responseType: 'blob',
+        },
+      );
+
       // Do something with the video blob, such as displaying it in a video element
       const videoUrl = URL.createObjectURL(response.data);
       const videoElement = document.createElement('video');
@@ -139,79 +69,91 @@ function PastReviewDetails ({review}) {
     }
   };
 
-
-
-    return (
-      <>
-    
-      
-      <p>
-        <strong>Dance Genre:</strong> {post.genre}
-      </p>
-      <p>
-
-
-      <strong>Categorical Preferences:</strong>
-
-      
-      <p> Technique {post.technique}</p>
-      <p> Structure {post.structure}</p>
-      <p> Musicality {post.musicality}</p>
-      <p> Form {post.form}</p>
-
-      <p>
-      <strong>Post Skills </strong>
-{post && post.additional_skill_keywords && post.additional_skill_keywords.length > 0 && (
-  <ul>
-    {post.additional_skill_keywords.map((skillField, index) => (
-      <li key={index}>{skillField}</li>
-    ))}
-  </ul>
-) 
+  return (
+    <div className={s.container}>
+      <div className={s.attachment}>
+        <Attachment />
+      </div>
+      {/* after date will comming from BE add to this field */}
+      <h3 className={s.date}>{`Review ${mockData.date}`}</h3>
+      <div className={s.wrapper}>
+        <h4 className={s.reviewTitle}>Dance Genre:</h4>
+        <p className={s.genre}>{post.genre}</p>
+      </div>
+      <div className={s.wrapper}>
+        <h4 className={s.reviewTitle}>Skills:</h4>
+        <ul className={s.list}>
+          {post?.additional_skill_keywords?.map((el, index) => (
+            <li className={s.listItem} key={`${index}-${el}`}>
+              {el}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={s.wrapper}>
+        <h4 className={s.reviewTitle}>Categorical Preferences:</h4>
+      </div>
+      <div className={s.wrapper}>
+        <h4 className={s.reviewTitle}>Musicality:</h4>
+        <ul className={s.list}>
+          {mockData.musicality.map((el, index) => (
+            <li className={s.skillItem} key={`${index}-${el}`}>
+              {el}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={s.wrapper}>
+        <h4 className={s.reviewTitle}>Structure:</h4>
+        <ul className={s.list}>
+          {mockData.structure.map((el, index) => (
+            <li className={s.skillItem} key={`${index}-${el}`}>
+              {el}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={s.wrapper}>
+        <h4 className={s.reviewTitle}>Technique:</h4>
+        <ul className={s.list}>
+          {mockData.technique.map((el, index) => (
+            <li className={s.skillItem} key={`${index}-${el}`}>
+              {el}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={s.wrapper}>
+        <h4 className={s.reviewTitle}>Texture:</h4>
+        <ul className={s.list}>
+          {mockData.texture.map((el, index) => (
+            <li className={s.skillItem} key={`${index}-${el}`}>
+              {el}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <TextArea
+        isDisabled
+        label="Performer comments:"
+        placeholder="Text"
+        id="PerformerComments"
+        value="TEST Test test TEST Performer comments" // add to this field comments string from BE
+      />
+      <TextArea
+        isDisabled
+        label="Reviewer comments:"
+        placeholder="Text"
+        id="ReviewerComments"
+        value="TEST Test test TEST Reviewer comments" // add to this field comments string from BE
+      />
+      <Button
+        text="View Performance"
+        type="button"
+        onClick={() => handleViewPerformanceClick(post._id)}
+      />
+    </div>
+  );
 }
-  
-        
-      
-        
-      </p>
-      
-      <p>
-        <strong>View Provided Feedback </strong> {commentLink}
-      </p>
-      <button className="view-performance-btn" onClick={() => handleViewPerformanceClick(post._id)}>View Performance</button>
-      <div>
-      <div >
-      <video class = "video-player" controls>
-        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`} type="video/mp4" />
-      </video>
-      </div>
-      
-    
-      </div>
 
-
-     
-
-
-      </p>
-
-      </>
-
-
-
-
-    )};
-
-
-    export default PastReviewDetails;
-    
-
-
-
-
-
-
-
-
-
-
+export default PastReviewDetails;
