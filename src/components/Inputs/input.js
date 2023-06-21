@@ -11,9 +11,13 @@ const Input = ({
   requirerd,
   withSymbols,
   isDisabled,
+  maxWidth,
 }) => {
   return (
-    <div className={withSymbols ? `${s.container} ${s.maxWidth}` : s.maxWidth}>
+    <div
+      className={withSymbols ? `${s.container} ${s.maxWidth}` : s.maxWidth}
+      style={maxWidth ? { maxWidth: `${maxWidth}px` } : {}}
+    >
       {label && <label className={s.label}>{label}</label>}
       <input
         className={`${s.field} ${withSymbols ? s.withSymbolField : ''}`}

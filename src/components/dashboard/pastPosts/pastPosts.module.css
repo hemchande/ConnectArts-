@@ -1,4 +1,10 @@
 .container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.pastPostContainer {
   background: #ffffff;
   border: 1px solid #eaecf0;
   box-shadow: 0px 10px 12px -4px rgba(16, 24, 40, 0.08),
@@ -52,6 +58,7 @@
 
 .wrapper {
   display: flex;
+  align-items: center;
   margin-bottom: 20px;
 }
 
@@ -105,6 +112,12 @@
   margin-bottom: 10px;
 }
 
+.commentInfoWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .commentInfo {
   display: flex;
   align-items: center;
@@ -136,4 +149,77 @@
   line-height: 28px;
   color: #000000;
   padding: 0 56px;
+}
+
+.userLink {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #475467;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.userLink:hover,
+.userLink:focus {
+  color: var(--accent-color);
+}
+
+.user {
+  margin-left: 12px;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #344054;
+}
+
+.mail {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #475467;
+}
+
+.reviewTitlePopup {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: #344054;
+  min-width: 100px;
+}
+
+.listItemPopup {
+  padding: 2px 5px 2px 6px;
+  background-color: #fff4ed;
+  border-radius: 16px;
+  font-size: 10px;
+  line-height: 15px;
+  color: #c11574;
+}
+
+.skillItemPopup {
+  padding: 0 5px;
+  border: 1px solid #e064a0;
+  border-radius: 15px;
+  background-color: #e064a0;
+  color: var(--white-color);
+  line-height: 18px;
+  font-size: 12px;
+  outline: none;
+}
+
+.commentInfoPopUp {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.wrapperPopup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }

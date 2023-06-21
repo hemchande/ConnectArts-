@@ -9,6 +9,7 @@ const TextArea = ({
   setValue,
   isDisabled,
   width,
+  index,
 }) => {
   return (
     <div style={width && { width: `${width}px` }}>
@@ -22,7 +23,9 @@ const TextArea = ({
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={e => setValue(e.target.value)}
+        onChange={e =>
+          index ? setValue(index, e.target.value) : setValue(e.target.value)
+        }
         disabled={isDisabled}
       />
     </div>

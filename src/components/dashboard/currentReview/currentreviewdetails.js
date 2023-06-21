@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import CustomSelect from '../../select/select';
 import CustomPtogressBar from '../../progressBar/customProgressBar';
-import { TextArea } from '../../Inputs';
+import { TextArea, Input } from '../../Inputs';
 import { Button } from '../../button';
 import {
   genresOptions,
@@ -18,6 +18,9 @@ import { useNavigate } from 'react-router-dom';
 import s from './currentReview.module.css';
 
 function CurrentReviewDetails({ review }) {
+  const [fields, setFields] = useState([]);
+  const [title, setTitle] = useState('');
+
   const [genres, setGenres] = useState(null);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [comments, setComments] = useState(null);
@@ -31,6 +34,25 @@ function CurrentReviewDetails({ review }) {
   const [generalFeedback, setGeneralFeedback] = useState('');
 
   const navigate = useNavigate();
+
+  const addField = () => {
+    if (!title) {
+      return;
+    }
+    setFields([...fields, { title, value: '' }]);
+    setTitle('');
+  };
+
+  const handleChange = (index, event) => {
+    const updatedFields = [...fields];
+    updatedFields[index].value = event.target.value;
+    setFields(updatedFields);
+  };
+
+  const handleTitleChange = event => {
+    setTitle(event.target.value);
+  };
+
   // const [error, setError] = useState(null);
 
   // const handleAddHeader = () => {
@@ -80,27 +102,7 @@ function CurrentReviewDetails({ review }) {
 
   // const handleGeneralFeedback = event => {};
 
-  // const fetchPostComments = async () => {
-  //   //let comments = ""
-
-  //   axios
-  //     .get('http://localhost:4000/routes/getcomments', {
-  //       params: {
-  //         post_id: review.post._id,
-  //       },
-  //       withCredentials: true,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //     .then(response => {
-  //       console.log(response);
-  //       setPostComments(response.data.comments);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // };
+   
 
   // Helper function to count words in a string
   // const countWords = text => {
@@ -189,33 +191,27 @@ function CurrentReviewDetails({ review }) {
     navigate('/signedin');
   };
 
-
-  const fetchPostComments = async() =>{
-
+  const fetchPostComments = async () => {
     //let comments = ""
 
     axios
-      .get("http://localhost:4000/routes/getcomments", {
+      .get('http://localhost:4000/routes/getcomments', {
         params: {
           post_id: review.post._id,
         },
         withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       })
-      .then((response) => {
+      .then(response => {
         console.log(response);
         setComments(response.data.comments);
-
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
-
-
-
-  }
+  };
 
   useEffect(() => {
     axios
@@ -319,20 +315,41 @@ function CurrentReviewDetails({ review }) {
           setValue={setNewSuggestion}
           width={320}
         />
+        {fields.map((field, index) => (
+          <div key={index} className={s.textAreaWrapper}>
+            <label className={s.label}>{field.title}</label>
+            <textarea
+              className={s.textarea}
+              value={field.value}
+              onChange={event => handleChange(index, event)}
+            />
+          </div>
+        ))}
+      </div>
+      <div className={s.addFieldWrapper}>
+        <button type="button" onClick={addField} className={s.addField}>
+          Add New Comment Field
+        </button>
+        <Input
+          type="text"
+          name="title"
+          placeholder="Add title for new field"
+          value={title}
+          onChange={handleTitleChange}
+          maxWidth={300}
+        />
       </div>
 
       {comments && (
-      <TextArea
-        label="Performer comments:"
-        id="Performercomments"
-        placeholder="Text"
-        value={comments}
-        setValue={setComments}
-        isDisabled
-      />
-
+        <TextArea
+          label="Performer comments:"
+          id="Performercomments"
+          placeholder="Text"
+          value={comments}
+          setValue={setComments}
+          isDisabled
+        />
       )}
-
 
       <p className={s.preference}>Categorical Preferences:</p>
       {post?.musicality_fields && (
@@ -368,14 +385,14 @@ function CurrentReviewDetails({ review }) {
         />
       )}
 
-{post?.video_field && (
-
-<video class = "video-player" controls>
-        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`} type="video/mp4" />
-      </video>
-
-)}
-
+      {post?.video_field && (
+        <video className="video-player" controls>
+          <source
+            src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
+            type="video/mp4"
+          />
+        </video>
+      )}
 
       <Button text="Post feedback" type="button" onClick={handlepostFeedback} />
     </div>

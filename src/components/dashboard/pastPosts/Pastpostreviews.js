@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Popup from 'reactjs-popup';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as Flag } from '../../../assets/flag.svg';
 import { TextArea } from '../../Inputs';
 import { Button } from '../../button';
@@ -7,32 +9,42 @@ import { timeDifference } from '../../../helpers';
 
 import s from './pastPosts.module.css';
 
-const mockData = {
-  genre: 'Ballet',
-  skills: ['Turn combinations', 'Allegro', 'Extensions'],
-  date: '12.12.2012',
-  musicality: ['Rhytmic Content', 'Timing Content'],
-  structure: ['Spatial Levels', 'Movement Pathways'],
-  texture: [
-    'Fast + Slow Dynamics',
-    'Sudden/Sustained Dynamics',
-    'Acceleration + Deceleration ',
-  ],
-  technique: ['Posture', 'Alignment', 'Balance', 'Coordination'],
-};
-
-const mockComments = [
+const mockData = [
   {
     time: '1687267349106',
     url: 'https://images-on-off.com/images/129-130/kaknarisovatloshadsmozhetkazhdiy-f745b822.jpg',
     name: 'Olivia Rhye',
     comment: 'Interesting peformance!',
+    email: 'test1@gmail.com',
+    genre: 'Ballet',
+    skills: ['Turn combinations', 'Allegro', 'Extensions'],
+    date: '12.12.2012',
+    musicality: ['Rhytmic Content', 'Timing Content'],
+    structure: ['Spatial Levels', 'Movement Pathways'],
+    texture: [
+      'Fast + Slow Dynamics',
+      'Sudden/Sustained Dynamics',
+      'Acceleration + Deceleration ',
+    ],
+    technique: ['Posture', 'Alignment', 'Balance', 'Coordination'],
   },
   {
     time: '1687265412466',
     url: 'https://images-on-off.com/images/157/sborkadvereykupearisto-5b1654cd.png',
     name: 'Maya Caroll',
     comment: 'Want to know you better!',
+    email: 'test2@gmail.com',
+    genre: 'Ballet',
+    skills: ['Turn combinations', 'Allegro', 'Extensions'],
+    date: '12.12.2012',
+    musicality: ['Rhytmic Content', 'Timing Content'],
+    structure: ['Spatial Levels', 'Movement Pathways'],
+    texture: [
+      'Fast + Slow Dynamics',
+      'Sudden/Sustained Dynamics',
+      'Acceleration + Deceleration ',
+    ],
+    technique: ['Posture', 'Alignment', 'Balance', 'Coordination'],
   },
   {
     time: '1687263432466',
@@ -40,19 +52,33 @@ const mockComments = [
     name: 'Andrew Smith',
     comment:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper, odio vitae bibendum tincidunt, nulla odio rhoncus ante, non finibus arcu lorem non ligula. Fusce consequat feugiat tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque eu consequat odio. Nulla id metus ut odio ornare facilisis sed vel magna. Donec enim erat, tristique eget tincidunt sit amet, dictum non ligula. Phasellus ut nisl ornare nisi finibus mattis. Nullam ultricies vel nisl eget mollis. Donec sed nulla tristique, consequat urna ac, consequat nibh. Integer vel enim interdum, lacinia justo ut, varius tellus.',
+    email: 'test3@gmail.com',
+    genre: 'Ballet',
+    skills: ['Turn combinations', 'Allegro', 'Extensions'],
+    date: '12.12.2012',
+    musicality: ['Rhytmic Content', 'Timing Content'],
+    structure: ['Spatial Levels', 'Movement Pathways'],
+    texture: [
+      'Fast + Slow Dynamics',
+      'Sudden/Sustained Dynamics',
+      'Acceleration + Deceleration ',
+    ],
+    technique: ['Posture', 'Alignment', 'Balance', 'Coordination'],
   },
 ];
 
 function PastPostReviews({ post }) {
    const [reviews, setReviews] = useState([]);
    const [reviewComments, setReviewComments] = useState(null);
+   const [postComments, setPostComments] = useState(null);
    const [reviewInfo, setReviewInfo] = useState([]);
-   const [postComments, setPostComments] = useState(null)
+  const navigate = useNavigate();
 
   const handleViewPerformance = () => {
     console.log(new Date().getTime());
   };
-  const fetchReviewInfo = () => {
+
+   const fetchReviewInfo = () => {
      console.log(reviewComments);
 
      axios
@@ -66,7 +92,7 @@ function PastPostReviews({ post }) {
          },
        })
        .then(response => {
-         console.log(response);
+         //console.log(response);
          setReviews(response.data.review_ids);
          setReviewInfo(response.data.reviewer_information);
        })
@@ -108,7 +134,7 @@ function PastPostReviews({ post }) {
            .get(
              'http://localhost:4000/routes/display_past_review_feedback_from_reviewid_new',
              {
-              params: {
+               params: {
                  rev_id: revId,
                  post_id: post._id,
                },
@@ -142,13 +168,13 @@ function PastPostReviews({ post }) {
    }, []);
 
   return (
-    <>
+    <div className={s.pastPostContainer}>
       <div className={s.pastPostWrapper}>
         <div className={s.flagIcon}>
           <Flag />
         </div>
         {/* after date will comming from BE add to this field */}
-        <h3 className={s.date}>{`Review ${mockData.date}`}</h3>
+        <h3 className={s.date}>{`Review ${mockData[0].date}`}</h3>
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Dance Genre:</h4>
           <p className={s.genre}>{post.genre}</p>
@@ -156,7 +182,7 @@ function PastPostReviews({ post }) {
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Skills:</h4>
           <ul className={s.list}>
-            {post.additional_skill_keywords.map((el, index) => (
+            {post.additional_skill_keywords && post.additional_skill_keywords.map((el, index) => (
               <li className={s.listItem} key={`${index}-${el}`}>
                 {el}
               </li>
@@ -231,20 +257,113 @@ function PastPostReviews({ post }) {
       )}
       </div>
       <div className={s.commentsWrapper}>
-        <h3 className={s.date}>Reviewer comments:</h3>
+        <h3 className={s.date}>View Reviewer comments</h3>
         <div className={s.line}></div>
         { reviewInfo.length > 0 &&  reviewComments && reviewInfo.map((id, index )=> (
+
           <div key={index}>
-            <div className={s.commentInfo}>
-              <img className={s.commentIcon} src={'https://images-on-off.com/images/129-130/kaknarisovatloshadsmozhetkazhdiy-f745b822.jpg'} alt="icon" /> 
-              <p className={s.commentName}>{reviewInfo[index].name}</p>
-              <p className={s.commentTime}> </p>
+            <div className={s.commentInfoWrapper}>
+              <div className={s.commentInfo}>
+              
+                 <img className={s.commentIcon} src={"https://images-on-off.com/images/129-130/kaknarisovatloshadsmozhetkazhdiy-f745b822.jpg"} alt="icon" />
+               
+                <p className={s.commentTime}>5:00 PM Today</p> 
+                <p className={s.commentName}>{reviewInfo[index].name}</p>
+               
+              </div>
+              {/* <p className={s.commentText}>{reviewComments[reviewInfo[index]._id]}</p> */}
+              <div> </div>
+
+              <Popup
+                contentStyle={{ padding: '26px 32px', minWidth: '320px' }}
+                trigger={<p className={s.userLink}>View Feedback</p>}
+                position="left top"
+              >  <p className={s.commentText}>{reviewComments[reviewInfo[index]._id]}</p>
+              </Popup>
+        
+              <Popup
+                contentStyle={{ padding: '26px 32px', minWidth: '320px' }}
+                trigger={<p className={s.userLink}>View Profile</p>}
+                position="left top"
+              >
+                <div className={s.commentInfoPopUp}>
+                  {/* <img className={s.commentIcon} src={el.url} alt="icon" /> */}
+                  <div className={s.user}>
+                    <p className={s.name}>{reviewInfo[index].name}</p>
+                    {/* <p className={s.mail}>{el?.email}</p> */}
+                  </div>
+                </div>
+                <div className={s.wrapperPopup}>
+                  <h4 className={s.reviewTitlePopup}>Dance Genre:</h4>
+                  <ul className={s.genre}>
+                    {reviewInfo[index].genre.map((el, index) => (
+                      <li className={s.listItemPopup} key={`${index}-${el}`}>
+                        {el}
+                      </li>
+                    ))}</ul>
+                </div>
+                <div className={s.wrapperPopup}>
+                  <h4 className={s.reviewTitlePopup}>Skills:</h4>
+                  <ul className={s.list}>
+                    {reviewInfo[index].skillFields && reviewInfo[index].skillFields.map((el, index) => (
+                      <li className={s.listItemPopup} key={`${index}-${el}`}>
+                        {el}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={s.wrapperPopup}>
+                  <h4 className={s.reviewTitlePopup}>
+                    Categorical Preferences:
+                  </h4>
+                </div>
+                <div className={s.wrapperPopup}>
+                  <h4 className={s.reviewTitlePopup}>Musicality:</h4>
+                  <ul className={s.list}>
+                    {reviewInfo[index].musicality_fields && reviewInfo[index].musicality_fields.map((el, index) => (
+                      <li className={s.skillItemPopup} key={`${index}-${el}`}>
+                        {el}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={s.wrapperPopup}>
+                  <h4 className={s.reviewTitlePopup}>Structure:</h4>
+                  <ul className={s.list}>
+                    {reviewInfo[index].structure_fields && reviewInfo[index].structure_fields.map((el, index) => (
+                      <li className={s.skillItemPopup} key={`${index}-${el}`}>
+                        {el}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={s.wrapperPopup}>
+                  <h4 className={s.reviewTitlePopup}>Technique:</h4>
+                  <ul className={s.list}>
+                    { reviewInfo[index].technique_fields && reviewInfo[index].technique_fields.map((el, index) => (
+                      <li className={s.skillItemPopup} key={`${index}-${el}`}>
+                        {el}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={s.wrapperPopup}>
+                  <h4 className={s.reviewTitlePopup}>Texture:</h4>
+                  <ul className={s.list}>
+                    {reviewInfo[index].form_fields && reviewInfo[index].form_fields.map((el, index) => (
+                      <li className={s.skillItemPopup} key={`${index}-${el}`}>
+                        {el}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Popup>
             </div>
-            <p className={s.commentText}>{reviewComments[reviewInfo[index]._id]}</p>
+            {/* <p className={s.commentText}>{reviewComments[reviewInfo[index]._id]}</p> */}
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
