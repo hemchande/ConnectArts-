@@ -132,7 +132,7 @@ const Matches = () => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: "sBhbdxxlDFaGwKPs96lK7MB5nNm2",
+          firebase_id: 'sBhbdxxlDFaGwKPs96lK7MB5nNm2',
         },
         withCredentials: true,
         headers: {

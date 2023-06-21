@@ -1,0 +1,39 @@
+.filterWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.container {
+  padding: 35px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.reviewerContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.priceContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.text {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #344054;
+  margin-bottom: 6px;
+  cursor: default;
+}
+
+.genreContainer {
+  width: 332px;
+}
