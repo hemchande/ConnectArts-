@@ -77,7 +77,9 @@ function LoginPage() {
       await logInWithGoogle()
       .then((user) => {
         const uid = user.uid;
-        checkUserUidAuth(uid)
+        console.log(uid);
+        console.log(checkUserUidAuth(uid))
+
         window.location.href = "/signedin"
 
 

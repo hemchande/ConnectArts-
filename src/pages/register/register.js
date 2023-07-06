@@ -1,4 +1,5 @@
 import { useAuth } from '../../components/firebase/AuthContext';
+import { getAuth, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import React, { useState } from 'react';
 import {
   RegisterProgressBar,
@@ -63,10 +64,12 @@ function RegisterPage() {
 
   const handleSignUp = event => {
     event.preventDefault();
+    //let uid = null;
   
     if (uid) {
       // Use the existing UID without signing up again
       const formData = new FormData();
+      const formData2 = new FormData();
   
       formData.append('name', `${firstName} ${lastName}`);
       formData.append('email', email);
@@ -104,28 +107,82 @@ function RegisterPage() {
       formData.append('musicality_fields', musicalityValues);
       formData.append('reviewer_avg_rating', null);
       formData.append('modelCritique', null);
+
+      const userData = {
+        name: `${firstName} ${lastName}`,
+        email,
+        genres: Object.values(genres).map(item => item.value),
+        payRange: parseInt(desiredPayRange),
+        skillFields: Object.values(selectedSkills).map(item => item.value),
+        payRate: parseInt(desiredPayRate),
+        technique: techniqueValues.length / techniqueSkills.length,
+        texture: parseFloat(textureValues.length / textureSkills.length),
+        structure: parseFloat(structureValues.length / structureSkills.length),
+        musicality: parseFloat(musicalityValues.length / musicalitySkills.length),
+        current_post: null,
+        uid : uid,
+        structure_fields: structureValues,
+        technique_fields: techniqueValues,
+        musicality_fields: musicalityValues,
+        reviewer_avg_rating: null,
+        modelCritique: null,
+      };
   
       let newRole = null;
       if (role.value === roles[0].value) {
         formData.append('role', [roles[0].value]);
+        userData.role = [roles[0].value];
         newRole = [roles[0].value];
       } else if (role.value === roles[1].value) {
         formData.append('role', [roles[1].value]);
+        userData.role = [roles[1].value];
         newRole = [roles[1].value];
       } else if (role.value === roles[2].value) {
         formData.append('role', [roles[0].value, roles[1].value]);
+        userData.role = [roles[0].value, roles[1].value];
         newRole = [roles[0].value, roles[1].value];
       }
-  
-      axios
-        .post('http://localhost:4000/routes/adduserwithNoResumeNew', formData)
+      formData2.append('resume', resume)
+
+      if(resume){
+        axios
+            .post('http://localhost:4000/routes/adduserwithNoResumeNew', userData)
+            .then(response => {
+              console.log(response.data);
+              axios.patch('http://localhost:4000/routes/users/patch_resume', formData2, { params: { id:  response.data.insertedId } })
+  .then(res => {
+    console.log(res.data);
+    // Handle successful response
+  })
+  .catch(error => {
+    console.error(error);
+    // Handle error
+  });
+              createAccountLink(response.data.accountId);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+      
+
+        
+       
+
+      }
+      if(!resume){
+        axios
+        .post('http://localhost:4000/routes/adduserwithNoResumeNew', userData)
         .then(response => {
           console.log(response.data);
-          createAccountLink(response.data);
+          createAccountLink(response.data.accountId);
         })
         .catch(error => {
           console.log(error);
         });
+
+      }
+  
+      
     } else {
       // Sign up and generate new credentials
       signUp(email, password)
@@ -171,30 +228,107 @@ function RegisterPage() {
           formData.append('musicality_fields', musicalityValues);
           formData.append('reviewer_avg_rating', null);
           formData.append('modelCritique', null);
+
+          const userData = {
+            name: `${firstName} ${lastName}`,
+            email,
+            genres: Object.values(genres).map(item => item.value),
+            payRange: parseInt(desiredPayRange),
+            skillFields: Object.values(selectedSkills).map(item => item.value),
+            payRate: parseInt(desiredPayRate),
+            technique: techniqueValues.length / techniqueSkills.length,
+            texture: parseFloat(textureValues.length / textureSkills.length),
+            structure: parseFloat(structureValues.length / structureSkills.length),
+            musicality: parseFloat(musicalityValues.length / musicalitySkills.length),
+            current_post: null,
+            uid : user.uid,
+            structure_fields: structureValues,
+            technique_fields: techniqueValues,
+            musicality_fields: musicalityValues,
+            reviewer_avg_rating: null,
+            modelCritique: null,
+          };
   
           let newRole = null;
           if (role.value === roles[0].value) {
             formData.append('role', [roles[0].value]);
+            userData.role = [roles[0].value];
             newRole = [roles[0].value];
           } else if (role.value === roles[1].value) {
             formData.append('role', [roles[1].value]);
+            userData.role = [roles[1].value]
             newRole = [roles[1].value];
           } else if (role.value === roles[2].value) {
             formData.append('role', [roles[0].value, roles[1].value]);
+            userData.role = [roles[0].value, roles[1].value];
             newRole = [roles[0].value, roles[1].value];
           }
   
           formData1.append('resume', resume);
+
+          if(resume){
+            axios
+                .post('http://localhost:4000/routes/adduserwithNoResumeNew', userData)
+                .then(response => {
+                  console.log(response.data);
+                  axios.patch('http://localhost:4000/routes/users/patch_resume', formData1, { params: { id:  response.data.insertedId } })
+      .then(res => {
+        console.log(res.data);
+        // Handle successful response
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle error
+      });
+                  createAccountLink(response.data.accountId);
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+          
+    
+            
+           
+    
+          }
   
-          axios
-            .post('http://localhost:4000/routes/adduserwithResume', formData)
+          // if(resume){
+          //   axios
+          //       .post('http://localhost:4000/routes/adduserwithResume', formData)
+          //       .then(response => {
+          //         console.log(response.data);
+          //         createAccountLink(response.data);
+          //       })
+          //       .catch(error => {
+          //         console.log(error);
+          //       });
+           
+    
+          // }
+          // if(!resume){
+          //   axios
+          //   .post('http://localhost:4000/routes/adduserwithNoResumeNew', formData)
+          //   .then(response => {
+          //     console.log(response.data);
+          //     createAccountLink(response.data);
+          //   })
+          //   .catch(error => {
+          //     console.log(error);
+          //   });
+    
+          // }
+          if(!resume){
+            axios
+            .post('http://localhost:4000/routes/adduserwithNoResumeNew', userData)
             .then(response => {
               console.log(response.data);
-              createAccountLink(response.data);
+              createAccountLink(response.data.accountId);
             })
             .catch(error => {
               console.log(error);
             });
+    
+          }
   
           console.log('User signed up:', user);
         })

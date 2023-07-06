@@ -32,8 +32,57 @@ function CurrentReviewDetails({ review }) {
   const [newSuggestion, setNewSuggestion] = useState('');
   const [newObservation, setNewObservation] = useState('');
   const [generalFeedback, setGeneralFeedback] = useState('');
+  const [verificationText, setVerificationtext] = useState(null)
 
   const navigate = useNavigate();
+
+
+  const checkViabilities = async() => {
+    let skillValues = [];
+    const feedbackText = headers.reduce(
+           (acc, h) => acc + h.header + ' ' + h.text + ' ' + h.explanation + ' ' + h.observation + ' '+ h.suggestion,
+           '',
+         ); 
+
+
+    for(let i = 0; i< selectedSkills.length; i++){
+      let skill = selectedSkills[i];
+      skillValues.push(skill.value);
+    
+    
+    
+    
+
+
+    }
+
+    axios
+       .post(
+         'http://localhost:4000/routes/check_skill_viabilities_forcomments/within_reviews',
+         { comment: feedbackText, skills: skillValues }
+        // {
+        //   //  withCredentials: true,
+        //   //  headers: {
+        //   //    'Content-Type': 'application/json',
+        //   //    Authorization: `Bearer ${'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'}`,
+        //   //    // add any other headers you need here
+        //   //  },
+        //  },
+       )
+       .then(response => {
+        console.log(response.data);
+         setVerificationtext(response.data.choices[0].text);
+       })
+       .catch(error => {
+         console.error(error);
+       });
+
+
+    
+
+
+
+  }
 
   const addField = () => {
     if (!title) {
@@ -41,7 +90,23 @@ function CurrentReviewDetails({ review }) {
     }
     setFields([...fields, { title, value: '' }]);
     setTitle('');
-  };
+    setHeaders([
+           ...headers,
+          {
+             header: newHeader,
+             text: newText,
+             explanation: newExplanation,
+             observation: newObservation,
+             suggestion: newSuggestion,
+           },
+         ]);
+         setNewHeader('');
+         setNewText('');
+         setNewExplanation('');
+         setNewObservation('');
+         setNewSuggestion('');
+       };
+  
 
   const handleChange = (index, event) => {
     const updatedFields = [...fields];
@@ -149,7 +214,7 @@ function CurrentReviewDetails({ review }) {
       (acc, h) =>
         acc +
         h.header +
-        ' ' +
+        '\n ' +
         h.text +
         ' ' +
         h.explanation +
@@ -160,35 +225,39 @@ function CurrentReviewDetails({ review }) {
       '',
     );
 
-    const feedback = 'General Feedback' + generalFeedback;
+    const feedback = 'General Feedback:' +  " \n" + generalFeedback;
 
-    const finalText = feedbackText + ' ' + feedback;
+    const finalText = feedbackText + '\n ' + feedback;
+
+    console.log(review.reviewer_id)
+
+    console.log(finalText)
 
     axios
-      .patch(
-        'http://localhost:4000/routes/attach_to_reviews',
-        {
-          params: {
-            id: review.reviewer_id,
-          },
-          review_comments: finalText,
+    .patch(
+      'http://localhost:4000/routes/attach_to_reviews',
+      {
+        review_comments: finalText,
+      },
+      {
+        params: {
+          id: review.reviewer_id,
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            // add any other headers you need here
-          },
+        headers: {
+          'Content-Type': 'application/json',
+          // add any other headers you need here
         },
-      )
-      .then(response => {
-        //console.log(response.data);
-        setHeaders([]);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-
-    navigate('/signedin');
+      }
+    )
+    .then(response => {
+      console.log(response.data);
+      setHeaders([]);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  
+     navigate('/signedin');
   };
 
   const fetchPostComments = async () => {
@@ -197,7 +266,7 @@ function CurrentReviewDetails({ review }) {
     axios
       .get('http://localhost:4000/routes/getcomments', {
         params: {
-          post_id: review.post._id,
+          post_id: review.post_id,
         },
         withCredentials: true,
         headers: {
@@ -239,6 +308,12 @@ function CurrentReviewDetails({ review }) {
       });
   }, []);
 
+  useEffect(() => {
+
+
+    fetchPostComments();
+  }, [])
+
   const handleGenresChange = selectedOptions => {
     setGenres(selectedOptions);
   };
@@ -272,21 +347,32 @@ function CurrentReviewDetails({ review }) {
         closeMenuOnSelect={false}
         isDisabled
       />
+      <TextArea
+          label="General Performance Comments + Suggestions"
+          id="GeneralPerformanceComments"
+          value={generalFeedback}
+          setValue={setGeneralFeedback}
+          width={1000}
+        />
+      <p className={s.preference}>Skill Specific Feedback</p>
+
       <div className={s.commentsContainer}>
+      
         <TextArea
-          label="Add Skill"
+          label="Skill"
           id="AddSkill"
           value={newHeader}
           setValue={setNewHeader}
           width={320}
         />
-        <TextArea
+        {/* <TextArea
           label="General Performance Comments"
           id="GeneralPerformanceComments"
           value={generalFeedback}
           setValue={setGeneralFeedback}
           width={320}
-        />
+        /> */}
+        
         <TextArea
           label="Optional Skill Comments"
           id="OptionalSkillComments"
@@ -302,7 +388,7 @@ function CurrentReviewDetails({ review }) {
           width={320}
         />
         <TextArea
-          label="What is an observation in your performance related to the skill"
+          label="What is an observation in your performance related to the skill?"
           id="ObservationSkill"
           value={newObservation}
           setValue={setNewObservation}
@@ -315,7 +401,7 @@ function CurrentReviewDetails({ review }) {
           setValue={setNewSuggestion}
           width={320}
         />
-        {fields.map((field, index) => (
+        {/* {fields.map((field, index) => (
           <div key={index} className={s.textAreaWrapper}>
             <label className={s.label}>{field.title}</label>
             <textarea
@@ -324,11 +410,11 @@ function CurrentReviewDetails({ review }) {
               onChange={event => handleChange(index, event)}
             />
           </div>
-        ))}
+        ))} */}
       </div>
       <div className={s.addFieldWrapper}>
         <button type="button" onClick={addField} className={s.addField}>
-          Add New Comment Field
+          Add New Skill Field
         </button>
         <Input
           type="text"
@@ -339,6 +425,18 @@ function CurrentReviewDetails({ review }) {
           maxWidth={300}
         />
       </div>
+      {verificationText && (
+        <TextArea
+        label="Feedback Suggestions"
+        id="Performercomments"
+        placeholder="Suggestions"
+        value={verificationText}
+        setValue={verificationText}
+        isDisabled
+      />
+
+
+      )}
 
       {comments && (
         <TextArea
@@ -393,6 +491,8 @@ function CurrentReviewDetails({ review }) {
           />
         </video>
       )}
+
+      <Button text="Verify feedback" type="button" onClick={checkViabilities} />
 
       <Button text="Post feedback" type="button" onClick={handlepostFeedback} />
     </div>

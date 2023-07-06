@@ -15,10 +15,11 @@ import PreferencesPage from './pages/preferencespage/preferencespage';
 import UploadPage from './pages/uploadpage/uploadpage';
 import ProfilePage from './pages/profilepage/profilepage';
 import SkillTabs from './pages/skillsPage/skillsGuide';
-import VideoPlayer from './pages/video';
+
 import Matches from './pages/selectMatches/matches';
 import DepthSkills from './pages/skillsPage/inDepthSkills';
 import routes from './routes';
+import DanceChat from './pages/danceChat/video';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -38,7 +39,7 @@ root.render(
           <Route path={routes.setProfile} element={<EditInfo />} />
           <Route path={routes.viewReviewers} element={<ViewReviewers />} />
           <Route path={routes.skills} element={<SkillTabs />} />
-          <Route path={routes.testVideo} element={<VideoPlayer />} />
+          <Route path={routes.danceChat} element={< DanceChat />} />
           <Route path={routes.match} element={<Matches />} />
           <Route path={routes.depthSkills} element={<DepthSkills />} />
         </Routes>

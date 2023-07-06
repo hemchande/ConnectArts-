@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { ChatOpenAI } from "langchain/chat_models/openai";
+import { HumanChatMessage, SystemChatMessage } from "langchain/schema";
+import { TextArea } from "../../components/Inputs";
+import navbar from "../../components/navBar/navbar";
+import Navbar from "../../components/navBar/navbar";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,11 +40,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function VideoPlayer() {
+function  DanceChat() {
   const classes = useStyles();
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
-  const [request, setRequest] = useState("how to improve my turnout in ballet ");
+  const [request, setRequest] = useState("");
   const [requestResponse, setRequestResponse] = useState(null);
   const [videoURL, setVideoURL] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
@@ -48,7 +55,35 @@ function VideoPlayer() {
     setIsExpanded(!isExpanded);
   };
 
+  // const model = new ChatOpenAI({
+  //   temperature: 0.9,
+  //   openAIApiKey: "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", // In Node.js defaults to process.env.OPENAI_API_KEY
+  // });
+
+  // const responseB = await chat.call([
+  //   new SystemChatMessage(
+  //     "You are a helpful assistant that helps dancers with  menatl health, performance execution, physical health, and career advicd."
+  //   ),
+  //   new HumanChatMessage("How do i decide what dance career to go into?"),
+  // ]);
+  
+
   const callChat2 = async (event) => {
+    // const embeddings = new OpenAIEmbeddings();
+    // const res = await embeddings.embedQuery("Ballet-leaps");
+    // console.log(res)
+    // const model = new ChatOpenAI({
+    //   temperature: 0.9,
+    //   openAIApiKey: "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", // In Node.js defaults to process.env.OPENAI_API_KEY
+    // });
+    // const responseB = await model.call([
+    //   new SystemChatMessage(
+    //     "You are a helpful assistant that helps dancers with  menatl health, performance execution, physical health, and career advicd."
+    //   ),
+    //   new HumanChatMessage("How do i decide what dance career to go into?"),
+    // ]);
+  
+    //console.log(responseB);
     const req = event.target.value;
     try {
       const requestBody = {
@@ -93,16 +128,15 @@ function VideoPlayer() {
   };
 
   return (
-    <div className={`video-player ${isExpanded ? 'expanded' : ''}`}>
-      <video controls>
-        <source src={`http://localhost:4000/routes/get_post_videoFile?filename=${"VID_20210910_152033.mp4"}`} type="video/mp4" />
-      </video>
-      <button onClick={toggleExpand}>
-        {isExpanded ? 'Collapse' : 'Expand'}
-      </button>
+    <>
+    <Navbar/>
+    {/* <div className={`video-player ${isExpanded ? 'expanded' : ''}`}> */}
+
+    <div>
+      
 
       <TextField
-        label="Send Chat"
+        label="Type Chat"
         value={request}
         onChange={changeRequest}
         className={classes.textInput}
@@ -110,23 +144,51 @@ function VideoPlayer() {
   rows={4}
   variant="outlined"
       />
+      
 
-      <Button
+      {/* <Button
         variant="contained"
-        color="primary"
+        color="pink"
         className={classes.addButton}
         value={request}
         onClick={callChat2}
       >
         Send Chat
-      </Button>
+      </Button> */}
+      <button  value={request} style={{
+            padding: '5px 10px',
+            fontSize: '14px',
+            backgroundColor: '#000',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '2px',
+            cursor: 'pointer',
+            fontFamily: 'Comic Sans MS, cursive',
+            marginRight: '10px'
+          }} onClick={callChat2}> 
+         Send Dancer Request</button>
+  
 
       <div>
-        {requestResponse && <div>{requestResponse}</div>}
+        {/* {requestResponse &&
+        
+       <div>{requestResponse}</div>} */}
+
+<TextArea
+        label=" Response"
+        id="genresComments"
+        placeholder=""
+        value={requestResponse}
+        isDisabled
+      />
       </div>
-    </div>
+
+      </div>
+   
+    </>
   );
 }
 
-export default VideoPlayer;
+
+export default DanceChat;
 

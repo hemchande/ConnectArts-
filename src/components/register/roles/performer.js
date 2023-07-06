@@ -5,7 +5,7 @@ import s from './roles.module.css';
 const Performer = ({ desiredPayRange, setDesiredPayRange }) => {
   return (
     <>
-      <p className={s.text}>Desired Pay Range</p>
+      <p className={s.text}>Enter Your Performer Session Desired Pay Range</p>
       <div className={s.performerContainer}>
         <Input
           type="text"

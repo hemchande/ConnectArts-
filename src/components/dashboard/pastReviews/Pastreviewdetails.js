@@ -4,6 +4,7 @@ import { ReactComponent as Attachment } from '../../../assets/attachment.svg';
 import { TextArea } from '../../Inputs';
 import { Button } from '../../button';
 import s from './pastReviews.module.css';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const mockData = {
   date: '12.12.2012',
@@ -102,7 +103,7 @@ function PastReviewDetails({ review }) {
         <Attachment />
       </div>
       {/* after date will comming from BE add to this field */}
-      <h3 className={s.date}>{`Review ${mockData.date}`}</h3>
+      <h3 className={s.date}>{`Review`}</h3>
       <div className={s.wrapper}>
         <h4 className={s.reviewTitle}>Dance Genre:</h4>
         <p className={s.genre}>{post.genre}</p>
@@ -167,7 +168,7 @@ function PastReviewDetails({ review }) {
         id="PerformerComments"
         value="TEST Test test TEST Performer comments" // add to this field comments string from BE
       />
-      {commentLink && (
+      {/* {commentLink && (
 
 <TextArea
 isDisabled
@@ -177,7 +178,26 @@ id="ReviewerComments"
 value={commentLink}// add to this field comments string from BE
 />
 
+      )} */
+      }
+
+
+      {commentLink && (
+        
+
+<TextareaAutosize
+      disabled
+      label="Reviewer comments:"
+      placeholder="Text"
+      id="ReviewerComments"
+      value={commentLink}
+    />
+
+
+
       )}
+
+
 
       {post.video_field && (
         <video className="video-player" controls>

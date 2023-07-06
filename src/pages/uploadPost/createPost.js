@@ -26,7 +26,7 @@ function CreatePost() {
   const [structureValues, setStructureValues] = useState([]);
   const [musicalityValues, setMusicalityValues] = useState([]);
 
-  const [id, setId] = useState('');
+  const [id, setId] = useState(null);
   const [error1, setError] = useState(null);
 
   useEffect(() => {
@@ -55,6 +55,26 @@ function CreatePost() {
     setError(null);
   };
 
+  const postSkillEmbeddings = async(id) => {
+
+    axios
+      .get('http://localhost:4000/routes/call_openai/target_performer_embedding', {
+        params: {
+          id: id,
+        },
+      })
+      .then(response => {
+        console.log(response.data);
+        //setpostId(response.data)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+
+
+  }
+
   const postComments = async postId => {
     axios
       .post('http://localhost:4000/routes/add-additional-comments', {
@@ -67,6 +87,7 @@ function CreatePost() {
       })
       .catch(error => {
         console.log(error);
+        alert(error.message);
       });
   };
 
@@ -81,6 +102,7 @@ function CreatePost() {
       })
       .catch(error => {
         console.log(error);
+        alert(error.message);
       });
   };
 
@@ -99,7 +121,11 @@ function CreatePost() {
         },
       )
       .then(response => console.log(response.data))
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error);
+        alert(error.message);
+
+      })
   };
 
   const handleUploadVideo = async postId => {
@@ -107,7 +133,7 @@ function CreatePost() {
     formData2.append('video', video);
 
     axios
-      .post(
+      .patch(
         `http://localhost:4000/routes/attach_post_video?post_id=${postId}`,
         formData2,
         {
@@ -117,7 +143,11 @@ function CreatePost() {
         },
       )
       .then(response => console.log(response.data))
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error)
+        alert(error.message);
+
+      })
   };
 
   const handleSubmit = event => {
@@ -151,11 +181,11 @@ function CreatePost() {
       genre: genre.value,
       performer_choreographer_id: id,
       technique_fields: techniqueValues,
-      texture_fields: textureValues,
+      form_fields: textureValues,
       structure_fields: structureValues,
       musicality_fields: musicalityValues,
       technique: techniqueValues.length / techniqueSkills.length,
-      texture: textureValues.length / textureSkills.length,
+      form: textureValues.length / textureSkills.length,
       structure: structureValues.length / structureSkills.length,
       musicality: musicalityValues.length / musicalitySkills.length,
       additional_skill_keywords: Object.values(selectedSkills).map(
@@ -174,9 +204,27 @@ function CreatePost() {
           console.log(response.data.data.insertedId);
           // setpostId(response.data.data.insertedId);
           //post = response.data.insertedId;
-          handleUploadVideo(response.data.data.insertedId);
+          //handleUploadVideo(response.data.data.insertedId);
           patchPerformer(response.data.data.insertedId);
-          postComments(response.data.data.insertedId);
+          if(comments){
+            console.log(comments)
+
+            postComments(response.data.data.insertedId);
+
+          }
+          if(video){
+            handleUploadVideo(response.data.data.insertedId);
+
+          }
+
+          if(id){
+
+          postSkillEmbeddings(id);
+
+          }
+          
+
+          
           console.log(response.data.insertedId);
 
           //postComments(response.data.insertedId);
@@ -185,8 +233,9 @@ function CreatePost() {
         });
     } catch (error) {
       console.log(error);
-      setError('Error: ' + error.message);
       window.location.href = "/signedin"
+      setError('Error: ' + error.message);
+      window.location.href = "http://localhost:3000/signedin"
     }
   };
 
@@ -232,7 +281,7 @@ function CreatePost() {
             />
             <div className={s.linkWrapper}>
               <Link className={s.link} to={routes.match}>
-                Go to matches
+                See Reviewer Matches
               </Link>
             </div>
           </div>

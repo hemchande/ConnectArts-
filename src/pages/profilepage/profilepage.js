@@ -84,7 +84,7 @@ const ProfilePage = () => {
     }
 
     if(desiredPayRate){
-      obj1["payRate"] = desiredPayRate
+      obj1["payRate"] = parseInt(desiredPayRate)
     }
     if(!desiredPayRate){
       obj1["payRate"] = null
@@ -238,7 +238,7 @@ const ProfilePage = () => {
   const fetchData = async () => {
     await axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
-        params: { firebase_id: 'i7JdvmMfvfe0A7dzLUCiOS4zngi1' }, // uid
+        params: { firebase_id: uid }, // uid
       })
       .then(response => {
         console.log('data', response.data);
@@ -436,6 +436,7 @@ const ProfilePage = () => {
                       to: desiredPayRange.to,
                     })
                   }
+                  label= "lower pay range"
                   withSymbols
                   isDisabled={editSkills}
                 />
@@ -450,6 +451,7 @@ const ProfilePage = () => {
                       to: e.target.value.replace(/[^0-9]/g, ''),
                     })
                   }
+                  label = "upper pay range"
                   withSymbols
                   isDisabled={editSkills}
                 />

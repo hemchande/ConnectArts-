@@ -1,9 +1,9 @@
 export default [
-  'Spatial Levels',
-  'Movement Pathways',
-  'Directions',
-  'Size of Movement',
-  'Patterns',
-  'Phrasing Structure',
-  'Element Composition',
+  {key:'Spatial Levels',value:"Describes the height or vertical positioning of dancers in space. Levels can include high, medium, and low levels, as well as variations in between. Changes in levels add dimension and variety to a dance performance, highlighting different movement qualities and spatial dynamics."},
+  {key:'Movement Pathways',value:"Refers to the routes or trajectories dancers take as they move through space. Pathways can be straight, curved, zigzag, or any other shape. They contribute to the visual design of a dance, creating interesting patterns and spatial relationships."},
+  {key:'Directions',value:"Refers to the orientation or facing of dancers in relation to each other and the audience. Directions can include forward, backward, sideways, diagonal, or any other orientation. The use of different directions contributes to the overall spatial design and visual interest of the dance." },
+  {key:'Size of Movement',value:"Describes the scale or magnitude of movement executed by dancers. Size of movement can range from large, expansive movements that cover a significant amount of space, to small, intricate movements that are contained within a smaller area. Varying the size of movement adds dynamic contrast and visual impact to a dance performance."},
+  {key:'Patterns', value:"Refers to recurring motifs or arrangements of movement that create a sense of structure or design within a dance piece. Patterns can be simple or complex, involving repetition, symmetry, or asymmetry. They contribute to the visual composition and organization of movements in space." },
+  {key: 'Phrasing Structure',value:" Phrasing structure helps establish a rhythmic and dynamic pattern, allowing dancers to communicate and develop the choreographic intent effectively. It encompasses aspects such as the duration of movements, the use of pauses and accents, and the relationship between different movement phrases."},
+  {key:'Element Composition',value:"Element composition involves considering how movements are layered, contrasted, or blended together to create an engaging and aesthetically pleasing composition. It includes elements such as the coordination of timing, spatial relationships between dancers, the use of different dynamics, and the manipulation of energy throughout the performance."}
 ];

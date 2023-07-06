@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './customProgressBar.module.css';
+import Tooltip from '@mui/material/Tooltip';
 
 const CustomPtogressBar = ({
   label,
@@ -30,14 +31,16 @@ const CustomPtogressBar = ({
       <div className={s.optionsWrapper}>
         {options.map(el => {
           return (
+            <Tooltip title={el.value}>
             <button
               type="button"
-              className={`${s.button} ${values.includes(el) ? s.picked : ''}`}
-              key={el}
+              className={`${s.button} ${values.includes(el.key) ? s.picked : ''}`}
+              key={el.key}
               onClick={e => handleAddSkill(e)}
             >
-              {el}
+              {el.key}
             </button>
+            </Tooltip>
           );
         })}
       </div>

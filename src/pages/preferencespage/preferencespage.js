@@ -31,13 +31,13 @@ function PreferencesPage() {
     event.preventDefault();
     const obj = {
       technique: technique.length / techniqueSkills.length,
-      techniqueFields: technique,
+      technique_fields: technique,
       musicality: musicality.length / musicalitySkills.length,
-      musicalityFields: musicality,
+      musicality_fields: musicality,
       form: texture.length / textureSkills.length,
-      formFields: texture,
+      form_fields: texture,
       structure: structure.length / structureSkills.length,
-      structureFields: structure,
+      structure_fields: structure,
     };
 
     axios
@@ -68,7 +68,7 @@ function PreferencesPage() {
   useEffect(() => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
-        params: { firebase_id: uid },
+        params: { firebase_id:uid},
       })
       .then(response => {
         console.log(response.data);
@@ -131,13 +131,13 @@ function PreferencesPage() {
           options={textureSkills}
           setValues={setTexture}
         />
-        <Button
+         <Button
           text="Submit"
           type="button"
           onClick={handleSubmit}
           center
           maxWidth={928}
-        />
+        /> 
       </div>
     </>
   );

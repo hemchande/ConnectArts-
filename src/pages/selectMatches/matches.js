@@ -122,17 +122,20 @@ const Matches = () => {
   };
 
   const handleSubmit = () => {
+    if(selectedArray.length > 0 ){
     updatePost();
     updateReviewers();
     createReviews();
-    checkoutReviewers();
+     checkoutReviewers();
+
+    }
   };
 
   useEffect(() => {
     axios
       .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: "sBhbdxxlDFaGwKPs96lK7MB5nNm2",
+          firebase_id: "CcsrSq09V1OpkDg9YWgKhmxgMbS2",
         },
         withCredentials: true,
         headers: {
@@ -146,6 +149,7 @@ const Matches = () => {
       })
       .catch(error => {
         console.error(error);
+        window.location.href = "/"
       });
   }, [uid]);
 

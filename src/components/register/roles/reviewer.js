@@ -36,10 +36,10 @@ const Reviewer = ({
       <Input
         type="text"
         name="text"
-        placeholder="Enter your Desired Pay Rate"
+        placeholder=" Desired Pay Rate"
         value={desiredPayRate}
         onChange={e => setDesiredPayRate(e.target.value.replace(/[^0-9]/g, ''))}
-        label="Desired Pay Rate"
+        label="Enter your Reviewer Feedback Desired Pay Rate"
         withSymbols
       />
       <DragAndDropField file={resume} setFile={setResume} />

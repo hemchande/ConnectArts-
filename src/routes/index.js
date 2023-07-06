@@ -11,7 +11,7 @@ export default {
   setProfile: '/setProfile',
   viewReviewers: '/viewReviewers',
   skills: '/skills',
-  testVideo: '/testVideo',
+  danceChat: '/danceChat',
   match: '/match',
   depthSkills: '/depthSkills',
 };

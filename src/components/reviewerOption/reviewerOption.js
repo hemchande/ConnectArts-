@@ -26,11 +26,11 @@ const ReviewerOption = ({ user, selectedPosts, setSelectedPosts }) => {
       <div className={s.userInfoWrapper}>
         <div className={s.userInfo}>
           {/* don't see avatar field please check it and change src*/}
-          <img className={s.avatar} src={avatar} alt="avatar" />
+          {/* <img className={s.avatar} src={avatar} alt="avatar" /> */}
           <div className={s.user}>
             <p className={s.name}>{user.name}</p>
             {/* don't see mail field please check it and change this field*/}
-            <p className={s.mail}>{user.mail || 'olivia@gmail .com'}</p>
+            {/* <p className={s.mail}>{user.mail || 'olivia@gmail .com'}</p> */}
           </div>
         </div>
         <Checkbox isChecked={checked} labelId="myCheckbox" readOnly />

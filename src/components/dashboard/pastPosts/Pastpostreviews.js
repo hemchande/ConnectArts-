@@ -174,7 +174,7 @@ function PastPostReviews({ post }) {
           <Flag />
         </div>
         {/* after date will comming from BE add to this field */}
-        <h3 className={s.date}>{`Review ${mockData[0].date}`}</h3>
+        <h3 className={s.date}>{`Review`}</h3>
         <div className={s.wrapper}>
           <h4 className={s.reviewTitle}>Dance Genre:</h4>
           <p className={s.genre}>{post.genre}</p>
@@ -235,13 +235,13 @@ function PastPostReviews({ post }) {
         {postComments && (
         <TextArea
           isDisabled
-          label="Reviewer comments:"
+          label="Performer comments:"
           placeholder="Text"
           id="ReviewerComments"
           value={postComments} // add to this field comments string from BE
         />
 
-        )}
+        )} 
         <Button
           text="View Performance"
           type="button"
@@ -265,7 +265,7 @@ function PastPostReviews({ post }) {
             <div className={s.commentInfoWrapper}>
               <div className={s.commentInfo}>
               
-                 <img className={s.commentIcon} src={"https://images-on-off.com/images/129-130/kaknarisovatloshadsmozhetkazhdiy-f745b822.jpg"} alt="icon" />
+                 {/* <img className={s.commentIcon} src={"https://images-on-off.com/images/129-130/kaknarisovatloshadsmozhetkazhdiy-f745b822.jpg"} alt="icon" /> */}
                
                 <p className={s.commentTime}>5:00 PM Today</p> 
                 <p className={s.commentName}>{reviewInfo[index].name}</p>

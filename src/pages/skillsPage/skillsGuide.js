@@ -4,6 +4,7 @@ import { ReactComponent as UserPlus } from '../../assets/userPlus.svg';
 import { ReactComponent as Plus } from '../../assets/plus.svg';
 import { skillsData as skills } from '../../constants';
 import NavBar from '../../components/navBar/navbar';
+import axios from 'axios'
 import Background from '../../components/background/background';
 import s from './skills.module.css';
 
@@ -17,6 +18,7 @@ function SkillTabs() {
   const [currentSkill, setCurrentSkill] = useState(skills[0]);
   const [currentTab, setCurrentTab] = useState(subtab.description);
   const [numbersOfInputs, setNumbersOfInputs] = useState(1);
+  const [videoUrl, setVideoUrl] = useState(null)
 
   const handleChangeSkill = skill => {
     setCurrentSkill(skill);
@@ -37,6 +39,18 @@ function SkillTabs() {
   const handleCancel = () => {
     setNumbersOfInputs(1);
   };
+
+  const fetchYouTubeVideo = async (skill) => {
+    try {
+      const skillContents =skill; // Replace with the actual skill query
+      const response = await axios.get(`http://localhost:4000/routes/fetch_youtube_video?skill=${skillContents}`);
+      setVideoUrl(response.data);
+    } catch (error) {
+      console.error('Error fetching YouTube video:', error);
+    }
+  };
+
+
 
   const renderInputs = number => {
     const elements = [];
@@ -106,7 +120,7 @@ function SkillTabs() {
         <div className={s.titleContainer}>
           <h2 className={s.skillTitle}>{currentSkill?.title}</h2>
           <p className={s.skillText}>
-            {`A overview of the ${currentSkill?.title?.toLowerCase()}`}
+            {`overview of  ${currentSkill?.title?.toLowerCase()}`}
           </p>
         </div>
         <div className={s.description}>{currentSkill?.description}</div>
@@ -128,7 +142,7 @@ function SkillTabs() {
         <div className={s.titleContainer}>
           <h2 className={s.skillTitle}>Skills technique</h2>
           <p className={s.skillText}>
-            {`A overview of the ${currentSkill?.title?.toLowerCase()}`}
+            {` ${currentSkill?.title?.toLowerCase()} base skills `}
           </p>
         </div>
         <div>
@@ -137,8 +151,18 @@ function SkillTabs() {
               <h3 className={s.wrapperTitle}>{techSkill?.title}</h3>
               <div className={s.techSkillsWrapper}>
                 {techSkill?.skills?.map(skill => (
-                  <p className={s.techSkill}>{skill}</p>
+                  <button className={s.techSkill} onClick={fetchYouTubeVideo(skill)} >{skill}</button>
+                  
                 ))}
+                {videoUrl && (
+                    <iframe
+                      width="200"
+                      height="200"
+                      src={videoUrl}
+                      frameborder="0"
+                      allowfullscreen
+                    />
+                  )}
               </div>
             </div>
           ))}
@@ -162,7 +186,7 @@ function SkillTabs() {
               type="text"
               readOnly
               className={s.link}
-              value="join.yourcompany.io/project" //need add link
+              value="join.connectarts.io/" //need add link
             ></input>
             <Copy className={s.copyIcon} onClick={handleCopyLink} />
           </div>

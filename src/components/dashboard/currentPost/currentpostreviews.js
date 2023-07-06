@@ -11,35 +11,36 @@ const CurrentPostReviews = ({ post, user }) => {
   const [comment, setComment] = useState('HelloWorld'); // add comments to this useState or from the post immediately in the TextArea
   const [postComments, setpostComments] = useState(null);
   const [postReviewIds, setReviewIds] = useState([post.reviewers]);
-  const [reviewerInfo, setreviewerInfo] = useState([]);
+  const [reviewerInfo, setreviewerInfo] = useState(null); //used to be {}
   const [ratingStatus, setratingStatus] = useState(null);
   const [reviewComments, setreviewComments] = useState(null); //used to be {}
   const [rating, setRating] = useState(null);
 
   const changeRating = event => {
-    setRating(event.target.value);
+    setRating(parseInt(event.target.value));
   };
 
   const fetchPostComments = async () => {
     //let comments = ""
 
     axios
-      .get('http://localhost:4000/routes/getcomments', {
-        params: {
-          post_id: post._id,
-        },
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        console.log(response);
-        setpostComments(response.data.comments);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .get('http://localhost:4000/routes/getcomments', {
+      params: {
+        post_id: post._id,
+      },
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => {
+      console.log(response);
+      setpostComments(response.data.comments);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  
   };
 
   const checkRatingStatus = async () => {
@@ -94,8 +95,9 @@ const CurrentPostReviews = ({ post, user }) => {
 
     console.log(post.reviewer_ids)
 
-    for (let i = 0; i < post.reviewer_ids; i++) {
+    for (let i = 0; i < post.reviewer_ids.length; i++) {
       let revId = post.reviewer_ids[i];
+      console.log(revId)
 
       axios
         .get(
@@ -115,6 +117,7 @@ const CurrentPostReviews = ({ post, user }) => {
           obj[revId] = response.data;
         })
         .catch(error => {
+          obj[revId] = null
           console.error(error);
         });
     }
@@ -123,11 +126,12 @@ const CurrentPostReviews = ({ post, user }) => {
   };
 
   useEffect(() => {
-    fetchReviewComments();
+    //fetchReviewComments();
   }, []);
 
   useEffect(() => {
     fetchPostComments();
+    fetchReviewComments();
     checkRatingStatus();
   }, []);
 
@@ -181,19 +185,38 @@ const CurrentPostReviews = ({ post, user }) => {
 
   return (
     <div>
-      {reviewerInfo.length > 0 && ratingStatus && reviewComments && reviewerInfo.map((id, index) => (
-        <>
+      {postComments && (
+              <TextArea
+                label="Additional Performer comments"
+                id="AdditionalComments:"
+                value={postComments}
+                setValue={setComment}
+                isDisabled
+              />
+            )}
+
+      {reviewerInfo && ratingStatus && reviewComments && reviewerInfo.map((id, index) => (
+        <React.Fragment key={reviewerInfo[index]}>
+        {/* {postComments && (
+              <TextArea
+                label="Additional Performer comments"
+                id="AdditionalComments:"
+                value={postComments}
+                setValue={setComment}
+                isDisabled
+              />
+            )} */}
           <h2 className={s.title}>Reviewer Information</h2>
 
           <div className={s.reviewWrapper}>
             <div className={s.userInfoWrapper}>
               <div className={s.userInfo}>
                 {/* don't see avatar field please check it and change src*/}
-                <img className={s.avatar} src={avatar} alt="avatar" />
+                {/* <img className={s.avatar} src={avatar} alt="avatar" /> */}
                 <div className={s.user}>
                   <p className={s.name}>{reviewerInfo[index].name || 'Eisha'}</p>
                   {/* don't see mail field please check it and change this field*/}
-                  <p className={s.mail}>{reviewerInfo[index].email || 'olivia@gmail .com'}</p>
+                  <p className={s.mail}>{reviewerInfo[index].email || ''}</p>
                 </div>
               </div>
             </div>
@@ -274,7 +297,7 @@ const CurrentPostReviews = ({ post, user }) => {
               </ul>
             </div>
 
-            {postComments && (
+            {/* {postComments && (
               <TextArea
                 label="Additional comments:"
                 id="AdditionalComments:"
@@ -282,7 +305,10 @@ const CurrentPostReviews = ({ post, user }) => {
                 setValue={setComment}
                 isDisabled
               />
-            )}
+            )} */}
+
+            {reviewComments[reviewerInfo[index]._id]  && reviewerInfo ? (
+               <React.Fragment key={reviewComments[reviewerInfo[index]]}>
 
             <div className={s.commentsWrapper}>
               <h3 className={s.date}>Reviewer comments:</h3>
@@ -293,10 +319,17 @@ const CurrentPostReviews = ({ post, user }) => {
                     
                    
                   </div>
+                  {/* <p className={s.commentText}>{reviewComments[reviewerInfo[index]._id]}</p> */}
                   <p className={s.commentText}>{reviewComments[reviewerInfo[index]._id]}</p>
+                  
                 </div>
              
             </div>
+            </React.Fragment>
+
+): (
+  <p>No reviewer comments available.</p>
+)}
             {ratingStatus && postReviews.length > 0 && Object.keys(ratingStatus).includes(postReviews[index]) && ratingStatus[postReviews[index]] && (
   <p>
     <strong>Add Rating</strong>
@@ -311,11 +344,13 @@ const CurrentPostReviews = ({ post, user }) => {
     />
     <button id={postReviews[index]} onClick = {addRating}>Add</button>
   </p>
+
+  
 )}
 
 
           </div>
-        </>
+        </React.Fragment>
       ))}
     </div>
   );
