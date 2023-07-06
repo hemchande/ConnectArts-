@@ -16,7 +16,7 @@ import { Button } from '../../button';
 import s from './currentPost.module.css';
 
 const CurrentPost = ({ user }) => {
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState(null);//
   const [genres, setGenres] = useState(null);
   const [selectedSkills, setSelectedSkills] = useState([]);
 
