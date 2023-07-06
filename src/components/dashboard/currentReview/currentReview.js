@@ -12,7 +12,7 @@ const CurrentReview = ({ user }) => {
     const fetchData = async () => {
       //JSON OBJ OF CURRENT REVIEW
       axios
-        .get('http://localhost:4000/routes/get_current_reviewer_post_status', {
+        .get('https://connectarts-backend-nsty.onrender.com/routes/get_current_reviewer_post_status', {
           params: {
             userId: user._id,
           },

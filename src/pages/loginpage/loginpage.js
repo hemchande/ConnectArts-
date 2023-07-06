@@ -28,11 +28,12 @@ function LoginPage() {
 
   const checkUserUidAuth = async (firebaseUid) => {
     try {
-      const response = await axios.get('http://localhost:4000/routes/check_user_uid_auth', {
+      const response = await axios.get('https://connectarts-backend-nsty.onrender.com/routes/check_user_uid_auth', {
         params: {
           firebase_uid: firebaseUid
         }
       });
+      //http://localhost:4000
   
       const reviewer = response.data;
       // Process the reviewer data

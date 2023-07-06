@@ -51,7 +51,7 @@ function RegisterPage() {
     try {
       // Send a request to your server to create an account link
       const response = await axios.post(
-        `http://localhost:4000/routes/create-account-link?accountId=${accountId}`,
+        `https://connectarts-backend-nsty.onrender.com/routes/create-account-link?accountId=${accountId}`,
       );
 
       // If the request is successful, redirect the user to the newly created account link
@@ -146,10 +146,10 @@ function RegisterPage() {
 
       if(resume){
         axios
-            .post('http://localhost:4000/routes/adduserwithNoResumeNew', userData)
+            .post('https://connectarts-backend-nsty.onrender.com/routes/adduserwithNoResumeNew', userData)
             .then(response => {
               console.log(response.data);
-              axios.patch('http://localhost:4000/routes/users/patch_resume', formData2, { params: { id:  response.data.insertedId } })
+              axios.patch('https://connectarts-backend-nsty.onrender.com/routes/users/patch_resume', formData2, { params: { id:  response.data.insertedId } })
   .then(res => {
     console.log(res.data);
     // Handle successful response
@@ -171,7 +171,7 @@ function RegisterPage() {
       }
       if(!resume){
         axios
-        .post('http://localhost:4000/routes/adduserwithNoResumeNew', userData)
+        .post('https://connectarts-backend-nsty.onrender.com/routes/adduserwithNoResumeNew', userData)
         .then(response => {
           console.log(response.data);
           createAccountLink(response.data.accountId);
@@ -268,10 +268,10 @@ function RegisterPage() {
 
           if(resume){
             axios
-                .post('http://localhost:4000/routes/adduserwithNoResumeNew', userData)
+                .post('https://connectarts-backend-nsty.onrender.com/routes/adduserwithNoResumeNew', userData)
                 .then(response => {
                   console.log(response.data);
-                  axios.patch('http://localhost:4000/routes/users/patch_resume', formData1, { params: { id:  response.data.insertedId } })
+                  axios.patch('https://connectarts-backend-nsty.onrender.com/routes/users/patch_resume', formData1, { params: { id:  response.data.insertedId } })
       .then(res => {
         console.log(res.data);
         // Handle successful response
@@ -319,7 +319,7 @@ function RegisterPage() {
           // }
           if(!resume){
             axios
-            .post('http://localhost:4000/routes/adduserwithNoResumeNew', userData)
+            .post('https://connectarts-backend-nsty.onrender.com/routes/adduserwithNoResumeNew', userData)
             .then(response => {
               console.log(response.data);
               createAccountLink(response.data.accountId);

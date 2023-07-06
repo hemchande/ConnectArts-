@@ -101,7 +101,7 @@ const ProfilePage = () => {
     try {
 
 
-    axios.patch('http://localhost:4000/routes/editInfo',obj1, {params : {id: mongoId}})
+    axios.patch('https://connectarts-frontend-2.onrender.com/routes/editInfo',obj1, {params : {id: mongoId}})
        .then(response => {
         console.log(obj1)
         //console.log(formData);
@@ -127,7 +127,7 @@ const ProfilePage = () => {
         finalSkills.push(selectedSkills[i].value)
       }
       body["skillFields"] = finalSkills
-      axios.patch('http://localhost:4000/routes/updateSkills/' ,body, {params :
+      axios.patch('https://connectarts-frontend-2.onrender.com/routes/updateSkills/' ,body, {params :
       {id: mongoId}
    } )
     .then(response => {
@@ -165,7 +165,7 @@ const ProfilePage = () => {
     const formData = new FormData();
     if(resume){
       formData.append('resume',resume);
-      axios.patch('http://localhost:4000/routes/users/patch_resume', formData, {params : {id: mongoId}})
+      axios.patch('https://connectarts-frontend-2.onrender.com/routes/users/patch_resume', formData, {params : {id: mongoId}})
       .then(response => {
        console.log(formData);
        console.log(response.data);
@@ -207,7 +207,7 @@ const ProfilePage = () => {
     console.log(revbool.stripe_account_id);
     axios
       .post(
-        `http://localhost:4000/routes/create-account-link?accountId=${revbool.stripe_account_id}`,
+        `https://connectarts-backend-nsty.onrender.com/routes/create-account-link?accountId=${revbool.stripe_account_id}`,
       )
       .then(response => {
         // Redirect to the login link returned from the server
@@ -221,7 +221,7 @@ const ProfilePage = () => {
   const stripeLink = () => {
     axios
       .get(
-        `http://localhost:4000/routes/generate_stripe_dashboard_link?id=${mongoId}`,
+        `https://connectarts-backend-nsty.onrender.com/routes/generate_stripe_dashboard_link?id=${mongoId}`,
       )
       .then(response => {
         // Redirect to the login link returned from the server
@@ -237,7 +237,7 @@ const ProfilePage = () => {
 
   const fetchData = async () => {
     await axios
-      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/get_id_from_firebaseuid', {
         params: { firebase_id: uid }, // uid
       })
       .then(response => {
@@ -287,7 +287,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const getUser = () => {
       axios
-        .get('http://localhost:4000/routes/get_user_from_id', {
+        .get('https://connectarts-backend-nsty.onrender.com/routes/get_user_from_id', {
           params: { id: mongoId },
         })
         .then(response => {
@@ -587,7 +587,7 @@ const ProfilePage = () => {
               <iframe
                 title="Resume"
                 className={s.frame}
-                src={`http://localhost:4000/routes/users/${mongoId}/resume`} //need adapted from data
+                src={`https://connectarts-backend-nsty.onrender.com/routes/users/${mongoId}/resume`} //need adapted from data
               />
             </div>
             <div className={s.controlBtnWrapper}>

@@ -30,7 +30,7 @@ const Matches = () => {
       };
 
       const response = await axios.patch(
-        'http://localhost:4000/routes/reviewers/post_id',
+        'https://connectarts-backend-nsty.onrender.com/routes/reviewers/post_id',
         requestBody,
         {
           headers: {
@@ -55,7 +55,7 @@ const Matches = () => {
       };
 
       const response = await axios.post(
-        'http://localhost:4000/routes/new_reviews',
+        'https://connectarts-backend-nsty.onrender.com/routes/new_reviews',
         requestBody,
         {
           headers: {
@@ -79,7 +79,7 @@ const Matches = () => {
       };
 
       const response = await axios.patch(
-        'http://localhost:4000/routes/post/userId',
+        'https://connectarts-backend-nsty.onrender.com/routes/post/userId',
         requestBody,
         {
           headers: {
@@ -103,7 +103,7 @@ const Matches = () => {
       };
 
       const response = await axios.post(
-        'http://localhost:4000/routes/stripe-reviewer_checkouts',
+        'https://connectarts-backend-nsty.onrender.com/stripe-reviewer_checkouts',
         requestBody,
         {
           headers: {
@@ -133,9 +133,9 @@ const Matches = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/get_id_from_firebaseuid', {
         params: {
-          firebase_id: "CcsrSq09V1OpkDg9YWgKhmxgMbS2",
+          firebase_id: uid,
         },
         withCredentials: true,
         headers: {
@@ -156,7 +156,7 @@ const Matches = () => {
   useEffect(() => {
     const get_post = () => {
       axios
-        .get('http://localhost:4000/routes/users/id/current_post', {
+        .get('https://connectarts-backend-nsty.onrender.com/routes/users/id/current_post', {
           params: {
             id: performer._id,
           },
@@ -188,7 +188,7 @@ const Matches = () => {
         };
 
         const response = await axios.post(
-          'http://localhost:4000/routes/get_performer_skills_genre_frompost',
+          'https://connectarts-backend-nsty.onrender.com/routes/get_performer_skills_genre_frompost',
           requestBody,
           {
             headers: {
@@ -218,7 +218,7 @@ const Matches = () => {
           genres: [genre],
         };
         const response = await axios.post(
-          'http://localhost:4000/routes/reviewer_roles_and_skills2',
+          'https://connectarts-backend-nsty.onrender.com/routes/reviewer_roles_and_skills2',
           requestBody,
           {
             headers: {
@@ -253,7 +253,7 @@ const Matches = () => {
         };
 
         const response = await axios.post(
-          'http://localhost:4000/routes/reviewer_info',
+          'https://connectarts-backend-nsty.onrender.com/routes/reviewer_info',
           requestBody,
           {
             headers: {
@@ -286,7 +286,7 @@ const Matches = () => {
         };
 
         const response = await axios.post(
-          'http://localhost:4000/routes/reviewers_total_pref_distances',
+          'https://connectarts-backend-nsty.onrender.com/reviewers_total_pref_distances',
           requestBody,
           {
             headers: {

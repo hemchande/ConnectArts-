@@ -12,7 +12,7 @@ const PastReviews = ({ user }) => {
     const fetchData2 = async () => {
       //ARRAY OF JSON OBJS
       axios
-        .get('http://localhost:4000/routes/get_past_reviews_from_user_id', {
+        .get('https://connectarts-backend-nsty.onrender.com/routes/get_past_reviews_from_user_id', {
           params: {
             userId: user._id,
           },

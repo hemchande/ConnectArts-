@@ -41,7 +41,7 @@ function PreferencesPage() {
     };
 
     axios
-      .patch('http://localhost:4000/routes/reviewer/edit_skills_prefs', obj, {
+      .patch('https://connectarts-backend-nsty.onrender.com/routes/reviewer/edit_skills_prefs', obj, {
         params: { id: id },
       })
       .then(response => {
@@ -67,7 +67,7 @@ function PreferencesPage() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/get_id_from_firebaseuid', {
         params: { firebase_id:uid},
       })
       .then(response => {

@@ -82,7 +82,7 @@ function PastPostReviews({ post }) {
      console.log(reviewComments);
 
      axios
-       .get('http://localhost:4000/routes/users/id/current_post/get_reviews', {
+       .get('https://connectarts-backend-nsty.onrender.com/routes/users/id/current_post/get_reviews', {
          params: {
            post_id: post._id,
          },
@@ -105,7 +105,7 @@ function PastPostReviews({ post }) {
     //let comments = ""
 
     axios
-      .get('http://localhost:4000/routes/getcomments', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/getcomments', {
         params: {
           post_id: post._id,
         },
@@ -132,7 +132,7 @@ function PastPostReviews({ post }) {
 
          axios
            .get(
-             'http://localhost:4000/routes/display_past_review_feedback_from_reviewid_new',
+             'https://connectarts-backend-nsty.onrender.com/routes/display_past_review_feedback_from_reviewid_new',
              {
                params: {
                  rev_id: revId,
@@ -250,7 +250,7 @@ function PastPostReviews({ post }) {
         {post.video_field && (
         <video className="video-player" controls>
         <source
-          src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
+          src={`https://connectarts-backend-nsty.onrender.com/routes/get_post_videoFile?filename=${post.video_field}`}
           type="video/mp4"
         />
       </video>

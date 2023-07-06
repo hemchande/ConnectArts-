@@ -26,7 +26,7 @@ function PastReviewDetails({ review }) {
     //get the review feedback file
 
     axios
-      .get('http://localhost:4000/routes/get_post_from_review', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/get_post_from_review', {
         params: {
           review_id: review._id,
         },
@@ -56,7 +56,7 @@ function PastReviewDetails({ review }) {
   const handleViewPerformanceClick = postId => {
     try {
       const response = axios.get(
-        'http://localhost:4000/routes/get_post_video_from_review',
+        'https://connectarts-backend-nsty.onrender.com/routes/get_post_video_from_review',
         {
           params: {
             post_id: postId,
@@ -81,7 +81,7 @@ function PastReviewDetails({ review }) {
 
 
 
-    axios.get(`http://localhost:4000/routes/display_past_review_feedback_from_reviewid_new`, {params: {
+    axios.get(`https://connectarts-backend-nsty.onrender.com/routes/display_past_review_feedback_from_reviewid_new`, {params: {
       rev_id: review.reviewer_id,
       post_id: review.post_id
     }, responseType: 'text' })
@@ -202,7 +202,7 @@ value={commentLink}// add to this field comments string from BE
       {post.video_field && (
         <video className="video-player" controls>
         <source
-          src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
+          src={`https://connectarts-backend-nsty.onrender.com/routes/get_post_videoFile?filename=${post.video_field}`}
           type="video/mp4"
         />
       </video>

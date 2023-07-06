@@ -31,7 +31,7 @@ function CreatePost() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/get_id_from_firebaseuid', {
         params: {
           firebase_id: uid,
         },
@@ -58,7 +58,7 @@ function CreatePost() {
   const postSkillEmbeddings = async(id) => {
 
     axios
-      .get('http://localhost:4000/routes/call_openai/target_performer_embedding', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/call_openai/target_performer_embedding', {
         params: {
           id: id,
         },
@@ -77,7 +77,7 @@ function CreatePost() {
 
   const postComments = async postId => {
     axios
-      .post('http://localhost:4000/routes/add-additional-comments', {
+      .post('https://connectarts-backend-nsty.onrender.com/routes/add-additional-comments', {
         postId: postId,
         comments: comments,
       })
@@ -94,7 +94,7 @@ function CreatePost() {
   const patchPerformer = async postId => {
     axios
       .patch(
-        'http://localhost:4000/routes/update_performer_reviewer_withPost',
+        'https://connectarts-backend-nsty.onrender.com/routes/update_performer_reviewer_withPost',
         { postId: postId },
       )
       .then(response => {
@@ -112,7 +112,7 @@ function CreatePost() {
 
     axios
       .post(
-        `http://localhost:4000/routes/upload_video_new?post_id=${postId}`,
+        `https://connectarts-backend-nsty.onrender.com/routes/upload_video_new?post_id=${postId}`,
         formData,
         {
           headers: {
@@ -134,7 +134,7 @@ function CreatePost() {
 
     axios
       .patch(
-        `http://localhost:4000/routes/attach_post_video?post_id=${postId}`,
+        `https://connectarts-backend-nsty.onrender.com/routes/attach_post_video?post_id=${postId}`,
         formData2,
         {
           headers: {
@@ -199,7 +199,7 @@ function CreatePost() {
 
     try {
       axios
-        .post('http://localhost:4000/routes/post_without_video', obj)
+        .post('https://connectarts-backend-nsty.onrender.com/routes/post_without_video', obj)
         .then(response => {
           console.log(response.data.data.insertedId);
           // setpostId(response.data.data.insertedId);

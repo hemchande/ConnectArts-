@@ -23,7 +23,7 @@ const CurrentPost = ({ user }) => {
   const handleViewPerformancePostClick = postId => {
     try {
       const response = axios.get(
-        'http://localhost:4000/routes/get_post_video_from_post',
+        'https://connectarts-backend-nsty.onrender.com/routes/get_post_video_from_post',
         {
           params: {
             post_id: postId,
@@ -45,7 +45,7 @@ const CurrentPost = ({ user }) => {
 
   const fetchData4 = async () => {
     await axios
-      .get('http://localhost:4000/routes/users/id/current_post', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/users/id/current_post', {
         params: {
           id: user._id,
         },
@@ -79,7 +79,7 @@ const CurrentPost = ({ user }) => {
   const updateUser = () => {
     try {
       const response = axios.get(
-        'http://localhost:4000/routes/check_currentPost_reviews_updatePost_updateUser',
+        'https://connectarts-backend-nsty.onrender.com/routes/check_currentPost_reviews_updatePost_updateUser',
         {
           params: {
             id: user._id,
@@ -200,7 +200,7 @@ const CurrentPost = ({ user }) => {
           </div>
           <video className="video-player" controls>
             <source
-              src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.current_post.video_field}`}
+              src={`https://connectarts-backend-nsty.onrender.com/routes/get_post_videoFile?filename=${post.current_post.video_field}`}
               type="video/mp4"
             />
           </video>

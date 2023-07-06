@@ -17,7 +17,7 @@ const PastPosts = ({ user }) => {
     //JSON OBJ OF CURRENT REVIEW
     axios
       .get(
-        'http://localhost:4000/routes/get_performer_past_posts_and_post_reviews',
+        'https://connectarts-backend-nsty.onrender.com/routes/get_performer_past_posts_and_post_reviews',
         {
           params: {
             id: user._id,

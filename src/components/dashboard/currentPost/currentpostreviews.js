@@ -24,7 +24,7 @@ const CurrentPostReviews = ({ post, user }) => {
     //let comments = ""
 
     axios
-    .get('http://localhost:4000/routes/getcomments', {
+    .get('https://connectarts-backend-nsty.onrender.com/routes/getcomments', {
       params: {
         post_id: post._id,
       },
@@ -48,7 +48,7 @@ const CurrentPostReviews = ({ post, user }) => {
     let ratingobj = {};
 
     axios
-      .get('http://localhost:4000/routes/get_post_reviews_withoutratings', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/get_post_reviews_withoutratings', {
         params: {
           post_id: post._id,
         },
@@ -76,7 +76,7 @@ const CurrentPostReviews = ({ post, user }) => {
     const revId = event.target.id;
 
     axios
-      .patch('http://localhost:4000/routes/add_review_rating', {
+      .patch('https://connectarts-backend-nsty.onrender.com/routes/add_review_rating', {
         review_id: revId,
         rating: rating, // The rating value you want to send
       })
@@ -101,7 +101,7 @@ const CurrentPostReviews = ({ post, user }) => {
 
       axios
         .get(
-          'http://localhost:4000/routes/display_past_review_feedback_from_reviewid_new',
+          'https://connectarts-backend-nsty.onrender.com/routes/display_past_review_feedback_from_reviewid_new',
           {
             params: {
               rev_id: revId,
@@ -139,7 +139,7 @@ const CurrentPostReviews = ({ post, user }) => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/routes/users/id/current_post/get_reviews', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/users/id/current_post/get_reviews', {
         params: {
           post_id: post._id,
         },
@@ -162,7 +162,7 @@ const CurrentPostReviews = ({ post, user }) => {
 
     axios
       .post(
-        'http://localhost:4000/routes/add_review_rating',
+        'https://connectarts-backend-nsty.onrender.com/routes/add_review_rating',
         {
           review_id: rev_id,
           rating: rating,

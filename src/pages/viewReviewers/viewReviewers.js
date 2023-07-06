@@ -48,7 +48,7 @@ function ViewReviewers() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/get_id_from_firebaseuid', {
         params: {
           firebase_id: uid,
         },
@@ -75,7 +75,7 @@ function ViewReviewers() {
       return alert('Select Genre');
     }
     axios
-      .post('http://localhost:4000/routes/reviewers_genre_pay', {
+      .post('https://connectarts-backend-nsty.onrender.com/routes/reviewers_genre_pay', {
         genres: genre.value,
         lower: desiredPayRange?.from,
         upper: desiredPayRange?.to,

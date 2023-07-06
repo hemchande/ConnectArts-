@@ -58,7 +58,7 @@ function CurrentReviewDetails({ review }) {
 
     axios
        .post(
-         'http://localhost:4000/routes/check_skill_viabilities_forcomments/within_reviews',
+         'https://connectarts-backend-nsty.onrender.com/routes/check_skill_viabilities_forcomments/within_reviews',
          { comment: feedbackText, skills: skillValues }
         // {
         //   //  withCredentials: true,
@@ -235,7 +235,7 @@ function CurrentReviewDetails({ review }) {
 
     axios
     .patch(
-      'http://localhost:4000/routes/attach_to_reviews',
+      'https://connectarts-backend-nsty.onrender.com/routes/attach_to_reviews',
       {
         review_comments: finalText,
       },
@@ -264,7 +264,7 @@ function CurrentReviewDetails({ review }) {
     //let comments = ""
 
     axios
-      .get('http://localhost:4000/routes/getcomments', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/getcomments', {
         params: {
           post_id: review.post_id,
         },
@@ -284,7 +284,7 @@ function CurrentReviewDetails({ review }) {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/routes/get_post_from_review', {
+      .get('https://connectarts-backend-nsty.onrender.com/routes/get_post_from_review', {
         params: {
           review_id: review._id,
         },
@@ -486,7 +486,7 @@ function CurrentReviewDetails({ review }) {
       {post?.video_field && (
         <video className="video-player" controls>
           <source
-            src={`http://localhost:4000/routes/get_post_videoFile?filename=${post.video_field}`}
+            src={`https://connectarts-backend-nsty.onrender.com/routes/get_post_videoFile?filename=${post.video_field}`}
             type="video/mp4"
           />
         </video>
