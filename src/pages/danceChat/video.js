@@ -89,7 +89,7 @@ function  DanceChat() {
       const requestBody = {
         request: req,
       };
-      const response = await axios.post('http://localhost:4000/routes/call_chat', requestBody);
+      const response = await axios.post('https://connectarts-backend-nsty.onrender.com/routes/call_chat', requestBody);
       console.log(response.data);
       setRequestResponse(response.data.text);
     } catch (error) {

@@ -134,7 +134,7 @@ const ReviewerOption = ({ user, selectedPosts, setSelectedPosts }) => {
             <iframe
             title="Resume"
             style={{ width: '100%', height: '600px', border: 'none' }}
-            src={`http://localhost:4000/routes/users/${user._id}/resume`}
+            src={`https://connectarts-backend-nsty.onrender.com/routes/users/${user._id}/resume`}
           /> 
           </div>
           <Success />

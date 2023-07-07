@@ -27,6 +27,8 @@ function LoginPage() {
   };
 
   const checkUserUidAuth = async (firebaseUid) => {
+
+    if(firebaseUid){
     try {
       const response = await axios.get('https://connectarts-backend-nsty.onrender.com/routes/check_user_uid_auth', {
         params: {
@@ -44,8 +46,9 @@ function LoginPage() {
       console.error(error);
       alert("No user with provided credentials")
       // Handle error here
-      window.location.href = "/register"
+      //window.location.href = "/register"
     }
+  }
   };
 
   const handleGoogleSignInRegister = async(event) => {

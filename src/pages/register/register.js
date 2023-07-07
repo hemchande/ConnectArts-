@@ -148,7 +148,7 @@ function RegisterPage() {
         axios
             .post('https://connectarts-backend-nsty.onrender.com/routes/adduserwithNoResumeNew', userData)
             .then(response => {
-              console.log(response.data);
+              //console.log(response.data);
               axios.patch('https://connectarts-backend-nsty.onrender.com/routes/users/patch_resume', formData2, { params: { id:  response.data.insertedId } })
   .then(res => {
     console.log(res.data);
@@ -173,7 +173,7 @@ function RegisterPage() {
         axios
         .post('https://connectarts-backend-nsty.onrender.com/routes/adduserwithNoResumeNew', userData)
         .then(response => {
-          console.log(response.data);
+          //console.log(response.data);
           createAccountLink(response.data.accountId);
         })
         .catch(error => {
