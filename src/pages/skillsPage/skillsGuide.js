@@ -43,7 +43,7 @@ function SkillTabs() {
   const fetchYouTubeVideo = async (skill) => {
     try {
       const skillContents =skill; // Replace with the actual skill query
-      const response = await axios.get(`http://localhost:4000/routes/fetch_youtube_video?skill=${skillContents}`);
+      const response = await axios.get(`https://connectarts-backend-nsty.onrender.com/routes/fetch_youtube_video?skill=${skillContents}`);
       setVideoUrl(response.data);
     } catch (error) {
       console.error('Error fetching YouTube video:', error);

@@ -101,7 +101,7 @@ const ProfilePage = () => {
     try {
 
 
-    axios.patch('https://connectarts-frontend-2.onrender.com/routes/editInfo',obj1, {params : {id: mongoId}})
+    axios.patch('https://connectarts-backend-nsty.onrender.com/routes/editInfo',obj1, {params : {id: mongoId}})
        .then(response => {
         console.log(obj1)
         //console.log(formData);
@@ -127,7 +127,7 @@ const ProfilePage = () => {
         finalSkills.push(selectedSkills[i].value)
       }
       body["skillFields"] = finalSkills
-      axios.patch('https://connectarts-frontend-2.onrender.com/routes/updateSkills/' ,body, {params :
+      axios.patch('https://connectarts-backend-nsty.onrender.com/routes/updateSkills/' ,body, {params :
       {id: mongoId}
    } )
     .then(response => {
@@ -165,7 +165,7 @@ const ProfilePage = () => {
     const formData = new FormData();
     if(resume){
       formData.append('resume',resume);
-      axios.patch('https://connectarts-frontend-2.onrender.com/routes/users/patch_resume', formData, {params : {id: mongoId}})
+      axios.patch('https://connectarts-backend-nsty.onrender.com/routes/users/patch_resume', formData, {params : {id: mongoId}})
       .then(response => {
        console.log(formData);
        console.log(response.data);
