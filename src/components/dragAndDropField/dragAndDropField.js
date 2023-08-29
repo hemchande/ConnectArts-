@@ -70,7 +70,8 @@ const DragAndDropField = ({ file, setFile, isVideo, label, withoutLabel }) => {
   return (
     <div className={s.container}>
       {!withoutLabel && (
-        <p className={s.label}>{label ? label : 'Upload your resume'}</p>
+        <p className={s.label}>{label ? label : 'Upload your resume  (skills/experience/education) '}</p>
+  
       )}
       <div
         className={s.dropField}

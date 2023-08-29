@@ -69,6 +69,10 @@ const skills = [
   {
     category: 'African Dance',
     subcategories: ['West African Dance', 'East African Dance', 'North African Dance', 'South African Dance']
+  },
+  {
+    category: 'Barathynatham',
+    subcategories: ['Adavus', 'Hastas(Hand Gestures)', 'Abhinaya (Expression)', 'Nritta(Rhythmic Patterns)', 'Nritya(Expression + Rhythym']
   }
 ];
 

@@ -1,8 +1,15 @@
+import { AirlineSeatLegroomNormalSharp } from '@material-ui/icons';
 import React from 'react';
 import { Input } from '../../Inputs';
 import s from './roles.module.css';
 
-const Performer = ({ desiredPayRange, setDesiredPayRange }) => {
+const Performer = ({ desiredPayRange, setDesiredPayRange }, {goal, setGoal}) => {
+
+  const changeGoal = (event) => {
+
+    setGoal(event.target.value)
+
+  }
   return (
     <>
       <p className={s.text}>Enter Your Performer Session Desired Pay Range</p>
@@ -33,7 +40,19 @@ const Performer = ({ desiredPayRange, setDesiredPayRange }) => {
           }
           withSymbols
         />
+       
       </div>
+      <p className={s.text}>Enter Your Short/Long Term Dance Goals</p>
+      <div className={s.performerContainer}></div>
+        <Input
+          type="text"
+          name="text"
+          placeholder="Short/Long Term Goals"
+          value={goal}
+          onChange = {changeGoal}
+    
+        
+        />
     </>
   );
 };

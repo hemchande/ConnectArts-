@@ -32,7 +32,8 @@ function CurrentReviewDetails({ review }) {
   const [newSuggestion, setNewSuggestion] = useState('');
   const [newObservation, setNewObservation] = useState('');
   const [generalFeedback, setGeneralFeedback] = useState('');
-  const [verificationText, setVerificationtext] = useState(null)
+  const [verificationText1, setVerificationtext1] = useState(null)
+  const [verificationText2, setVerificationtext2] = useState(null)
 
   const navigate = useNavigate();
 
@@ -57,8 +58,8 @@ function CurrentReviewDetails({ review }) {
     }
 
     axios
-       .post(
-         'https://connectarts-backend-nsty.onrender.com/routes/check_skill_viabilities_forcomments/within_reviews',
+       .get(
+         'https://connectarts-backend-nsty.onrender.com/routes/dance_feedback_skill_assistant',
          { comment: feedbackText, skills: skillValues }
         // {
         //   //  withCredentials: true,
@@ -71,11 +72,34 @@ function CurrentReviewDetails({ review }) {
        )
        .then(response => {
         console.log(response.data);
-         setVerificationtext(response.data.choices[0].text);
+         setVerificationtext1(response.data);
        })
        .catch(error => {
          console.error(error);
        });
+
+
+       axios
+       .get(
+         'https://connectarts-backend-nsty.onrender.com/routes/feedback_viability_updates',
+         { comment: feedbackText }
+        // {
+        //   //  withCredentials: true,
+        //   //  headers: {
+        //   //    'Content-Type': 'application/json',
+        //   //    Authorization: `Bearer ${'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'}`,
+        //   //    // add any other headers you need here
+        //   //  },
+        //  },
+       )
+       .then(response => {
+        console.log(response.data);
+         setVerificationtext2(response.data);
+       })
+       .catch(error => {
+         console.error(error);
+       });
+
 
 
     
@@ -425,13 +449,13 @@ function CurrentReviewDetails({ review }) {
           maxWidth={300}
         />
       </div>
-      {verificationText && (
+      {verificationText1 && verificationText2 && (
         <TextArea
         label="Feedback Suggestions"
         id="Performercomments"
         placeholder="Suggestions"
-        value={verificationText}
-        setValue={verificationText}
+        value={verificationText1 + "\n" + verificationText2}
+        // setValue={verificationText1 + "\n" + verificationText2}
         isDisabled
       />
 

@@ -28,7 +28,7 @@ function Navbar() {
 
   useEffect(() => {
     axios
-      .get('https://connectarts-backend-nsty.onrender.com/routes/get_id_from_firebaseuid', {
+      .get('http://localhost:4000/routes/get_id_from_firebaseuid', {
         params: {
           firebase_id: uid,
         },

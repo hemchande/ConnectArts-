@@ -28,27 +28,20 @@ function LoginPage() {
 
   const checkUserUidAuth = async (firebaseUid) => {
 
-    if(firebaseUid){
-    try {
-      const response = await axios.get('https://connectarts-backend-nsty.onrender.com/routes/check_user_uid_auth', {
-        params: {
-          firebase_uid: firebaseUid
-        }
-      });
-      //http://localhost:4000
-  
-      const reviewer = response.data;
-      // Process the reviewer data
-      window.location.href = "/signedin"
-  
-      //return reviewer;
-    } catch (error) {
-      console.error(error);
-      alert("No user with provided credentials")
-      // Handle error here
-      window.location.href = "/register"
+    if (firebaseUid) {
+      try {
+        const response = await axios.get('http://localhost:4000/routes/check_user_uid_auth', {
+          params: {
+            firebase_uid: firebaseUid
+          }
+        });
+        window.location.href = "/signedin";
+      } catch (error) {
+        console.error(error);
+        alert("No user with provided credentials");
+        window.location.href = "/register";
+      }
     }
-  }
   };
 
   const handleGoogleSignInRegister = async(event) => {
@@ -80,11 +73,14 @@ function LoginPage() {
     try {
       await logInWithGoogle()
       .then((user) => {
-        const uid = user.uid;
-        console.log(uid);
-        console.log(checkUserUidAuth(uid))
 
-        window.location.href = "/signedin"
+        console.log(user.user.uid)
+        const uid = user.uid;//user.uid
+        //console.log("45thgyc");
+        console.log(user.uid)
+        checkUserUidAuth(user.user.uid);// console.log(checkUserUidAuth(uid))
+
+        //window.location.href = "/signedin" //"/signedin"
 
 
       })
@@ -98,7 +94,10 @@ function LoginPage() {
     }catch(error) {
       // Handle error here
       console.log(error);
+      window.location.href = "/register"
     }
+
+
 
 
 
@@ -131,10 +130,10 @@ function LoginPage() {
     <div className={s.container}>
       <div className={s.wrapper}>
         <Logo />
-        <div>
-          <h2 className={s.title}>Welcome back</h2>
+        <div >
+          <h2 className={s.title}>Welcome to ConnectArts</h2>
           <p className={s.subTitle}>Please enter your details.</p>
-          <form onSubmit={handleLogin}>
+           <form onSubmit={handleLogin}>
             <Input
               type="text"
               value={email}
@@ -169,7 +168,14 @@ function LoginPage() {
                 Sign up
               </Link>
             </div>
-          </form>
+          </form> 
+
+{/* <div className={s.logoWrapper}>
+              <p className={s.text}>Don’t have an account?</p>
+              <Link to={routes.register} className={s.forgotPass}>
+                Sign up
+              </Link>
+            </div> */}
           <button style={{
             padding: '10px 10px',
             fontSize: '18px',
@@ -179,7 +185,7 @@ function LoginPage() {
             borderRadius: '2px',
             cursor: 'pointer',
             fontFamily: 'Comic Sans MS, cursive',
-            marginRight: '10px'
+            marginRight: '15px'
           }} onClick={handleGoogleSignInLogin}>
             <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-logos-vector-eps-cdr-svg-download-10.png" alt="Google Logo" style={{ width: '20px', height: '20px', marginRight: '5px' }} />Google Sign-On</button>
   
