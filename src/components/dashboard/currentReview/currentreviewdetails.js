@@ -60,7 +60,7 @@ function CurrentReviewDetails({ review }) {
     axios
        .get(
          'https://connectarts-backend-nsty.onrender.com/routes/dance_feedback_skill_assistant',
-         { comment: feedbackText, skills: skillValues }
+         { comment: generalFeedback + "\n" +  feedbackText, skills: skillValues }
         // {
         //   //  withCredentials: true,
         //   //  headers: {
@@ -82,7 +82,7 @@ function CurrentReviewDetails({ review }) {
        axios
        .get(
          'https://connectarts-backend-nsty.onrender.com/routes/feedback_viability_updates',
-         { comment: feedbackText }
+         { comment:  generalFeedback + "\n" + feedbackText }
         // {
         //   //  withCredentials: true,
         //   //  headers: {
@@ -449,7 +449,7 @@ function CurrentReviewDetails({ review }) {
           maxWidth={300}
         />
       </div>
-      {verificationText1 && verificationText2 && (
+      {/* {verificationText1 && verificationText2 && (
         <TextArea
         label="Feedback Suggestions"
         id="Performercomments"
@@ -460,7 +460,43 @@ function CurrentReviewDetails({ review }) {
       />
 
 
-      )}
+      )} */}
+
+{
+  // Both are true
+  verificationText1 && verificationText2 ? (
+    <TextArea
+      label="Feedback Suggestions"
+      id="Performercomments"
+      placeholder="Suggestions"
+      value={verificationText1 + "\n" + verificationText2}
+      isDisabled
+    />
+  ) : 
+  // Only verificationText1 is true
+  verificationText1 ? (
+    <TextArea
+      label="Feedback Suggestions"
+      id="Performercomments"
+      placeholder="Suggestions"
+      value={verificationText1}
+      isDisabled
+    />
+  ) : 
+  // Only verificationText2 is true
+  verificationText2 ? (
+    <TextArea
+      label="Feedback Suggestions"
+      id="Performercomments"
+      placeholder="Suggestions"
+      value={verificationText2}
+      isDisabled
+    />
+  ) : 
+  // Neither are true
+  null
+}
+
 
       {comments && (
         <TextArea
