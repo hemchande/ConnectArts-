@@ -71,8 +71,8 @@ function CurrentReviewDetails({ review }) {
         //  },
        )
        .then(response => {
-        console.log(response.data);
-         setVerificationtext1(response.data);
+        console.log(response.data.text);
+         setVerificationtext1(response.data.text);
        })
        .catch(error => {
          console.error(error);
@@ -93,8 +93,8 @@ function CurrentReviewDetails({ review }) {
         //  },
        )
        .then(response => {
-        console.log(response.data);
-         setVerificationtext2(response.data);
+        console.log(response.data.text);
+         setVerificationtext2(response.data.text);
        })
        .catch(error => {
          console.error(error);
