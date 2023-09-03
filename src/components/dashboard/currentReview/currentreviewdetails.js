@@ -82,7 +82,7 @@ function CurrentReviewDetails({ review }) {
        axios
        .get(
          'https://connectarts-backend-nsty.onrender.com/routes/feedback_viability_updates',
-         { comment:  generalFeedback + "\n" + feedbackText }
+         { request:  generalFeedback + "\n" + feedbackText }
         // {
         //   //  withCredentials: true,
         //   //  headers: {

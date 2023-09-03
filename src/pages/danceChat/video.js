@@ -136,7 +136,7 @@ function  DanceChat() {
       
 
       <TextField
-        label="Type Chat"
+        label="Send dance request "
         value={request}
         onChange={changeRequest}
         className={classes.textInput}
