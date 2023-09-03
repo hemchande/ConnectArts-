@@ -93,6 +93,7 @@ function CurrentReviewDetails({ review }) {
         //  },
        )
        .then(response => {
+        console.log(generalFeedback + "\n" + feedbackText )
         console.log(response.data.text);
          setVerificationtext2(response.data.text);
        })
