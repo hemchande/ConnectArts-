@@ -12,6 +12,7 @@ export default {
   viewReviewers: '/viewReviewers',
   skills: '/skills',
   danceChat: '/danceAI',
+  choreographyAssistance: '/choreo',
   match: '/match',
   depthSkills: '/depthSkills',
 };

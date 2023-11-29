@@ -68,6 +68,14 @@ function Navbar() {
               Upload
             </Link>
             <Link
+              to={routes.upload}
+              className={`${s.link} ${
+                pathname === routes.choreographyAssistance ? `${s.active}` : ''
+              }`}
+            >
+              Choreography Assistance AI
+            </Link>
+            <Link
               to={routes.profile}
               className={`${s.link} ${
                 pathname === routes.profile ? `${s.active}` : ''

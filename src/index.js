@@ -15,7 +15,7 @@ import PreferencesPage from './pages/preferencespage/preferencespage';
 import UploadPage from './pages/uploadpage/uploadpage';
 import ProfilePage from './pages/profilepage/profilepage';
 import SkillTabs from './pages/skillsPage/skillsGuide';
-
+import ChoreographyPreferences from './pages/choreographyAssistance/choreoAssistance';
 import Matches from './pages/selectMatches/matches';
 import DepthSkills from './pages/skillsPage/inDepthSkills';
 import routes from './routes';
@@ -37,6 +37,8 @@ root.render(
           <Route path={routes.profile} element={<ProfilePage />} />
           <Route path={routes.editinfo} element={<EditInfo />} />
           <Route path={routes.setProfile} element={<EditInfo />} />
+          <Route path={routes.choreographyAssistance} element={<ChoreographyPreferences />} />
+   
           <Route path={routes.viewReviewers} element={<ViewReviewers />} />
           <Route path={routes.skills} element={<SkillTabs />} />
           <Route path={routes.danceChat} element={< DanceChat />} />
