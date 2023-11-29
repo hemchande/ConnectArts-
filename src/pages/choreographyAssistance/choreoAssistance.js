@@ -68,7 +68,7 @@ const ChoreographyPreferences = () => {
      console.log("User Preferences:", preferences);
      setIsLoading(true);
   //   // Replace with your actual API endpoint
-     const apiEndpoint = 'https://connectarts-backend-nsty.onrender.com/routes/ get_choreography_sequence';
+     const apiEndpoint = 'https://connectarts-backend-nsty.onrender.com/routes/get_choreography_sequence';
      try {
        const response = await axios.post(apiEndpoint, preferences);
        setGeneratedChoreography(response.data);
