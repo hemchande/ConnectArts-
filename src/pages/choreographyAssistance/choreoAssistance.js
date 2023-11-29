@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, TextField, Typography, Slider } from "@mui/material";
+import axios from 'axios';
  
 import s from "./choreoAssistance.module.css"
 // import CustomPtogressBar from "";
@@ -61,7 +62,7 @@ const ChoreographyPreferences = () => {
 
   
 
-   const handleSubmit2 = () => {
+   const handleSubmit2 = async() => {
   //   // Send the preferences to your backend or AI model for choreography generation
 
      console.log("User Preferences:", preferences);
